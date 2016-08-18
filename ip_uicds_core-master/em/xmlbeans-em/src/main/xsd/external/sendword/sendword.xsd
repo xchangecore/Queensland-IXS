@@ -1,0 +1,445 @@
+﻿<xs:schema targetNamespace="http://www.sendwordnow.com/notification" xmlns="http://www.sendwordnow.com/notification" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="SendNotificationInfo">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="SendNotificationInfoBase">
+					<xs:sequence>
+						<xs:element name="moreInfoText" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value=".{0,256}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="moreInfoURL" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value=".{0,256}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="soundName" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value="(\w{1,46}\.wav)?"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="gwbText" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Get Word Back responses. The order they occur in the transmission will determine the specific enumeration. The assigned enumeration will be part of the Results response. In case of more than 3 responses a warning is generated and only first 3 will be used to send the message.
+
+Max. Len. 128 characters. If length > 128 value is truncated and warning is generated.
+
+If feature is not enabled for customer this value will be ignored and warning will be generated.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="rcpts">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="rcpt" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:complexContent>
+												<xs:extension base="RcptInfoBase">
+													<xs:sequence>
+														<xs:element name="contactPnts">
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="contactPntInfo" maxOccurs="unbounded">
+																		<xs:complexType>
+																			<xs:complexContent>
+																				<xs:extension base="ContactPnt"/>
+																			</xs:complexContent>
+																		</xs:complexType>
+																	</xs:element>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+													</xs:sequence>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SendNotificationInfoBase" abstract="true">
+		<xs:sequence>
+			<xs:element name="id">
+				<xs:annotation>
+					<xs:documentation>This customer-generated ID will be used by the customer for status/response retrieval. Must be unique accross Notification submissions or error will be generated</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="custSentTimestamp" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Provided by the customer, for purposes of comparison in Results. Not used by SWN application or process.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sender" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="introName" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>This is the name of the sender of the message for use in the introduction. Will be combined with Intro Organization, if both present.
+
+Max. Len. 60 characters. If len > 60 value is truncated and warning is generated.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="introOrganization" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>This is the name of the organization sending the message, for use in the introduction. Will be concatenated onto Intro Name, if both present.
+
+Max. Len. 60 characters. If length > 60 value is truncated and warning is generated.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="phone" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>This is the sender’s phone number. Will be used as caller ID, if that feature is turned on for the account.
+
+Max. Len. 20. If length > 20 field is ignored and warning is generated. Same situation if value is not numeric.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="email" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>This is the sender’s email address.
+
+Max. Len. 60. If length > 60 field is ignored and warning is generated. Same situation if value is not a valid e-mail.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="notification">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="subject" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>This is the subject of the message. Default, if not included = “Send Word Now Alert”. Used only in email alerts, as email subject.
+
+Max. Len. 60 characters. If length > 60 value is truncated and warning is generated.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="body" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Max. Len. 1,000 characters. If length > 1,000 value is truncated and warning is generated.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="confCall" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+                  Set conference ID, SWN to provide.
+                  Default is to first occurrence in account set-up.
+                </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value="\d{0,50}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="phone" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Set phone number. SWN to provide. Currently Reserved.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="isConfCall" type="xs:boolean" use="required">
+						<xs:annotation>
+							<xs:documentation>Determines if conference call is included. If feature is not enabled for customer this value will be ignored and a warning will be generated.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="device" use="optional" default="All">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="All"/>
+					<xs:enumeration value="Voice"/>
+					<xs:enumeration value="Text"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RcptInfoBase" abstract="true">
+		<xs:sequence>
+			<xs:element name="id" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Unique identifier that identifies this Recipient.  Must be unique within the sumbitted Notification. Max. Len. 32 characters (recipients with id length > 32 will be ignored and warnings generated. If all recipient ids length > 32 an error is generated).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="firstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Notification's recipient first name.
+
+Max. Len. 30 characters. If length > 30 value is truncated and warning is generated.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="middleName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Notification's recipient middle name.
+
+Max. Len. 20 characters. If length > 20 value is truncated and warning is generated.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Notification's recipient last name.
+
+Max. Len. 30 characters. If length > 30 value is truncated and warning is generated.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ContactPnt">
+		<xs:sequence>
+			<xs:element name="id">
+				<xs:annotation>
+					<xs:documentation>Unique ID for combination of Recipient, Contact-point Type, Contact-point Label, Contact-point.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="label" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Label that describes the Contact-point, which may be useful in viewing the Results info.
+
+Max. Len. 20 characters. If length > 20 value is truncated and warning is generated.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="address" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>If Type = Voice, then phone number.
+If Type = Email, then email address.
+If Type = Text, then text-device addressable email.
+
+If address has an invalid format, application will try to change type according to address' format (warning will be generated).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Voice"/>
+					<xs:enumeration value="Email"/>
+					<xs:enumeration value="Text"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RcptStatus">
+		<xs:complexContent>
+			<xs:extension base="RcptInfoBase">
+				<xs:sequence>
+					<xs:element name="contactPntsStatus">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="contactPntStatus" minOccurs="0" maxOccurs="unbounded">
+									<xs:complexType>
+										<xs:complexContent>
+											<xs:extension base="ContactPnt">
+												<xs:sequence>
+													<xs:element name="deliveryTimestamp" type="xs:dateTime" minOccurs="0"/>
+													<xs:element ref="gwbRespIndex" minOccurs="0"/>
+												</xs:sequence>
+												<xs:attribute ref="status" use="required"/>
+											</xs:extension>
+										</xs:complexContent>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element ref="gwbRespIndex"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="gwbRespIndex" type="xs:nonNegativeInteger">
+		<xs:annotation>
+			<xs:documentation>The GWB response for the individual Transaction or Recipient (based on parent element).
+0 indicates no Response.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:attribute name="status">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="50"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:complexType name="NotificationResultsInfoBase" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="SendNotificationInfoBase">
+				<xs:sequence>
+					<xs:element name="sentTimestamp" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>The time the message was initiated in the SWN application.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="statistics">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="nbrRcpts" type="xs:nonNegativeInteger"/>
+								<xs:element name="nbrContactPnts" type="xs:nonNegativeInteger"/>
+								<xs:element name="nbrVoiceContactPnts" type="xs:nonNegativeInteger"/>
+								<xs:element name="nbrEmailAndTextContactPnts" type="xs:nonNegativeInteger"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="gwbStatistics" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="gwb" maxOccurs="3">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="index" type="xs:positiveInteger">
+												<xs:annotation>
+													<xs:documentation>Get Word Back response number. This serves as the cross-reference between the GWB response in the header and the GWB Transaction and Recipient responses below.</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="gwbText">
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:maxLength value="100"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
+											<xs:element name="nbrResponses" type="xs:nonNegativeInteger">
+												<xs:annotation>
+													<xs:documentation>This is the number of responses received for this GWB response.</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="confCallStatistics" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="idUsed" type="xs:nonNegativeInteger">
+									<xs:annotation>
+										<xs:documentation>This is the Conference ID that was actually used by the application.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="nbrRcptsJoined" type="xs:nonNegativeInteger">
+									<xs:annotation>
+										<xs:documentation>Number of recipients who joined the conference call via the automated connection.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="resultGeneratedTimestamp" type="xs:dateTime"/>
+				</xs:sequence>
+				<xs:attribute name="status" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="Complete"/>
+							<xs:enumeration value="Incomplete"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="NotificationResultsInfo">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="NotificationResultsInfoBase">
+					<xs:sequence>
+						<xs:element name="rcptsStatus">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="rcptStatus" type="RcptStatus" minOccurs="0" maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="NotificationRcptResultsInfo">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="NotificationResultsInfoBase">
+					<xs:sequence>
+						<xs:element name="rcptStatus" type="RcptStatus"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AuthCredentials">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="username">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="password">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ValRptInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="notificationHasErrors" type="xs:boolean"/>
+				<xs:element name="notificationHasWarnings" type="xs:boolean"/>
+				<xs:element name="details">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="valRptDetailInfo" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="description" type="xs:string"/>
+										<xs:element name="code" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+									<xs:attribute name="type" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Warning"/>
+												<xs:enumeration value="Error"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

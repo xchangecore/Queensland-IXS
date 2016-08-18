@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.saic.uicds.xmpp</groupId>
+        <artifactId>com.saic.uicds.xmpp</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>com.saic.uicds.xmpp.extensions</artifactId>
+    <packaging>jar</packaging>
+    <name>com.saic.uicds.xmpp.extensions</name>
+    <version>${infrastructure.xmpp.version}</version>
+    <url>http://maven.apache.org</url>
+
+    <!-- define distribution management to make deploy plugin happy -->
+    <!--<distributionManagement>
+        <repository>
+            <id>UICDS</id>
+            <name>uicds</name>
+            <url>dav:https://svn.uicds.leidos.com/repository</url>
+        </repository>
+    </distributionManagement>-->
+
+</project>

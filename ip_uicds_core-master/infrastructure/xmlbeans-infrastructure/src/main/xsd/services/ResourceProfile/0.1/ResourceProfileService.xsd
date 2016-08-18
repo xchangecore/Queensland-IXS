@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 sp2 (http://www.altova.com) by William Summers (SAIC) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wstop="http://docs.oasis-open.org/wsn/t-1" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:rps="http://uicds.org/ResourceProfileService" xmlns:precisb="http://www.saic.com/precis/2009/06/base" xmlns:ris="http://uicds.org/ResourceInstanceService" targetNamespace="http://uicds.org/ResourceProfileService" elementFormDefault="qualified">
+  <xs:import namespace="http://docs.oasis-open.org/wsn/t-1" schemaLocation="../../../ws-notification/WS-Topics-1_3.xsd"/>
+  <xs:import namespace="http://www.w3.org/2005/08/addressing" schemaLocation="../../../ws-notification/WS-Addressing-2005_08.xsd"/>
+  <xs:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../../../ws-notification/WS-BaseNotification-1_3.xsd"/>
+  <xs:import namespace="http://www.saic.com/precis/2009/06/base" schemaLocation="../../../precis/2009/06/BaseTypes.xsd"/>
+  <xs:element name="GetProfileListRequest">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="QueryString" type="xs:string"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProfileListResponse">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="ProfileList" type="rps:ResourceProfileListType"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateProfileRequest">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Profile" type="rps:ResourceProfile"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateProfileResponse">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Profile" type="rps:ResourceProfile"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProfileRequest">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="ID" type="precisb:IdentifierType"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProfileResponse">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="ID" type="precisb:IdentifierType"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProfileRequest">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="ID" type="precisb:IdentifierType"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProfileResponse">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Profile" type="rps:ResourceProfile"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddInterestRequest">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="ID" type="precisb:IdentifierType"/>
+        <xs:element name="Interest" type="rps:Interest"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddInterestResponse">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Profile" type="rps:ResourceProfile"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveInterestRequest">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="ID" type="precisb:IdentifierType"/>
+        <xs:element name="Interest" type="rps:Interest"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveInterestResponse">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Profile" type="rps:ResourceProfile"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ResourceProfileListType">
+    <xs:sequence>
+      <xs:element name="ResourceProfile" type="rps:ResourceProfile" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResourceProfileList" type="rps:ResourceProfileListType"/>
+  <xs:complexType name="ResourceProfile">
+    <xs:sequence>
+      <xs:element name="ID" type="precisb:IdentifierType"/>
+      <xs:element name="Description" type="xs:string"/>
+      <xs:element name="ResourceTyping" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Type" type="precisb:CodespaceValueType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Interests" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Interest" type="rps:Interest" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Interest">
+    <xs:sequence>
+      <xs:element name="TopicExpression" type="wstop:ConcreteTopicExpression"/>
+      <xs:element name="MessageContent" type="wsnt:QueryExpressionType" minOccurs="0"/>
+      <xs:element name="NamespaceMap" type="precisb:NamespaceMapType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

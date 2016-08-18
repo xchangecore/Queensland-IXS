@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://uicds.dctd.saic.com/schemas/Core2CoreMessage" xmlns:tns="http://uicds.dctd.saic.com/schemas/Core2CoreMessage" elementFormDefault="qualified">
+
+    <complexType name="Core2CoreMessageType">
+        <sequence>
+            <any></any>
+        </sequence></complexType>
+
+    <element name="Core2CoreMessage" type="tns:Core2CoreMessageType"></element>
+</schema>

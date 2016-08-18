@@ -1,0 +1,11 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/UICDS/modules" version="1"
+    owner="admin" group="dba" mode="755" created="2010-08-06T14:25:16-06:00">
+    <resource type="BinaryResource" name="search.xq" skip="no" owner="admin" group="dba" mode="755"
+        created="2011-03-06T14:25:16-06:00" modified="2011-03-06T14:25:16-06:00"
+        filename="search.xq" mimetype="application/xquery"/>
+    <resource type="BinaryResource" name="dispatch.xq" skip="no" owner="admin" group="dba" mode="755"
+        created="2011-03-06T14:25:16-06:00" modified="2011-03-06T14:25:16-06:00"
+        filename="dispatch.xq" mimetype="application/xquery"/>
+    <subcollection name="util" filename="util"/>
+    <subcollection name="view" filename="view"/>
+</collection>

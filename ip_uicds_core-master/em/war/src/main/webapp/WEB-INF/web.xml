@@ -1,0 +1,267 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+	<display-name>UICDS Web Service Application</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:contexts/tx-annotation.xml
+         classpath:contexts/applicationContext-em.xml
+         classpath:contexts/applicationContext-infra.xml
+			classpath:contexts/dataSrcContext.xml
+         /WEB-INF/applicationContext-security.xml
+         classpath:contexts/applicationContext-processes.xml
+         classpath:contexts/xmppContext.xml
+        </param-value>
+	</context-param>
+
+	<!-- Define a Security Constraint on this Application -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>UICDS Web Services</web-resource-name>
+			<url-pattern>/core/ws/services/*</url-pattern>
+			<url-pattern>/pub/*</url-pattern>
+			<url-pattern>/query/*</url-pattern>
+			<url-pattern>/Console.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>uicds-users</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<!-- the user role can only access the AdminConsole.html -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>UICDS Admin Services</web-resource-name>
+			<url-pattern>/AdminConsole.html</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>uicds-admins</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<!-- Define the Login Configuration for this Application -->
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>UICDS Services</realm-name>
+	</login-config>
+
+	<!-- Security roles referenced by this web application -->
+	<security-role>
+		<description> The role that is required to log in to UICDS </description>
+		<role-name>uicds-users</role-name>
+	</security-role>
+	<security-role>
+		<description> The role that is required to acces administrative functions </description>
+		<role-name>uicds-admins</role-name>
+	</security-role>
+
+
+	<!-- Security Filters -->
+	<filter>
+		<filter-name>securityFilterChain</filter-name>
+		<filter-class>org.springframework.security.util.FilterToBeanProxy</filter-class>
+		<init-param>
+			<param-name>targetClass</param-name>
+			<param-value>org.springframework.security.util.FilterChainProxy</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>securityFilterChain</filter-name>
+		<url-pattern>/core/ws/services/*</url-pattern>
+	</filter-mapping>
+
+	<!-- - Loads the root application context of this web app at startup. - 
+		The application context is then available via - WebApplicationContextUtils.getWebApplicationContext(servletContext). -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- ==================================== SPRING WS SERVLET ==================================== -->
+	<servlet>
+		<servlet-name>uicds-ws</servlet-name>
+		<servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>transformWsdlLocations</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>uicds-ws</servlet-name>
+		<url-pattern>/core/ws/services/*</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- ==================================== SPRING MVC SERVLET ==================================== -->
+	<servlet>
+		<servlet-name>mvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>sys</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- ================================= GWT REMOTE SERVICE PROXIES ================================ -->
+
+	<servlet>
+		<servlet-name>directoryServiceProxy</servlet-name>
+		<servlet-class>com.saic.uicds.core.em.adminconsole.server.impl.DirectoryServiceProxyImpl</servlet-class>
+		<init-param>
+			<param-name>consoleResource</param-name>
+			<param-value>ConsoleConnection</param-value>
+		</init-param>
+		<init-param>
+			<param-name>corePassword</param-name>
+			<param-value>%UICDSPASS%</param-value>
+		</init-param>
+		<init-param>
+			<param-name>boshServiceUrl</param-name>
+			<param-value>http://localhost:7070/http-bind/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>connectionTimeOut</param-name>
+			<param-value>60000</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>agreementServiceProxy</servlet-name>
+		<servlet-class>com.saic.uicds.core.em.adminconsole.server.impl.AgreementServiceProxyImpl</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>interestGroupManagementServiceProxy</servlet-name>
+		<servlet-class>com.saic.uicds.core.em.adminconsole.server.impl.InterestGroupManagementServiceProxyImpl</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>incidentManagementServiceProxy</servlet-name>
+		<servlet-class>com.saic.uicds.core.em.adminconsole.server.impl.IncidentManagementServiceProxyImpl</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>profileServiceProxy</servlet-name>
+		<servlet-class>com.saic.uicds.core.em.adminconsole.server.impl.ProfileServiceProxyImpl</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>workProductServiceProxy</servlet-name>
+		<servlet-class>com.saic.uicds.core.em.adminconsole.server.impl.WorkProductServiceProxyImpl</servlet-class>
+		<init-param>
+			<param-name>XSLT_DIR</param-name>
+			<param-value>/config/xslt</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>resourceInstanceServiceProxy</servlet-name>
+		<servlet-class>com.saic.uicds.core.em.adminconsole.server.impl.ResourceInstanceServiceProxyImpl</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>loggingServiceProxy</servlet-name>
+		<servlet-class>com.saic.uicds.core.em.adminconsole.server.impl.LoggingServiceProxyImpl</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>directoryServiceProxy</servlet-name>
+		<url-pattern>/proxy/DirectoryServiceProxy</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>agreementServiceProxy</servlet-name>
+		<url-pattern>/proxy/AgreementServiceProxy</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>interestGroupManagementServiceProxy</servlet-name>
+		<url-pattern>/proxy/InterestGroupManagementServiceProxy</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>incidentManagementServiceProxy</servlet-name>
+		<url-pattern>/proxy/IncidentManagementServiceProxy</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>profileServiceProxy</servlet-name>
+		<url-pattern>/proxy/ProfileServiceProxy</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>workProductServiceProxy</servlet-name>
+		<url-pattern>/proxy/WorkProductServiceProxy</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>resourceInstanceServiceProxy</servlet-name>
+		<url-pattern>/proxy/ResourceInstanceServiceProxy</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>loggingServiceProxy</servlet-name>
+		<url-pattern>/proxy/LoggingServiceProxy</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>InfoServlet</servlet-name>
+		<servlet-class>InfoServlet</servlet-class>
+	</servlet>
+
+	<!-- ==================================== SPRING MVC SERVLET MAPPING ==================================== -->
+
+	<servlet-mapping>
+		<servlet-name>mvc</servlet-name>
+		<url-pattern>/query/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>mvc</servlet-name>
+		<url-pattern>/pub/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>mvc</servlet-name>
+		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>mvc</servlet-name>
+		<url-pattern>*.xsd</url-pattern>
+	</servlet-mapping>
+
+	<!-- <servlet-mapping> <servlet-name>mvc</servlet-name> <url-pattern>/*</url-pattern> 
+		</servlet-mapping> <filter> <filter-name>springSecurityFilterChain</filter-name> 
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
+		</filter> <filter-mapping> <filter-name>springSecurityFilterChain</filter-name> 
+		<url-pattern>/*</url-pattern> </filter-mapping> -->
+
+	<servlet-mapping>
+		<servlet-name>InfoServlet</servlet-name>
+		<url-pattern>/info</url-pattern>
+	</servlet-mapping>
+
+	<resource-ref>
+		<description>Hibernate data source</description>
+		<res-ref-name>jdbc/HibernateDS</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+    <error-page>  
+	  <error-code>500</error-code>  
+	  <location>/WEB-INF/error.jsp</location>  
+	</error-page> 
+	
+</web-app>

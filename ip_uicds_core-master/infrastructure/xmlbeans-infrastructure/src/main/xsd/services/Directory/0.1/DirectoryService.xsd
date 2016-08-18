@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:cc="http://uicds.org/CoreConfig" xmlns:sc="http://uicds.org/ServiceConfig" xmlns:edsc="http://uicds.org/ExternalDataSourceConfig" xmlns:sos="http://uicds.org/SOSConfig" xmlns:etc="http://uicds.org/ExternalToolConfig" xmlns:dir="http://uicds.org/DirectoryService" xmlns:dsd="http://uicds.org/DirectoryServiceData" xmlns:wp="http://uicds.org/WorkProductService"  targetNamespace="http://uicds.org/DirectoryService" elementFormDefault="qualified">
+	<import namespace="http://uicds.org/DirectoryServiceData" schemaLocation="../../../services/Directory/0.1/DirectoryServiceData.xsd"/>
+	<import namespace="http://uicds.org/SOSConfig" schemaLocation="../../../services/Directory/0.1/SOSConfig.xsd"/>
+	<import namespace="http://uicds.org/ExternalDataSourceConfig" schemaLocation="../../../services/Directory/0.1/ExternalDataSourceConfig.xsd"/>
+	<import namespace="http://uicds.org/ServiceConfig" schemaLocation="../../../services/Directory/0.1/ServiceConfig.xsd"/>
+	<import namespace="http://uicds.org/CoreConfig" schemaLocation="../../../services/Directory/0.1/CoreConfig.xsd"/>
+	<import namespace="http://uicds.org/ExternalToolConfig" schemaLocation="../../../services/Directory/0.1/ExternalToolConfig.xsd"/>
+	<import namespace="http://uicds.org/WorkProductService" schemaLocation="../../../services/WorkProduct/0.1/WorkProductService.xsd"/>
+	<complexType name="RegisterExternalToolRequestType">
+		<sequence>
+			<element name="ExternalTool" type="etc:ExternalToolConfigType"/>
+		</sequence>
+	</complexType>
+	<element name="RegisterExternalToolRequest" type="dir:RegisterExternalToolRequestType"/>
+	<complexType name="UnregisterExternalToolRequestType">
+		<sequence>
+			<element name="URN" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="UnregisterExternalToolRequest" type="dir:UnregisterExternalToolRequestType"/>
+	<complexType name="RegisterExternalDataSourceRequestType">
+		<sequence>
+			<element name="URN" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="RegisterExternalDataSourceRequest" type="dir:RegisterExternalDataSourceRequestType"/>
+	<complexType name="UnregisterExternalDataSourceRequestType">
+		<sequence>
+			<element name="URN" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="UnregisterExternalDataSourceRequest" type="dir:UnregisterExternalDataSourceRequestType"/>
+	<complexType name="RegisterUICDSServiceRequestType">
+		<sequence>
+			<element name="Service" type="sc:ServiceConfigType"/>
+		</sequence>
+	</complexType>
+	<element name="RegisterUICDSServiceRequest" type="dir:RegisterUICDSServiceRequestType"/>
+	<complexType name="UnregisterUICDSServiceRequestType">
+		<sequence>
+			<element name="serviceName" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="UnregisterUICDSServiceRequest" type="dir:UnregisterUICDSServiceRequestType"/>
+	<complexType name="RegisterSOSRequestType">
+		<sequence>
+			<element name="sos" type="sos:SOSConfigType"/>
+		</sequence>
+	</complexType>
+	<element name="RegisterSOSRequest" type="dir:RegisterSOSRequestType"/>
+	<complexType name="UnregisterSOSRequestType">
+		<sequence>
+			<element name="sosID" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="UnregisterSOSRequest" type="dir:UnregisterSOSRequestType"/>
+	<complexType name="GetCoreListRequestType"/>
+	<element name="GetCoreListRequest" type="dir:GetCoreListRequestType"/>
+	<complexType name="GetCoreListResponseType">
+		<sequence>
+			<element name="coreList" type="cc:CoreConfigListType"/>
+		</sequence>
+	</complexType>
+	<element name="GetCoreListResponse" type="dir:GetCoreListResponseType"/>
+	<complexType name="GetExternalToolListRequestType">
+		<sequence>
+			<element name="coreName" type="string"/>
+		</sequence>
+	</complexType>
+        <element name="GetIncidentListRequest" ></element>
+
+    <element name="GetIncidentListResponse">
+        <complexType>
+            <sequence>
+                <element ref="wp:WorkProductList"/>
+            </sequence>
+        </complexType>
+    </element>
+	<element name="GetExternalToolListRequest" type="dir:GetExternalToolListRequestType"/>
+	<complexType name="GetExternalToolListResponseType">
+		<sequence>
+			<element name="externalToolList" type="etc:ExternalToolConfigListType"/>
+		</sequence>
+	</complexType>
+	<element name="GetExternalToolListResponse" type="dir:GetExternalToolListResponseType"/>	
+	<complexType name="GetServicetListRequestType">
+		<sequence>
+			<element name="coreName" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="GetServiceListRequest" type="dir:GetServicetListRequestType"/>
+	<complexType name="GetServiceListResponseType">
+		<sequence>
+			<element name="serviceList" type="sc:ServiceConfigListType"/>
+		</sequence>
+	</complexType>
+	<element name="GetServiceListResponse" type="dir:GetServiceListResponseType"/>
+	<complexType name="GetSOSListRequestType"/>
+	<element name="GetSOSListRequest" type="dir:GetSOSListRequestType"/>
+	<complexType name="GetSOSListResponseType">
+		<sequence>
+			<element name="sosList" type="sos:SOSConfigListType"/>
+		</sequence>
+	</complexType>
+	<element name="GetSOSListResponse" type="dir:GetSOSListResponseType"/>
+	<complexType name="GetExternalDataSourceListRequestType">
+		<sequence>
+			<element name="coreName" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="GetExternalDataSourceListRequest" type="dir:GetExternalDataSourceListRequestType"/>
+	<complexType name="GetExternalDataSourceListResponseType">
+		<sequence>
+			<element name="externalDataSourceList" type="edsc:ExternalDataSourceConfigListType"/>
+		</sequence>
+	</complexType>
+	<element name="GetExternalDataSourceListResponse" type="dir:GetExternalDataSourceListResponseType"/>
+</schema>

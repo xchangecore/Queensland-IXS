@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+            xmlns:edx="http://gov.fema.dmopen.services/DMOPEN_EDXLDEService/"
+            xmlns:resp="http://gov.fema.dmopen.services/edxlresponse"
+            xmlns:de="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
+            targetNamespace="http://gov.fema.dmopen.services/DMOPEN_EDXLDEService/" elementFormDefault="qualified">
+    <xsd:import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../niem/external/de/1.0/de.xsd" />
+    <xsd:element name="postEdxlRequestTypeDef">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="de:EDXLDistribution"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="postEdxlResponseTypeDef">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="postEdxlReturn" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema> 

@@ -1,0 +1,15 @@
+<collection xmlns="http://exist-db.org/collection-config/1.0">
+    <index xmlns:base="http://www.saic.com/precis/2009/06/base">
+        <fulltext default="none" attributes="no"/>
+
+        <!-- Range indexes by qname -->
+        <create qname="base:Identifier" type="xs:string"/>
+        <create qname="base:Type" type="xs:string"/>
+    </index>
+    <triggers>
+        <trigger event="store,remove,update"
+            class="org.exist.versioning.WorkProductVersioningTrigger">
+            <parameter name="overwrite" value="yes"/>
+        </trigger>
+    </triggers>
+</collection>

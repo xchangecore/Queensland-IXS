@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+		edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers
+		(SAIC)
+	-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:de="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:rms="http://uicds.org/ResourceManagementService" xmlns:wp="http://uicds.org/WorkProductService" targetNamespace="http://uicds.org/ResourceManagementService" elementFormDefault="qualified">
+	<import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../external/niem/external/de/1.0/de.xsd"/>
+	<import namespace="http://uicds.org/WorkProductService" schemaLocation="../../../services/WorkProduct/0.1/WorkProductService.xsd"/>
+	<include schemaLocation="../../../services/ResourceManagement/0.1/ResourceManagementServiceData.xsd"/>
+	<element name="EdxlDeRequest">
+		<complexType>
+			<sequence>
+				<element ref="de:EDXLDistribution"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="EdxlDeResponse" type="rms:EdxlDeMessageResponseType"/>
+	<element name="GetRequestedResourcesRequest">
+		<complexType>
+			<sequence>
+				<element name="incidentID" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="GetRequestedResourcesResponse">
+		<complexType>
+			<sequence>
+				<element ref="wp:WorkProductList"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="GetCommittedResourcesRequest">
+		<complexType>
+			<sequence>
+				<element name="incidentID" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="GetCommittedResourcesResponse">
+		<complexType>
+			<sequence>
+				<element ref="wp:WorkProductList"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

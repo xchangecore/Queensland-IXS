@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/SensorService"
+    xmlns:preciss="http://www.saic.com/precis/2009/06/structures" targetNamespace="http://uicds.org/SensorService"
+    elementFormDefault="qualified" xmlns:wp="http://uicds.org/WorkProductService">
+    <import schemaLocation="../../../precis/2009/06/Structures.xsd" namespace="http://www.saic.com/precis/2009/06/structures" />
+    <import schemaLocation="../../../services/WorkProduct/0.1/WorkProductService.xsd"
+        namespace="http://uicds.org/WorkProductService" />
+
+    <element name="CreateSOIRequest">
+        <complexType>
+            <sequence>
+                <element name="incidentID" type="string" maxOccurs="1" minOccurs="0"/>
+                <element ref="tns:SensorObservationInfo" maxOccurs="1" minOccurs="1" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="CreateSOIResponse">
+        <annotation>
+            <documentation />
+        </annotation>
+        <complexType>
+            <sequence>
+                <element ref="wp:WorkProductPublicationResponse">
+                    <annotation>
+                        <documentation>Contains the work product ID for the created SOI product.
+                        </documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="GetSOIRequest">
+		<complexType>
+			<all>
+				<element ref="preciss:WorkProductIdentification"/>
+			</all>
+		</complexType>
+	</element>
+	<element name="GetSOIResponse">
+		<annotation>
+			<documentation/>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="preciss:WorkProduct">
+					<annotation>
+						<documentation>Contains the SOI product with the work product ID specified
+                            in the request</documentation>
+					</annotation>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="UpdateSOIRequest">
+		<complexType>
+			<all>
+				<element ref="preciss:WorkProductIdentification"/>
+				<element ref="tns:SensorObservationInfo"/>
+			</all>
+		</complexType>
+	</element>
+	<element name="UpdateSOIResponse">
+		<complexType>
+			<sequence>
+				<element ref="wp:WorkProductPublicationResponse"/>
+			</sequence>
+		</complexType>
+	</element>
+    <!-- to delete this operation. to use WorkProductService's close/archive instead 
+	<element name="DeleteSOIRequest">
+		<complexType>
+			<all>
+				<element ref="preciss:WorkProductIdentification"/>
+			</all>
+		</complexType>
+	</element>
+	<element name="DeleteSOIResponse">
+		<complexType>
+			<sequence>
+				<element ref="wp:WorkProductPublicationResponse"/>
+			</sequence>
+		</complexType>
+	</element>
+     -->
+	<element name="GetSOIListRequest">
+		<complexType>
+			<sequence>
+				<element name="incidentID" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="GetSOIListResponse">
+		<annotation>
+			<documentation/>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="wp:WorkProductList"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="SensorInfo">
+		<complexType>
+			<sequence>
+				<element name="name" type="string"/>
+				<element name="description" type="string"/>
+				<element name="latitude" type="double"/>
+				<element name="longitude" type="double"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="SensorObservationInfo">
+		<complexType>
+			<sequence>
+				<element name="sosURN" type="string"/>
+				<element ref="tns:SensorInfo" maxOccurs="unbounded"/>
+				<any namespace="##other" processContents="lax" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>com.saic.uicds.core.em</groupId>
+        <artifactId>com.saic.uicds.core.em.processes</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>com.saic.uicds.core.em.processes.agreements</artifactId>
+    <packaging>jar</packaging>
+    <name>com.saic.uicds.core.em.processes.agreements</name>
+    <version>${em.version}</version>
+
+    <url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+            <version>${spring.integrations.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.em.xmlbeans-em</artifactId>
+            <version>${xmlbeans-em.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${infrastructure.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.infrastructure.xmlbeans-infrastructure</artifactId>
+            <version>${xmlbeans-infrastructure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.em.xmlbeans-edxl_rm</artifactId>
+            <version>${xmlbeans-edxl_rm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${infrastructure.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.infrastructure.messages</artifactId>
+            <version>${infrastructure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${infrastructure.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.infrastructure.services</artifactId>
+            <version>${infrastructure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.em.services</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+    </dependencies>
+</project>

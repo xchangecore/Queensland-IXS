@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sc="http://uicds.org/ServiceConfig"
+    xmlns:dsd="http://uicds.org/DirectoryServiceData" targetNamespace="http://uicds.org/ServiceConfig"
+    elementFormDefault="qualified">
+
+    <import schemaLocation="../../../services/Directory/0.1/DirectoryServiceData.xsd"
+        namespace="http://uicds.org/DirectoryServiceData"></import>
+
+    <complexType name="ServiceConfigType">
+        <sequence>
+            <element name="URN" type="string" />
+            <element name="serviceName" type="string" />
+            <element name="coreName" type="string" />
+            <element name="publishedProducts" type="dsd:WorkProductTypeListType" />
+            <element name="subscribedProducts" type="dsd:WorkProductTypeListType" />
+        </sequence>
+    </complexType>
+    <element name="ServiceConfig" type="sc:ServiceConfigType" />
+    <complexType name="ServiceConfigListType">
+        <sequence>
+            <element name="Service" type="sc:ServiceConfigType" maxOccurs="unbounded" />
+        </sequence>
+    </complexType>
+    <element name="ServiceConfigList" type="sc:ServiceConfigListType" />
+
+</schema>

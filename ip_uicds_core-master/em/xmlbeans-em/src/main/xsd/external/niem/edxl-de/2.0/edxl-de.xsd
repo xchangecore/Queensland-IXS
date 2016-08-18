@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://niem.gov/niem/edxl-de/2.0" version="1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:de="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:edxl-de="http://niem.gov/niem/edxl-de/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <i:ConformantIndicator>true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../external/de/1.0/de.xsd" namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:ConformantIndicator>false</i:ConformantIndicator>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:import>
+  <xsd:complexType name="DistributionElementAdapterType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+        <i:ExternalAdapterTypeIndicator>true</i:ExternalAdapterTypeIndicator>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="de:EDXLDistribution" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>

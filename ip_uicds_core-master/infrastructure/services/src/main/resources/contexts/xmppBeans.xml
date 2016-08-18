@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+    <!-- XMPP beans -->
+    <!-- Replace server, servername, and pubsub's host name as appropriate -->
+
+    <bean id="baseCoreConnection" abstract="true" class="com.saic.uicds.xmpp.communications.CoreConnectionImpl">
+
+        <property name="server">
+            <value>%FQDN%</value>
+        </property>
+        <property name="servername">
+            <value>%FQDN%</value>
+        </property>
+        <property name="port">
+            <value>5222</value>
+        </property>
+        <property name="pubSubSvc">
+            <value>pubsub.%FQDN%</value>
+        </property>
+        <property name="username">
+            <value>%UICDSUSER%</value>
+        </property>
+        <property name="password">
+            <value>%UICDSPASS%</value>
+        </property>
+        <property name="name">
+            <value>UICDS</value>
+        </property>
+        <property name="resource">
+            <value>CoreConnection</value>
+        </property>
+        <property name="interestGroupRoot">
+            <value>/interestGroup</value>
+        </property>
+        <property name="debug">
+            <value>false</value>
+        </property>
+        <property name="waitTimeInSeconds">
+            <value>10</value>
+        </property>
+    </bean>
+
+    <bean id="baseInterestManager" abstract="true" class="com.saic.uicds.xmpp.communications.InterestManagerImpl">
+    </bean>
+
+    <!-- End of XMPP beans -->
+
+</beans>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false"
+	xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p,%c{1},%t] %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="UICDSLogger" class="org.apache.log4j.rolling.RollingFileAppender">
+		<param name="encoding" value="UTF-8" />
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<param name="FileNamePattern" value="Logs/uicds.log.%d{yyyy-MM-dd}" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p %d{HH:mm:ss} %c{1}] %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Loggers to filter out various class paths -->
+
+	<logger name="com.saic.uicds.core.infrastructure.log.LogFileMonitor">
+		<level value="error"/>
+		<appender-ref ref="UICDSLogger" />
+    </logger>
+
+	<logger name="com.saic">
+		<level value="info"/>
+		<appender-ref ref="UICDSLogger" />
+    </logger>
+	
+	<logger name="org.springframework">
+		<level value="error"/>
+		<appender-ref ref="UICDSLogger" />
+	</logger>
+	
+	<logger name="org.hibernate">
+		<level value="error"/>
+		<appender-ref ref="UICDSLogger" />
+	</logger>
+	
+	<logger name="org.hibernate.search">
+		<level value="error"/>
+		<appender-ref ref="UICDSLogger" />
+	</logger>
+	
+	<root>
+		<priority value="info" />
+		<appender-ref ref="stdout" />
+	</root>
+
+</log4j:configuration>

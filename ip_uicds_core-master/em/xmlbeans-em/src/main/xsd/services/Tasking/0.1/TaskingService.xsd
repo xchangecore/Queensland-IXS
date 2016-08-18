@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Ronald Ridgely (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:wstop="http://docs.oasis-open.org/wsn/t-1" xmlns:ns1="http://uicds.org/TaskingService"
+    xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
+    xmlns:preciss="http://www.saic.com/precis/2009/06/structures" targetNamespace="http://uicds.org/TaskingService"
+    elementFormDefault="qualified" xmlns:Q1="http://uicds.org/WorkProductService">
+
+    <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd" />
+    <import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../../../ws-notification/WS-BaseNotification-1_3.xsd" />
+    <import namespace="http://docs.oasis-open.org/wsn/t-1" schemaLocation="../../../ws-notification/WS-Topics-1_3.xsd" />
+    <import namespace="http://www.w3.org/2005/08/addressing" schemaLocation="../../../ws-notification/WS-Addressing-2005_08.xsd" />
+    <import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd" />
+    <import schemaLocation="../../../services/WorkProduct/0.1/WorkProductService.xsd"
+        namespace="http://uicds.org/WorkProductService" />
+
+    <element name="CreateTaskListRequest">
+        <complexType>
+            <all>
+                <element name="entityID" type="anyURI" maxOccurs="1" minOccurs="0" />
+                <element name="incidentId" type="string" />
+                <element name="TaskList" type="ns1:TaskListType" />
+            </all>
+        </complexType>
+    </element>
+    <element name="CreateTaskListResponse">
+        <complexType>
+            <sequence>
+                <element ref="Q1:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="GetTaskListRequest">
+        <complexType>
+            <all>
+                <element ref="preciss:WorkProductIdentification" />
+            </all>
+        </complexType>
+    </element>
+    <element name="GetTaskListResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="GetTaskListByIdRequest">
+        <complexType>
+            <all>
+                <element name="entityID" type="anyURI" />
+                <element name="incidentId" type="string" />
+            </all>
+        </complexType>
+    </element>
+    <element name="GetTaskListByIdResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="UpdateTaskListRequest">
+        <complexType>
+            <all>
+                <element ref="preciss:WorkProductIdentification" />
+                <element name="TaskList" type="ns1:TaskListType" />
+            </all>
+        </complexType>
+    </element>
+    <element name="UpdateTaskListResponse">
+        <complexType>
+            <sequence>
+                <element ref="Q1:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+    <!-- delete this oepration, to use WorkProductServic's closeProduct/archiveProduct
+    <element name="DeleteTaskListRequest">
+        <complexType>
+            <all>
+                <element ref="preciss:WorkProductIdentification" />
+            </all>
+        </complexType>
+    </element>
+    <element name="DeleteTaskListResponse">
+        <complexType>
+            <sequence>
+                <element ref="Q1:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+    -->
+    <complexType name="TaskType">
+        <sequence>
+            <element name="taskID" type="anyURI" />
+            <element name="description" type="string" />
+            <element name="priority" type="int" />
+            <element name="assignedTo">
+                <complexType>
+                    <sequence>
+                        <element name="id" type="anyURI" />
+                        <element name="assigned" type="dateTime" />
+                        <element name="accepted" type="dateTime" />
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="assignedBy">
+                <complexType>
+                    <sequence>
+                        <element name="id" type="anyURI" />
+                        <element name="assigned" type="dateTime" />
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="status">
+                <complexType>
+                    <sequence>
+                        <element name="Status" minOccurs="0" maxOccurs="unbounded" />
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="dueDate" type="dateTime" />
+        </sequence>
+    </complexType>
+    <complexType name="TaskListType">
+        <sequence>
+            <element name="entityId" type="anyURI" minOccurs="0" />
+            <element name="Task" type="ns1:TaskType" minOccurs="0" maxOccurs="unbounded" />
+        </sequence>
+    </complexType>
+    <element name="TaskList" type="ns1:TaskListType" />
+</schema>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+    <!--
+        Map Service Endpoint Mapping This is mapped separately from the rest of the services because
+        it is not using the XMLBeans marshalling endpoint adapter, but rather using DOM to represent
+        requests and responses
+    -->
+    <bean id="mapServiceEndpointMapping" class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+        <property name="mappings">
+            <props>
+                <prop key="{http://uicds.org/MapService}GetMapRequest">mapServiceEndpoint</prop>
+                <prop key="{http://uicds.org/MapService}GetMapsRequest">mapServiceEndpoint</prop>
+                <prop key="{http://uicds.org/MapService}SubmitMapRequest">mapServiceEndpoint</prop>
+                <prop key="{http://uicds.org/MapService}UpdateMapRequest">mapServiceEndpoint</prop>
+                <prop key="{http://uicds.org/MapService}DeleteMapRequest">mapServiceEndpoint</prop>
+                <prop key="{http://uicds.org/MapService}GetLayerRequest">mapServiceEndpoint</prop>
+                <prop key="{http://uicds.org/MapService}GetLayersRequest">mapServiceEndpoint</prop>
+                <prop key="{http://uicds.org/MapService}SubmitLayerRequest">mapServiceEndpoint</prop>
+                <prop key="{http://uicds.org/MapService}UpdateLayerRequest">mapServiceEndpoint</prop>
+                <prop key="{http://uicds.org/MapService}DeleteLayerRequest">mapServiceEndpoint</prop>
+                <prop key="{http://uicds.org/MapService}SubmitShapefileRequest">mapServiceEndpoint</prop>
+            </props>
+        </property>
+        <property name="interceptors">
+            <bean class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor" />
+        </property>
+    </bean>
+    <bean id="mapServiceEndpoint" class="com.saic.uicds.core.em.endpoint.MapServiceEndpoint" />
+    <bean class="org.springframework.ws.server.endpoint.adapter.PayloadEndpointAdapter" />
+
+    <!-- -->
+    <!-- XMLBEANS -->
+    <!-- turn the validation on for response document -->
+    <bean id="xmlbeansMarshaller" class="org.springframework.oxm.xmlbeans.XmlBeansMarshaller">
+        <property name="validating" value="true" />
+    </bean>
+    <bean id="xmlbeansUnMarshaller" class="org.springframework.oxm.xmlbeans.XmlBeansMarshaller" />
+    <bean class="org.springframework.ws.server.endpoint.adapter.GenericMarshallingMethodEndpointAdapter">
+        <property name="marshaller" ref="xmlbeansMarshaller" />
+        <property name="unmarshaller" ref="xmlbeansUnMarshaller" />
+    </bean>
+
+    <!-- -->
+    <!-- SCAN THE CLASSPATH FOR ENDPOINTS -->
+    <!-- -->
+    <context:component-scan base-package="com.saic.uicds.core.em.endpoint" />
+    <context:component-scan base-package="com.saic.uicds.core.infrastructure.endpoint" />
+
+    <!-- -->
+    <!-- ENDPOINT MAPPING -->
+    <!-- -->
+    <bean
+        class="org.springframework.ws.server.endpoint.mapping.PayloadRootAnnotationMethodEndpointMapping">
+        <property name="interceptors">
+            <bean class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor" />
+        </property>
+    </bean>
+    <bean id="DirectoryService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/Directory/0.1/DirectoryService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="DirectoryService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/DirectoryService" />
+    </bean>
+    <bean id="AgreementService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/Agreement/0.1/AgreementService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="AgreementService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/AgreementService" />
+    </bean>
+    <bean id="AlertService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/Alert/0.1/AlertService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="AlertService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/AlertService" />
+    </bean>
+    <bean id="IncidentManagementService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/IncidentManagement/0.1/IncidentManagementService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="IncidentManagementService" />
+        <property name="locationUri"
+            value="http://localhost:8080/uicds/core/ws/services/IncidentManagementService" />
+    </bean>
+       <bean id="InterestGroupService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/InterestGroup/0.1/InterestGroupService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="InterestGroupService" />
+        <property name="locationUri"
+            value="http://localhost:8080/uicds/core/ws/services/InterestGroupService" />
+    </bean> 
+    <bean id="LoggingService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/Logging/0.1/LoggingService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="LoggingService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/LoggingService" />
+    </bean>
+    <bean id="WorkProductService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/WorkProduct/0.1/WorkProductService.xsd" />
+            </bean>
+        </property>
+        <property name="soapActions">
+            <props>
+                <prop key="AssociateWorkProductToInterestGroup">AssociateWorkProductToInterestGroup</prop>
+                <prop key="GetAssociatedWorkProductList">GetAssociatedWorkProductList</prop>
+                <prop key="GetProduct">GetProduct</prop>
+                <prop key="PublishProduct">PublishProduct</prop>
+            </props>
+        </property>
+        <property name="portTypeName" value="WorkProductService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/WorkProductService" />
+    </bean>
+    <bean id="IncidentCommandService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/IncidentCommand/0.1/IncidentCommandStructure.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="IncidentCommandService" />
+        <property name="locationUri"
+            value="http://localhost:8080/uicds/core/ws/services/IncidentCommandService" />
+    </bean>
+    <bean id="MapService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/Map/0.1/MapService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="MapService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/MapService" />
+    </bean>
+    <!--
+        <bean id="ProfileService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+        <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+        <property name="xsd"
+        value="classpath:/schemaorg_apache_xmlbeans/src/services/Profile/0.1/Profile.xsd" />
+        </bean>
+        </property>
+        <property name="portTypeName" value="ProfileService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/ProfileService"
+        />
+        </bean>
+    -->
+    <bean id="BroadcastService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/Broadcast/0.1/BroadcastService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="BroadcastService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/BroadcastService" />
+    </bean>
+    <bean id="TaskingService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/Tasking/0.1/TaskingService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="TaskingService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/Services/TaskingService" />
+    </bean>
+    <bean id="NotificationService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/Notification/0.1/NotificationService.xsd" />
+            </bean>
+        </property>
+        <property name="soapActions">
+            <props>
+                <prop key="GetCurrentMessage">http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/GetCurrentMessage
+                </prop>
+                <prop key="Notify">http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify
+                </prop>
+                <prop key="GetMessages">http://docs.oasis-open.org/wsn/bw-2/PullPoint/GetMessages</prop>
+            </props>
+        </property>
+        <property name="portTypeName" value="NotificationService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/NotificationService" />
+    </bean>
+    <bean id="ResourceManagementService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/ResourceManagement/0.1/ResourceManagementService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="ResourceManagementService" />
+        <property name="locationUri"
+            value="http://localhost:8080/uicds/core/ws/services/ResourceManagementService" />
+    </bean>
+    <bean id="IAPService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/IncidentForms/0.1/IAPService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="IAPService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/IAPService" />
+    </bean>
+    <bean id="SensorService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/Sensor/0.1/SensorService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="SensorService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/SensorSerivce" />
+    </bean>
+    <bean id="ResourceInstanceService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/ResourceInstance/0.1/ResourceInstanceService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="ResourceInstanceService" />
+        <property name="locationUri"
+            value="http://localhost:8080/uicds/core/ws/services/ResourceInstanceService" />
+    </bean>
+    <bean id="ResourceProfileService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/ResourceProfile/0.1/ResourceProfileService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="ResourceProfileService" />
+        <property name="locationUri"
+            value="http://localhost:8080/uicds/core/ws/services/ResourceProfileService" />
+    </bean>
+    <bean id="LEITSCService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd"
+                    value="classpath:/schemaorg_apache_xmlbeans/src/services/LEITSC/0.1/LEITSCService.xsd" />
+            </bean>
+        </property>
+        <property name="portTypeName" value="LEITSCService" />
+        <property name="locationUri" value="http://localhost:8080/uicds/core/ws/services/LEITSCService" />
+    </bean>
+</beans>

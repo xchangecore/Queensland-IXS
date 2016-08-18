@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+<!--
++++++++++++++++++++++++++++++++++++++++++++++++++++
+UNIVERSAL CORE v2.0.0 Taxonomy
++++++++++++++++++++++++++++++++++++++++++++++++++++
+For documentation, tutorials, and other information, see https://ucore.gov
+
+Please direct any questions or suggested revisions to the UCore Helpdesk:
+ucore_help@spawar.navy.mil
++++++++++++++++++++++++++++++++++++++++++++++++++++
+UNIVERSAL CORE v2.0.0 Taxonomy
++++++++++++++++++++++++++++++++++++++++++++++++++++
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:uc="http://ucore.gov/ucore/2.0/codespace#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xml:base="http://ucore.gov/ucore/2.0/codespace">
+	<owl:Ontology rdf:about=""/>
+
+	<rdf:Description rdf:ID="Thing">
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An unspecified object, entity, event, concept, or thought. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</rdf:Description>
+	
+	<!--Entitiy Taxonomy-->
+	<owl:Class rdf:ID="Entity">
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A thing with distinct and independent existence. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Cargo">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The goods or merchandise conveyed in a ship, airplane, or other vehicle. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="CollectionOfThings">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A number of things located, gathered, or classed together. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="CyberAgent">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A piece of software that acts for a user or other program entity operating in the non-physical terrain created by computer systems. [Derived from Webopedia, http://www.webopedia.com,  2009.]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Document">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A piece of written, printed, or electronic matter that provides information or evidence. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+
+	<owl:Class rdf:ID="Environment">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The surroundings or conditions in which a person, animal, or plant lives or operates. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Equipment">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The items needed for a particular purpose.  Implements used in an operation or activity including supplies and tools used for work. [Derived from:  Merriam-Webster's  (version online http://www.merriam-webster.com/dictionary), 10 March 2009.]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Facility">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A real property entity consisting of one or more of the following: a building, a structure, a utility system, pavement, and underlying land. [Derived from: JCS Joint Publication 1-02,  DOD Dictionary of Military and Associated Terms.]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="FinancialInstrument">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A document, real or virtual, having legal force and embodying or conveying monetary value. [Derived from: Deardorff's Glossary of International Economics (ISBN 978-981-256-628-7)]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="GeographicFeature">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Physical or cultural areas, regions or divisions that can be defined in terms of geographic coordinates. [Derived from Geographic Names Information Service.  USGS.  Accessed 10 March 2009. ]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="GroupOfOrganizations">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A number of organizations located, gathered, or classed together. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="GroupOfPersons">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A number of people located, gathered, or classed together. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="InformationSource">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"> A place, person, or thing from which information or evidence originates. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Infrastructure">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The basic physical and organizational structures (e.g. buildings, roads, power supplies) needed for the operation of a society or enterprise. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="LivingThing">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An animal, plant, fungi or microbe. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Animal">
+		<rdfs:subClassOf rdf:resource="#LivingThing"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A non-human organism which feeds on organic matter, has specialized sense organs and nervous system, and is able to move about and to respond rapidly to stimuli. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Person">
+		<rdfs:subClassOf rdf:resource="#Animal"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A human being regarded as an individual. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="MicroOrganism">
+		<rdfs:subClassOf rdf:resource="#LivingThing"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A microscopic organism, especially a bacterium, virus, or fungus. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Plant">
+		<rdfs:subClassOf rdf:resource="#LivingThing"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A living organism (such as a tree, grass, or fern) that absorbs water and inorganic substances through its roots and makes nutrients in its leaves by photosynthesis. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Organization">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An organized body of people with a particular purpose, e.g. a business or government department. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+
+	<owl:Class rdf:ID="PoliticalEntity">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An organized governing body with politcal responsibility in a given geographic region. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Sensor">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A device which detects or measures a physical property. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Vehicle">
+		<rdfs:subClassOf rdf:resource="#Entity"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A conveyance used for transporting people, goods, or objects [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+
+	<owl:Class rdf:ID="Aircraft">
+		<rdfs:subClassOf rdf:resource="#Vehicle"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A vehicle capable of flight. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+		
+	<owl:Class rdf:ID="GroundVehicle">
+		<rdfs:subClassOf rdf:resource="#Vehicle"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A vehicle used on land or the solid surface of the earth. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Spacecraft">
+		<rdfs:subClassOf rdf:resource="#Vehicle"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A vehicle used for travelling in space. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="Watercraft">
+		<rdfs:subClassOf rdf:resource="#Vehicle"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A vehicle used for transportation on or in water. [Derived from:  Merriam-Webster's  (version online http://www.merriam-webster.com/dictionary). 10 March 2009.]</rdfs:comment>
+	</owl:Class>
+	
+	
+	
+	<!--Event Taxonomy-->
+	<owl:Class rdf:ID="Event">
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A thing that happens or takes place. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="AlertEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event providing notification or warning. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="CriminalEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to or constituting a crime; an action which constitutes a serious offence against an individual or the state and is punishable by law. [Verbatim from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="CommunicationEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event by which information is exchanged between parties. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="CyberSpaceEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event that occurs on a computer or within a computer network. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="DisasterEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A sudden accident or a natural catastrophe that causes great damage or loss of life. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="EconomicEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to, or based on the production, distribution, and consumption of goods and services  [Derived  from Merriam-Webster's online (https://www.merriam-webster.com/dictionary)]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="EmergencyEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event regarding a serious, unexpected, and potentially dangerous situation requiring immediate action. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="EnvironmentalEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to the surroundings or conditions in which a person, animal, or plant lives or operates. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="EvacuationEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event regarding the removal  from a place of danger to a safer place. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="ExerciseEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A maneuver or simulated operation involving planning, preparation, and execution carried out for the purpose of training and evaluation. [Derived from JCS Joint Publication 1-02,  DOD Dictionary of Military and Associated Terms.]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="FinancialEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to financial instruments. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="HazardousEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event which poses a danger or risk.  [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="HumanitarianAssistanceEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event concerned with or seeking to promote human welfare.  Material or logistical assistance provided for humanitarian purposes, typically in response to crises. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="InfrastructureEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event involving the basic physical and organizational structures (e.g. buildings, roads, power supplies) needed for the operation of a society or enterprise. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="LawEnforcementEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to a rule or system of rules recognized by a county or community as regulating the actions of its members and enforced by the imposition of penalties. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="MigrationEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to the movement of persons or living things  from one country, place, or locality to another. [Derived from:  Merriam-Webster's  (version online http://www.merriam-webster.com/dictionary)   ]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="MilitaryEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to the activities of armed forces. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="NaturalEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event existing in or derived from nature; not made, caused by, or processed by humankind. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="ObservationEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An act of recognizing and noting a fact or occurrence often involving measurement with instruments. [Merriam-Webster Online Dictionary, 2009]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="PlannedEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event which has been decided upon and arranged in advance. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="PoliticalEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to the government or public affairs of a country. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="PublicHealthEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event dealing with the protection and improvement of community health including preventive medicine and sanitary and social science. [Derived from Merriam-Webster Dictionary Online: http://www.merriam-webster.com/dictionary/public%20health.   Accessed 10 March 2009. ]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="SecurityEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to protection from dangers or maintaining safety.  Also an event relating to a safety breach. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="SocialEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to society or its organization; relating to or designed for activities in which people meet each other for pleasure;  Examples include weddings,  sporting events, Mardi Gras etc. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="TerroristEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event relating to a person, organization, or other groups of people who use violence and intimidation in the pursuit of political aims. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="TransportationEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event involving something being taken or carried from one place to another by means of a vehicle. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+	<owl:Class rdf:ID="WeatherEvent">
+		<rdfs:subClassOf rdf:resource="#Event"/>
+		<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An event regarding the state of the atmosphere at a place and time as regards temperature, wind, rain, etc. [Derived from Concise Oxford English Dictionary, 11th Edition, 2008]</rdfs:comment>
+	</owl:Class>
+	
+
+</rdf:RDF>

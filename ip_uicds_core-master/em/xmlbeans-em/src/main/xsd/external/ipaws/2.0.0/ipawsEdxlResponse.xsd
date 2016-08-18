@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+            xmlns:edx="http://gov.fema.dmopen.services/DMOPEN_EDXLDEService/"
+            xmlns:resp="http://gov.fema.dmopen.services/edxlresponse"
+            targetNamespace="http://gov.fema.dmopen.services/DMOPEN_EDXLDEService/" elementFormDefault="qualified">
+    <xsd:element name="getResponseTypeDef" type="resp:responseParameterList"/>
+</xsd:schema> 

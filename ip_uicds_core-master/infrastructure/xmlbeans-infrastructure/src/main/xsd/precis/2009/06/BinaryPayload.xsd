@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bin="http://www.saic.com/precis/2009/06/payloads/binary" xmlns:precisb="http://www.saic.com/precis/2009/06/base" targetNamespace="http://www.saic.com/precis/2009/06/payloads/binary" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.saic.com/precis/2009/06/base" schemaLocation="BaseTypes.xsd"/>
+	<!--Payload Types-->
+	<xs:complexType name="BinaryContentType">
+		<xs:simpleContent>
+			<xs:extension base="xs:base64Binary">
+				<xs:attribute ref="precisb:label"/>
+				<xs:attribute ref="precisb:mimetype" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<!--Payload Elements-->
+	<xs:element name="BinaryContent" type="bin:BinaryContentType"/>
+</xs:schema>

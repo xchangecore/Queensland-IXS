@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/ICSForm205"
+    xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:c="http://niem.gov/niem/common/1.0" xmlns:u="http://niem.gov/niem/universal/1.0" xmlns:ic="http://uicds.org/ICSFormCommon"
+    targetNamespace="http://uicds.org/ICSForm205" elementFormDefault="qualified">
+    <import namespace="http://uicds.org/ICSFormCommon" schemaLocation="../../../services/IncidentForms/0.1/ICSFormCommon.xsd" />
+    <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd" />
+    <element name="ICSForm205">
+        <annotation>
+            <appinfo>National Incident Management System - ICS 205</appinfo>
+            <documentation>Incident Radio Communications Plan</documentation>
+        </annotation>
+        <complexType>
+            <complexContent>
+                <extension base="ic:ICSFormDocumentType">
+                    <sequence>
+                        <element name="IncidentName" type="string" />
+                        <element name="DateTimePrepared" type="dateTime" />
+                        <element name="OperationalPeriodDateTime" type="dateTime" />
+                        <element name="BasicRadioChannelUtilization" type="tns:BasicRadioChannelUtilizationType"
+                            maxOccurs="unbounded" />
+                        <element name="PreparedBy" type="string" />
+                    </sequence>
+                </extension>
+            </complexContent>
+        </complexType>
+    </element>
+    <complexType name="BasicRadioChannelUtilizationType">
+        <sequence>
+            <element name="SystemCache" type="string" />
+            <element name="Channel" type="string" />
+            <element name="Function" type="string" />
+            <element name="FrequencyTone" type="string" />
+            <element name="Assignment" type="string" />
+            <element name="Remarks" type="string" minOccurs="0" />
+        </sequence>
+    </complexType>
+</schema>

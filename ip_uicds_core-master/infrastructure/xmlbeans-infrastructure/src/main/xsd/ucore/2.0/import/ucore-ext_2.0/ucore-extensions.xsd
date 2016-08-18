@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
++++++++++++++++++++++++++++++++++++++++++++++++++++
+UNIVERSAL CORE v2.0 Extension Schema
++++++++++++++++++++++++++++++++++++++++++++++++++++
+For documentation, tutorials, etc, see https://ucore.gov
+
+Please direct any questions or suggested revisions to the UCore Helpdesk:
+ucore_help@spawar.navy.mil
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++
+UNIVERSAL CORE v2.0 Extension Schema
++++++++++++++++++++++++++++++++++++++++++++++++++++
+-->
+<xs:schema 
+xmlns:ulexlib="ulex:message:library:1.0" 
+xmlns:ucore-ext="http://ucore.gov/ucore/2.0/extensions/" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://ucore.gov/ucore/2.0/extensions/" 
+elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0">
+	<xs:import namespace="ulex:message:library:1.0" schemaLocation="../ULEX1.0PD/xsd/ulex/ulex-library/1.0/ulex-library.xsd"/>
+	<xs:complexType name="UCoreThingAugmentationType">
+		<xs:annotation>
+			<xs:documentation>This type is intended to be used as an extension mechanism in the structured payload for elements residing in the Digest that are derived from ucore:ThingType.  UCore conformance does not require that this type be used for structured payload extensions.  It is provided as a matter of convenience and may be used at the discretion of implementation activities on a case-by-case basis.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ulexlib:SameAsDigestReference"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UCoreRelationshipAugmentationType">
+		<xs:annotation>
+			<xs:documentation>This type is intended to be used as an extension mechanism in the structured payload for elements residing in the Digest that are derived from ucore:RelationshipType.  UCore conformance does not require that this type be used for structured payload extensions.  It is provided as a matter of convenience and may be used at the discretion of implementation activities on a case-by-case basis.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ulexlib:SameAsDigestReference"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

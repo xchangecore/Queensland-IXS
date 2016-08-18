@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/BroadcastService" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:de="urn:oasis:names:tc:emergency:EDXL:DE:1.0" targetNamespace="http://uicds.org/BroadcastService" elementFormDefault="qualified">
+	<import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../external/niem/external/de/1.0/de.xsd"/>
+	<import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../external/niem/structures/2.0/structures.xsd"/>
+	<complexType name="BroadcastMessageType">
+		<complexContent>
+			<extension base="s:ComplexObjectType">
+				<sequence>
+					<element ref="de:EDXLDistribution"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<element name="BroadcastMessageRequest" type="tns:BroadcastMessageType"/>
+
+    <element name="BroadcastMessageResponse" type="tns:BroadcastMessageResponseType">   
+    </element>
+
+
+    <complexType name="BroadcastMessageResponseType">
+        <sequence>
+            <element name="errorExists" type="boolean"></element>
+            <element name="errorString" type="string" maxOccurs="1" minOccurs="0"></element>
+            <element name="coreError" type="tns:BroadcastMessageErrorType" maxOccurs="unbounded"
+                minOccurs="0">
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="BroadcastMessageErrorType">
+        <sequence>
+            <element name="coreName" type="string"></element>
+            <element name="error" type="string"></element>
+        </sequence>
+    </complexType>
+</schema>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://uicds.org/InterestGroupService"
+	xmlns:ig="http://uicds.org/InterestGroupService"
+	elementFormDefault="qualified"
+	xmlns:preciss="http://www.saic.com/precis/2009/06/structures" xmlns:precisb="http://www.saic.com/precis/2009/06/base" xmlns:Q1="http://www.opengis.net/context" xmlns:Q2="http://metadata.dod.mil/mdr/ns/DDMS/2.0/" xmlns:Q3="http://www.opengis.net/gml/3.2">
+    
+    <import schemaLocation="../../../ucore/2.0/import/DDMS_2.0/ns/DDMS/2.0/DDMS-GeospatialCoverage.xsd" namespace="http://metadata.dod.mil/mdr/ns/DDMS/2.0/"></import>
+    <import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd" />
+	<import namespace="http://www.saic.com/precis/2009/06/base" schemaLocation="../../../precis/2009/06/BaseTypes.xsd" />
+    <element name="InterestGroup" type="preciss:InterestGroupType"></element>
+
+
+
+	<attribute name="NewAttribute" type="string"></attribute>
+
+
+
+
+	<complexType name="InterestGroupListType">
+		<sequence>
+			<element name="InterestGroupList"
+				type="ig:InterestGroupListInfoType" minOccurs="0"
+				maxOccurs="unbounded">
+			</element>
+		</sequence>
+	</complexType>
+
+	<element name="InterestGroupList" type="ig:InterestGroupListType"></element>
+
+	<complexType name="InterestGroupListInfoType">
+		<sequence>
+			<element name="Id" type="string"></element>
+			<element name="InterestGroup" type="preciss:InterestGroupType"></element>
+		</sequence>
+	</complexType>
+</schema>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+            xmlns:edx="http://gov.fema.dmopen.services/DMOPEN_CAPService/"
+            xmlns:resp="http://gov.fema.dmopen.services/capresponse"
+            xmlns:cap="urn:oasis:names:tc:emergency:cap:1.1"
+            targetNamespace="http://gov.fema.dmopen.services/DMOPEN_CAPService/" elementFormDefault="qualified">
+    <xsd:import namespace="urn:oasis:names:tc:emergency:cap:1.1" schemaLocation="../../niem/external/cap/1.1/cap.xsd" />
+    <xsd:element name="postCAPRequestTypeDef">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="cap:alert"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="postCAPResponseTypeDef">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="postCAPReturn" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema> 

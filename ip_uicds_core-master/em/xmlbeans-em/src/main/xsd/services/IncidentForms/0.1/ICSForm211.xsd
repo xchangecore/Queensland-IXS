@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:s="http://niem.gov/niem/structures/2.0"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:c="http://niem.gov/niem/common/1.0" xmlns:u="http://niem.gov/niem/universal/1.0"
+    xmlns:ic="http://uicds.org/ICSFormCommon" xmlns:ns1="http://uicds.org/ICSForm211"
+    targetNamespace="http://uicds.org/ICSForm211" elementFormDefault="qualified">
+    <import namespace="http://uicds.org/ICSFormCommon" schemaLocation="../../../services/IncidentForms/0.1/ICSFormCommon.xsd" />
+    <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd" />
+    <import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../external/niem/structures/2.0/structures.xsd" />
+    <element name="DocumentTypeInfo" type="ic:ICSFormDocumentType" />
+    <element name="Personnel" type="boolean" />
+    <element name="Engines" type="boolean" />
+    <element name="Helicopters" type="boolean" />
+    <element name="Handcrew" type="boolean" />
+    <element name="Dozers" type="boolean" />
+    <element name="Aircraft" type="boolean" />
+    <element name="Misc" type="boolean" />
+    <complexType name="IncidentHeaderType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="IncidentName" type="string" />
+                    <element name="Base" type="boolean" />
+                    <element name="Camp" type="boolean" />
+                    <element name="StagingArea" type="boolean" />
+                    <element name="ICPRestat" type="boolean" />
+                    <element name="Helibase" type="boolean" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="CheckInInformationType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="Agency" type="boolean" />
+                    <element name="Single" type="boolean" />
+                    <element name="Kind" type="boolean" />
+                    <element name="Type" type="boolean" />
+                    <element name="IDName" type="string" />
+                    <element name="OrderRequestNumber" type="string" />
+                    <element name="DateTimeCheckIn" type="dateTime" />
+                    <element name="LeaderName" type="string" />
+                    <element name="TotalNumberPersonnel" type="integer" />
+                    <element name="Manifest" type="boolean" />
+                    <element name="CrewWeight" type="string" />
+                    <element name="HomeBase" type="string" />
+                    <element name="DeparturePoint" type="string" />
+                    <element name="MethodOfTravel" type="string" />
+                    <element name="IncidentAssignment" type="string" />
+                    <element name="OtherQualifications" type="string" />
+                    <element name="SentToRestat" type="string" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <element name="PreparedBy" type="string" />
+</schema>

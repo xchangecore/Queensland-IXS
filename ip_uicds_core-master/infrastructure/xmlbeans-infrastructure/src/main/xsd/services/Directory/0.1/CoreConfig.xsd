@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:cc="http://uicds.org/CoreConfig" targetNamespace="http://uicds.org/CoreConfig" elementFormDefault="qualified">
+	<simpleType name="CoreStatusType">
+		<restriction base="string">
+			<enumeration value="Online"/>
+			<enumeration value="Offline"/>
+			<enumeration value="Other"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="CoreType">
+		<restriction base="string">
+			<enumeration value="City"/>
+			<enumeration value="County"/>
+			<enumeration value="State"/>
+			<enumeration value="FEMA Region"/>
+			<enumeration value="DHS"/>
+			<enumeration value="ZipCodeList"/>
+			<enumeration value="Other"/>
+		</restriction>
+	</simpleType>
+	<complexType name="CoreConfigType">
+		<sequence>
+			<element name="name" type="string"/>
+			<element name="URL" type="string">
+				<annotation>
+					<documentation>Endpoint for core.</documentation>
+				</annotation>
+			</element>
+			<element name="OnlineStatus" type="cc:CoreStatusType"/>
+			<element name="localCore" type="boolean"/>
+		</sequence>
+	</complexType>
+	<element name="CoreConfig" type="cc:CoreConfigType"/>
+	<element name="CoreList" type="cc:CoreConfigListType">
+		<annotation>
+			<documentation>Configuration object for a UICDS core.</documentation>
+		</annotation>
+	</element>
+	<complexType name="CoreLoginType">
+		<sequence>
+			<element name="name" type="string"/>
+			<element name="userRole" type="string"/>
+			<element name="userName" type="string"/>
+			<element name="userPassword" type="hexBinary"/>
+		</sequence>
+	</complexType>
+	<element name="Login" type="cc:CoreLoginType"/>
+	<complexType name="SessionType"/>
+	<complexType name="CoreConfigListType">
+		<sequence>
+			<element name="Core" type="cc:CoreConfigType" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<element name="Session" type="cc:SessionType"/>
+</schema>

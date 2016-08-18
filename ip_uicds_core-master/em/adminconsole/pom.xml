@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.saic.uicds.core.em</groupId>
+        <artifactId>com.saic.uicds.core.em</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <artifactId>com.saic.uicds.core.em.adminconsole</artifactId>
+    <packaging>jar</packaging>
+    <name>UICDS Admin Console</name>
+
+    <!--  convenience to define GWT version in one place -->
+    <properties>
+        <gwt.version>2.6.0</gwt.version>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+    </properties>
+    <repositories>
+        <repository>
+            <id>Xalan</id>
+            <name>Xalan-Java</name>
+            <url>http://xml.apache.org/xalan-j</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <!--  GWT deps (from central repo) -->
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-servlet</artifactId>
+            <version>${gwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwt.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+            <version>${gwt.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans-xmlpublic</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${infrastructure.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.infrastructure.xmlbeans-infrastructure</artifactId>
+            <version>${xmlbeans-infrastructure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.em.xmlbeans-edxl_rm</artifactId>
+            <version>${xmlbeans-edxl_rm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.em.xmlbeans-em</artifactId>
+            <version>${xmlbeans-em.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${infrastructure.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.infrastructure.services</artifactId>
+            <version>${infrastructure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.em.services</artifactId>
+            <version>${em.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+    </dependencies>
+    <version>${em.version}</version>
+    <build>
+        <outputDirectory>war/WEB-INF/classes</outputDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <version>2.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>generateAsync</goal>
+                            <!-- 
+                            <goal>test</goal>
+                             -->
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <runTarget>com.saic.uicds.core.em.adminconsole.AdminConsole/AdminConsole.html</runTarget>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+            </plugin>
+            <!--  Configure GWT Compilation through ant -->
+
+            <!--  Use the dependency plugin to unpack gwt-dev-PLATFORM-libs.zip -->
+            <!--
+                (this is a replacement for the old "automatic" mode - useful if you don't have GWT
+                installed already, or you just want a maven way to handle gwt deps)
+            -->
+            <!--
+                If you want to use the target/web.xml file mergewebxml produces, tell the war plugin
+                to use it. Also, exclude what you want from the final artifact here.
+            -->
+            <!--  tell the compiler we can use 1.5 -->
+        </plugins>
+    </build>
+
+    <!--  profiles (with activation per platform) -->
+    <profiles>
+    </profiles>
+</project>

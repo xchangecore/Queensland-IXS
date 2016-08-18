@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://uicds.org/InterestGroupService"
+	xmlns:igs="http://uicds.org/InterestGroupService"
+	elementFormDefault="qualified"
+	xmlns:wp="http://uicds.org/WorkProductService"
+	xmlns:preciss="http://www.saic.com/precis/2009/06/structures" xmlns:Q1="http://www.opengis.net/gml/3.2">
+	<xs:import
+		schemaLocation="../../../precis/2009/06/Structures.xsd"
+		namespace="http://www.saic.com/precis/2009/06/structures">
+	</xs:import>
+	<xs:include
+		schemaLocation="../../../services/InterestGroup/0.1/InterestGroup.xsd">
+	</xs:include>
+	<xs:import
+		schemaLocation="../../../services/WorkProduct/0.1/WorkProductData.xsd"
+		namespace="http://uicds.org/WorkProductService">
+	</xs:import>
+	<xs:element name="CreateInterestGroupRequest">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="InterestGroup"
+					type="preciss:InterestGroupType" />
+				<xs:element ref="preciss:WorkProductIdentificationList"></xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CreateInterestGroupResponse">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="InterestGroup"
+					type="preciss:InterestGroupType" />
+				<xs:element name="InterestGroupId" type="xs:string"></xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UpdateInterestGroupRequest">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="InterestGroup"
+					type="preciss:InterestGroupType" />
+				<xs:element name="InterestGroupId" type="xs:string"></xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="UpdateInterestGroupResponse">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="InterestGroup"
+					type="preciss:InterestGroupType" />
+				<xs:element name="InterestGroupId" type="xs:string"></xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CloseInterestGroupRequest">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="InterestGroupId" type="xs:string" />
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="CloseInterestGroupResponse">
+		<xs:complexType>
+			<xs:all>
+			  <xs:element ref="preciss:WorkProductProcessingStatus" />
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+
+    <xs:element name="ArchiveInterestGroupRequest">
+        <xs:complexType>
+			<xs:all>
+				<xs:element name="InterestGroupId" type="xs:string" />
+			</xs:all>
+		</xs:complexType>
+    </xs:element>
+    
+ 	<xs:element name="ArchiveInterestGroupResponse">
+		<xs:complexType>
+			<xs:all>
+			  <xs:element ref="preciss:WorkProductProcessingStatus" />
+			</xs:all>
+		</xs:complexType>
+	</xs:element>   
+    <xs:element name="ShareInterestGroupRequest">
+        <xs:complexType>
+            <xs:all>
+            	<xs:element name="InterestGroupID" type="xs:string" />
+            	<xs:element name="CoreName" type="xs:string" />
+            	<xs:element name="DetailedInfo" type="xs:string"></xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ShareInterestGroupResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="InterestGroupShareSucessful" type="xs:boolean"/>
+                <xs:element name="ErrorString" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+     <xs:element name="UnShareInterestGroupRequest">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="InterestGroupID" type="xs:string"/>
+                <xs:element name="CoreName" type="xs:string"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UnShareInterestGroupResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="InterestGroupUnShareSucessful" type="xs:boolean"/>
+                <xs:element name="ErrorString" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>   
+    <xs:element name="GetListOfWorkProductRequest">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="InterestGroupId" type="xs:string" />
+			</xs:all>
+		</xs:complexType>    
+    </xs:element>    
+    <xs:element name="GetListOfWorkProductResponse">
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="wp:WorkProductList" />
+			</xs:all>
+		</xs:complexType>    
+    </xs:element>        
+ 
+
+    <xs:element name="GetListOfInterestGroupRequest"></xs:element>
+    
+    
+
+    <xs:element name="GetListOfInterestGroupResponse">
+            <xs:complexType>
+            <xs:all>
+				<xs:element name="InterestGroupList"
+					type="igs:InterestGroupListType" />            	
+            </xs:all>
+            </xs:complexType>
+    </xs:element>
+
+   
+    <xs:element name="GetInterestGroupRequest" >
+        <xs:complexType>
+            <xs:all>
+                <xs:element ref="preciss:WorkProductIdentification" />
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    
+   
+    <xs:element name="GetInterestGroupResponse" >
+         <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="preciss:WorkProduct" />
+            </xs:sequence>
+        </xs:complexType>   
+    </xs:element>
+</xs:schema>

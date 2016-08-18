@@ -1,0 +1,1400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
++++++++++++++++++++++++++++++++++++++++++++++++++++
+UNIVERSAL CORE v2.0.0 SCHEMA
++++++++++++++++++++++++++++++++++++++++++++++++++++
+For documentation, tutorials, and other information, see https://ucore.gov
+
+Please direct any questions or suggested revisions to the UCore Helpdesk:
+ucore_help@spawar.navy.mil
++++++++++++++++++++++++++++++++++++++++++++++++++++
+UNIVERSAL CORE v2.0.0 SCHEMA
++++++++++++++++++++++++++++++++++++++++++++++++++++
+-->
+<xs:schema xmlns:ucore="http://ucore.gov/ucore/2.0" xmlns:ulex="ulex:message:structure:1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ICISM="urn:us:gov:ic:ism:v2" xmlns:ddms="http://metadata.dod.mil/mdr/ns/DDMS/2.0/" xmlns:ulexpd="ulex:message:pd:1.0" xmlns:ulex-codes="ulex:message:codes:1.0" xmlns:ulexlib="ulex:message:library:1.0" xmlns:gml="http://www.opengis.net/gml/3.2" targetNamespace="http://ucore.gov/ucore/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0">
+	<xs:import namespace="ulex:message:structure:1.0" schemaLocation="../../import/ULEX1.0PD/xsd/ulex/ulex/1.0/ulex.xsd"/>
+	<xs:import namespace="ulex:message:codes:1.0" schemaLocation="../../import/ULEX1.0PD/xsd/ulex/ulex-codes/1.0/ulex-codes.xsd"/>
+	<xs:import namespace="ulex:message:library:1.0" schemaLocation="../../import/ULEX1.0PD/xsd/ulex/ulex-library/1.0/ulex-library.xsd"/>
+	<xs:import namespace="urn:us:gov:ic:ism:v2" schemaLocation="../../import/ICISM_2.1/IC-ISM-v2.1.xsd"/>
+	<xs:import namespace="http://metadata.dod.mil/mdr/ns/DDMS/2.0/" schemaLocation="../../import/DDMS_2.0/ns/DDMS/2.0/DDMS-v2_0.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../import/UCore_GML_Profile_2.0/ucore_gml_profile.xsd"/>
+	<!---->
+	<!--:::METADATA TYPES-->
+	<xs:complexType name="ContentMetadataType">
+		<xs:annotation>
+			<xs:documentation>The basic set of metadata that is available to all elements.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Comment" type="ucore:StringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Amplifying comments go here.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InformationSource" type="ddms:publisherType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The source for the information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValidityTime" type="ucore:TimeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The time instant or interval for which the data is considered valid. If not set, the data is assumed to be valid indefinitely.   If it is set, then the data should be considered invalid or stale for times other than that specified by ValidityTime.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+	</xs:complexType>
+	<!---->
+	<!--:::BASIC TYPES-->
+	<xs:attribute name="code" type="xs:token">
+		<xs:annotation>
+			<xs:documentation>The machine readable description of a concept located within the codespace identified using the codespace attribute.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="codespace" type="xs:anyURI">
+		<xs:annotation>
+			<xs:documentation>A qualifier that specifies the namespace of the source vocabulary for this identifier (e.g., http://abc.com/ or urn:com:xyz).  Note that if the URI is provided as a URL, it does not imply that the attachment is available over the Internet at that address. However, the UCore team strongly recommends that the codespace value be a resolvable URL, if possible. Each class term in a codespace is identified by its URI.  The URI of the class is yielded as follows: if the codespace attribute ends in '#' or '/', then the URI of the class CLASS-URI = @codespace @code.  If the codespace attribute does not end in '#' or '/', then the URI of the class CLASS-URI = @codespace  # @code.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="decimalErrorBound" type="xs:decimal">
+		<xs:annotation>
+			<xs:documentation>This describes the uncertainty associated with a numeric value.  This is a single value that defines a symmetric interval of 2 times the value.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="integerErrorBound" type="xs:int">
+		<xs:annotation>
+			<xs:documentation>This descibes the uncertainty associated with a numeric value in integer units. This is a single value that defines a symmetric interval of 2 times the value.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="label">
+		<xs:annotation>
+			<xs:documentation>The human readable representation of the concept that corresponds to the codespace and code attributes, if they are provided.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:complexType name="BooleanType">
+		<xs:annotation>
+			<xs:documentation>A boolean value with limited associated metadata.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:boolean">
+				<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DecimalType">
+		<xs:annotation>
+			<xs:documentation>A decimal value that has limited associated metadata.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:double">
+				<xs:annotation>
+					<xs:documentation>A decimal value that has limited associated metadata</xs:documentation>
+				</xs:annotation>
+				<xs:attribute ref="ucore:decimalErrorBound">
+					<xs:annotation>
+						<xs:documentation>This describes the error bound associated with the value.  The error bound is a symmetric interval of 2 times the attribute value.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ExtendedStringType">
+		<xs:annotation>
+			<xs:documentation>An extension to the basic UCore StringType that allows for any number of alternate spellings to be added.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Value" type="ucore:StringType">
+				<xs:annotation>
+					<xs:documentation>The actual string value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AltSpelling" type="ucore:StringType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Possible alternate spellings for the same string.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IdentifierType">
+		<xs:annotation>
+			<xs:documentation>A means of identification for some Thing.  For example, an identifier for a vehicle might be a Vehicle Identification Number (VIN) with a value of  1M8GDM9AXKP042788.  For an employee, an organization may assign an Employee Identification Number with a value of 30621.   In the cyber world, screennames provide a mechanism for identification.  These would all be appropriate uses of the ucore:IdentifierType.  The ucore:IdentifierType provides a means to reuse terms and definitions from other codespaces via the codespace/code attribute pair and also provides a human-readable format via the label attribute.  The ucore:IdentifierType should only be used to represent simple identifiers that answer the quiestion "Which Entity or Event is this?"  For simple properties in general, the SimplePropertyType should be used instead to preserve the semantic richness of the ucore:IdentifierType.  Each class term in a codespace is identified by its URI.  The URI of the class is yielded as follows: if the codespace attribute ends in '#' or '/', then the URI of the class CLASS-URI = @codespace @code.  If the codespace attribute does not end in '#' or '/', then the URI of the class CLASS-URI = @codespace  # @code.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+				<xs:attribute ref="ucore:code"/>
+				<xs:attribute ref="ucore:codespace"/>
+				<xs:attribute ref="ucore:label" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="IntegerType">
+		<xs:annotation>
+			<xs:documentation>An integer value that has limited associated metadata.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:int">
+				<xs:annotation>
+					<xs:documentation>An integer value that has limited associated metadata</xs:documentation>
+				</xs:annotation>
+				<xs:attribute ref="ucore:integerErrorBound">
+					<xs:annotation>
+						<xs:documentation>This descibes the uncertainty associated with a numeric value in integer units. The error bound is a symmetric interval of 2 times the attribute value.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="RoleType">
+		<xs:annotation>
+			<xs:documentation>The role of a thing in a relationship, with code/codespace pair that allows a data producer to define roles from external codespaces. Each class term in a codespace is identified by its URI.  The URI of the class is yielded as follows: if the codespace attribute ends in '#' or '/', then the URI of the class CLASS-URI = @codespace @code.  If the codespace attribute does not end in '#' or '/', then the URI of the class CLASS-URI = @codespace  # @code.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+				<xs:attribute ref="ucore:code"/>
+				<xs:attribute ref="ucore:codespace"/>
+				<xs:attribute ref="ucore:label" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="SimplePropertyType">
+		<xs:annotation>
+			<xs:documentation>An essential or distinctive attribute or quality of a Thing. The ucore:SimplePropertyType provides a means to reuse terms and definitions from other codespaces via the codespace/code attribute pair and also provides a human-readable format via the label attribute.  The ucore:SimplePropertyType should only be used to represent properties that are self-contained to a Thing (e.g., color of a car, the number of rooms in a building,  the type of propulsion system on a vessel), NOT for properties that imply relationships to other things.   For properties that imply relationships to other things, a relationship with associated roles should be used instead. Each class term in a codespace is identified by its URI.  The URI of the class is yielded as follows: if the codespace attribute ends in '#' or '/', then the URI of the class CLASS-URI = @codespace @code.  If the codespace attribute does not end in '#' or '/', then the URI of the class CLASS-URI = @codespace  # @code.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+				<xs:attribute ref="ucore:code"/>
+				<xs:attribute ref="ucore:codespace"/>
+				<xs:attribute ref="ucore:label" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="StringType">
+		<xs:annotation>
+			<xs:documentation>A string of characters with limited associated metadata.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<!---->
+	<!--:::TIME TYPES-->
+	<xs:complexType name="TimeInstantType">
+		<xs:annotation>
+			<xs:documentation>A time instant that includes uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:TimeValueType">
+				<xs:sequence>
+					<xs:element name="UncertaintyInterval" type="xs:duration" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The uncertainty in the time instant.  This uncertainty interval is +/- the value in this duration element.  If this element contains P30M, the uncertainty on the time is +/- 30 minutes.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TimeIntervalType">
+		<xs:annotation>
+			<xs:documentation>Represents an interval between two specified instants in time.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StartTime" type="ucore:TimeInstantType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The start instant of the interval, with associated uncertainty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EndTime" type="ucore:TimeInstantType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The end instant of the interval, with associated uncertainty.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TimeType">
+		<xs:annotation>
+			<xs:documentation>The basic time representation type, allowing for either an interval or an instant in time to be represented, including uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ucore:TimeAbstract"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+	</xs:complexType>
+	<xs:complexType name="TimeValueType">
+		<xs:annotation>
+			<xs:documentation>A fixed point in time, with no uncertainty.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Value">
+				<xs:annotation>
+					<xs:documentation>A time.  This element is a union of xs:date, xs:time, xs:dateTime, xs:gDay, xs:gMonth, xs:gMonthDay, xs:gYear, and xs:gYearMonth. This element must match the format corresponding to one of those simple types.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:union memberTypes="xs:date xs:time xs:dateTime xs:gDay xs:gMonth xs:gMonthDay xs:gYear xs:gYearMonth"/>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--:::TIME ELEMENTS-->
+	<xs:element name="TimeAbstract" abstract="true">
+		<xs:annotation>
+			<xs:documentation>The abstract head of a substitution group for the representation of time.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TimeInterval" type="ucore:TimeIntervalType" substitutionGroup="ucore:TimeAbstract">
+		<xs:annotation>
+			<xs:documentation>An interval in time, defined by two instants in time.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TimeInstant" type="ucore:TimeInstantType" substitutionGroup="ucore:TimeAbstract">
+		<xs:annotation>
+			<xs:documentation>An instant in time that includes uncertainty.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!---->
+	<!--:::MEASUREMENT TYPES-->
+	<xs:simpleType name="AngleUOMType">
+		<xs:annotation>
+			<xs:documentation>Angle UOM</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="radian"/>
+			<xs:enumeration value="degree [unit of angle]"/>
+			<xs:enumeration value="minute [unit of angle]"/>
+			<xs:enumeration value="second [unit of angle]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LengthUOMType">
+		<xs:annotation>
+			<xs:documentation>Length/Distance UOM</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="metre"/>
+			<xs:enumeration value="kilometre"/>
+			<xs:enumeration value="nautical mile"/>
+			<xs:enumeration value="foot"/>
+			<xs:enumeration value="mile (statute mile)"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MassUOMType">
+		<xs:annotation>
+			<xs:documentation>Mass/Weight UOM</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="kilogram"/>
+			<xs:enumeration value="gram"/>
+			<xs:enumeration value="pound"/>
+			<xs:enumeration value="ounce"/>
+			<xs:enumeration value="ton (US)"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VelocityUOMType">
+		<xs:annotation>
+			<xs:documentation>Velocity UOM</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="metre per second"/>
+			<xs:enumeration value="kilometre per hour"/>
+			<xs:enumeration value="knot"/>
+			<xs:enumeration value="foot per second"/>
+			<xs:enumeration value="mile per hour"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AngleMeasureType">
+		<xs:annotation>
+			<xs:documentation>An angle measurement, with an associated error bound.  The units on the error bound are assumed to be the same as those on the measurement.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:DecimalType">
+				<xs:attribute name="angleUOM" type="ucore:AngleUOMType" use="required">
+					<xs:annotation>
+						<xs:documentation>A unit of measurement assigned to this angle.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LengthMeasureType">
+		<xs:annotation>
+			<xs:documentation>A length measurement, with an associated error bound.  The units on the error bound are assumed to be the same as those on the measurement.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:DecimalType">
+				<xs:attribute name="lengthUOM" type="ucore:LengthUOMType" use="required">
+					<xs:annotation>
+						<xs:documentation>A unit of measurement assigned to this length.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="MassMeasureType">
+		<xs:annotation>
+			<xs:documentation>A mass measurement, with an associated error bound.  The units on the error bound are assumed to be the same as those on the measurement.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:DecimalType">
+				<xs:attribute name="massUOM" type="ucore:MassUOMType" use="required">
+					<xs:annotation>
+						<xs:documentation>A unit of measurement assigned to this mass.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="VelocityMeasureType">
+		<xs:annotation>
+			<xs:documentation>A velocity measurement, with an associated error bound.  The units on the error bound are assumed to be the same as those on the measurement.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:DecimalType">
+				<xs:attribute name="velocityUOM" type="ucore:VelocityUOMType" use="required">
+					<xs:annotation>
+						<xs:documentation>A unit of measurement assigned to this velocity.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!---->
+	<!--:::CORE TYPES-->
+	<xs:complexType name="AgentType">
+		<xs:annotation>
+			<xs:documentation> Base type for any agent (WHO).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:EntityType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CircleByCenterPointType">
+		<xs:annotation>
+			<xs:documentation>A wrapper type for GML CircleByCenterPoint.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gml:CircleByCenterPoint"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CollectionType">
+		<xs:annotation>
+			<xs:documentation> A named collection of other Things, including one or more What terms.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:ThingType">
+				<xs:sequence>
+					<xs:element ref="ucore:What" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Codespace/value pair that defines what this Collection is. Each Collection must include at least one term from the UCore Taxonomy, with the associated UCore codespace of http://ucore.gov/2.0/codespace/.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ThingRef" type="ucore:ThingRefType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>References to the Things that make up this collection.  An empty collection is valid, and is treated as a named set with 0 elements.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ContactInfoType">
+		<xs:annotation>
+			<xs:documentation>Contact information for a person or organization.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Email" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Email address for this contact.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Phone" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Phone number for this contact.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CyberAddressType">
+		<xs:annotation>
+			<xs:documentation>Any address within the cyber domain, from DDMS.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ddms:virtualCoverage"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EntityType">
+		<xs:annotation>
+			<xs:documentation>Base type for an Entity.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:ThingType">
+				<xs:sequence>
+					<xs:element ref="ucore:What" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Codespace/value pair that defines what this Entity is. Each Entity must include at least one term from the UCore Taxonomy, with the associated UCore codespace, http://ucore.gov/2.0/codespace/.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EnvelopeType">
+		<xs:annotation>
+			<xs:documentation>A wrapper type for GML Envelope.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gml:Envelope"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EventType">
+		<xs:annotation>
+			<xs:documentation>Base type for an Event.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:ThingType">
+				<xs:sequence>
+					<xs:element ref="ucore:What" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Codespace/value pair that defines what this Event is. Each Event must include at least one term from the UCore Taxonomy, with the associated UCore codespace, http://ucore.gov/2.0/codespace/.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeoLocationType">
+		<xs:annotation>
+			<xs:documentation>A physical location with coordinates, or a simple geospatial region.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ucore:GeoLocationAbstract"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LineStringType">
+		<xs:annotation>
+			<xs:documentation>A wrapper type for GML LineString.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gml:LineString"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LocationType">
+		<xs:annotation>
+			<xs:documentation>The base UCore location type, aggregates all other location types.  Allows either 0-N CyberAddresses, or 0-N PhysicalAddresses AND GeoLocations.  If multiple locations are included in a single element, they must refer to the same logical location. (For example, the address and coordinates of the White House.)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:ThingType">
+				<xs:sequence>
+					<xs:element ref="ucore:CyberAddress" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Any address within the cyber domain, from DDMS. Must NOT be used in the same element as GeoLocation and PhysicalAddress.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="ucore:GeoLocation" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="ucore:PhysicalAddress" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrganizationType">
+		<xs:annotation>
+			<xs:documentation>Represents an organization.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:AgentType">
+				<xs:sequence>
+					<xs:element name="AlternateName" type="ucore:ExtendedStringType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Any alternate names or acronyms for this organization.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ContactInfo" type="ucore:ContactInfoType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A point of contact for this organization.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Name" type="ucore:ExtendedStringType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The name of the organization.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PersonNameType">
+		<xs:annotation>
+			<xs:documentation>The name of a person.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FullName" type="ucore:ExtendedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Full name as a single string.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FamilyName" type="ucore:ExtendedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Family name portion of the full name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GivenName" type="ucore:ExtendedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Given name portion of the full name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MiddleName" type="ucore:ExtendedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Middle name portion of the full name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="PersonSexType">
+		<xs:annotation>
+			<xs:documentation>The sex of a person, either male or female.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="female"/>
+			<xs:enumeration value="male"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="PersonType">
+		<xs:annotation>
+			<xs:documentation>The base UCore Person type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:AgentType">
+				<xs:sequence>
+					<xs:element name="AlternateName" type="ucore:PersonNameType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Alternate names for this person, including aliases.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Citizenship" type="ddms:CompoundCountryCodeIdentifierType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Country of citizenship for this person.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ContactInfo" type="ucore:ContactInfoType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Information on how to contact this person.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateOfBirth" type="ucore:TimeInstantType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Date of Birth for this person.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Height" type="ucore:LengthMeasureType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Height of this person.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Name" type="ucore:PersonNameType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The name of this person.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Sex" type="ucore:PersonSexType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Phyiscal sex of the person.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Weight" type="ucore:MassMeasureType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Weight of this person.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PhysicalAddressType">
+		<xs:annotation>
+			<xs:documentation>A physical address, representing all the components of a worldwide address, from DDMS.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ddms:postalAddress"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PointType">
+		<xs:annotation>
+			<xs:documentation>A wrapper type for GML Point.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gml:Point"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PolygonType">
+		<xs:annotation>
+			<xs:documentation>A wrapper type for GML Polygon.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="gml:Polygon"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ThingType">
+		<xs:annotation>
+			<xs:documentation>The UCore Thing type.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Metadata" type="ucore:ContentMetadataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Metadata about this entity, including information source, optional comment, and the validity time for this element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Descriptor" type="ucore:StringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A free text description of this Thing.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Identifier" type="ucore:IdentifierType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A means of identification for some Thing.  For example, an identifier for a vehicle might be a Vehicle Identification Number (VIN) with a value of  1M8GDM9AXKP042788.  For an employee, an organization may assign an Employee Identification Number with a value of 30621.   In the cyber world, screennames provide a mechanism for identification.  These would all be appropriate uses of the ucore:IdentifierType.  The ucore:IdentifierType provides a means to reuse terms and definitions from other codespaces via the codespace/code attribute pair and also provides a human-readable format via the label attribute.  The ucore:IdentifierType should only be used to represent simple identifiers that answer the quiestion "Which Entity or Event is this?"  For simple properties in general, the SimplePropertyType should be used instead to preserve the semantic richness of the ucore:IdentifierType. Each class term in a codespace is identified by its URI.  The URI of the class is yielded as follows: if the codespace attribute ends in '#' or '/', then the URI of the class CLASS-URI = @codespace @code.  If the codespace attribute does not end in '#' or '/', then the URI of the class CLASS-URI = @codespace  # @code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SimpleProperty" type="ucore:SimplePropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>An essential or distinctive attribute or quality of a Thing. The ucore:SimplePropertyType provides a means to reuse terms and definitions from other codespaces via the codespace/code attribute pair and also provides a human-readable format via the label attribute.  The ucore:SimplePropertyType should only be used to reepresent properties that are self-contained to a Thing (e.g., color of a car, the number of rooms in a building,  the type of propulsion system on a vessel), NOT for properties that imply relationships to other things.   For properties that imply relationships to other things, a relationship with associated roles should be used instead. Each class term in a codespace is identified by its URI.  The URI of the class is yielded as follows: if the codespace attribute ends in '#' or '/', then the URI of the class CLASS-URI = @codespace @code.  If the codespace attribute does not end in '#' or '/', then the URI of the class CLASS-URI = @codespace  # @code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="required">
+			<xs:annotation>
+				<xs:documentation>Unique identifier for this Thing, within the scope of this document.  This should not be used as an information-bearing element, and should only be used to uniquely identify this element within this UCore message.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="WhatType">
+		<xs:annotation>
+			<xs:documentation>The "what" descriptor for all UCore Things.  The ucore:WhatType provides a means to reuse terms and definitions from other codespaces via the codespace/code attribute pair.  Each class term in a codespace is identified by its URI.  The URI of the class is yielded as follows: if the codespace attribute ends in '#' or '/', then the URI of the class CLASS-URI = @codespace @code.  If the codespace attribute does not end in '#' or '/', then the URI of the class CLASS-URI = @codespace  # @code.</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+		<xs:attribute ref="ucore:code" use="required"/>
+		<xs:attribute ref="ucore:codespace" use="required"/>
+	</xs:complexType>
+	<!---->
+	<!--:::CORE ELEMENTS-->
+	<xs:element name="AgentAbstract" type="ucore:AgentType" abstract="true" substitutionGroup="ucore:Entity">
+		<xs:annotation>
+			<xs:documentation>Agent element.  Serves as the abstract head of a substitution group for agents.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CircleByCenterPoint" type="ucore:CircleByCenterPointType" substitutionGroup="ucore:GeoLocationAbstract">
+		<xs:annotation>
+			<xs:documentation>A wrapper type for GML CircleByCenterPoint.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Collection" type="ucore:CollectionType" substitutionGroup="ucore:ThingAbstract">
+		<xs:annotation>
+			<xs:documentation>Collection element.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CyberAddress" type="ucore:CyberAddressType">
+		<xs:annotation>
+			<xs:documentation>Any address within the cyber domain, from DDMS.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Entity" type="ucore:EntityType" substitutionGroup="ucore:ThingAbstract">
+		<xs:annotation>
+			<xs:documentation>Entity element.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Envelope" type="ucore:EnvelopeType" substitutionGroup="ucore:GeoLocationAbstract">
+		<xs:annotation>
+			<xs:documentation>A wrapper type for GML Envelope.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Event" type="ucore:EventType" substitutionGroup="ucore:ThingAbstract">
+		<xs:annotation>
+			<xs:documentation>Event element.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="GeoLocationAbstract" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Abstract head of the substitution group for geospatial elements.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="GeoLocation" type="ucore:GeoLocationType">
+		<xs:annotation>
+			<xs:documentation>A physical location with coordinates, or a simple geospatial region.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LineString" type="ucore:LineStringType" substitutionGroup="ucore:GeoLocationAbstract">
+		<xs:annotation>
+			<xs:documentation>A wrapper type for GML LineString.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Location" type="ucore:LocationType" substitutionGroup="ucore:ThingAbstract">
+		<xs:annotation>
+			<xs:documentation>Location element  Allows either 0-N CyberAddresses, or 0-N PhysicalAddresses AND GeoLocations.  If multiple locations are included in a single element, they must refer to the same logical location. (For example, the address and coordinates of the White House.)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Organization" type="ucore:OrganizationType" substitutionGroup="ucore:AgentAbstract">
+		<xs:annotation>
+			<xs:documentation>Organization element.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Person" type="ucore:PersonType" substitutionGroup="ucore:AgentAbstract">
+		<xs:annotation>
+			<xs:documentation>Person element.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PhysicalAddress" type="ucore:PhysicalAddressType">
+		<xs:annotation>
+			<xs:documentation>A physical address, representing all the components of a worldwide address, from DDMS.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Point" type="ucore:PointType" substitutionGroup="ucore:GeoLocationAbstract">
+		<xs:annotation>
+			<xs:documentation>A wrapper type for GML Point.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Polygon" type="ucore:PolygonType" substitutionGroup="ucore:GeoLocationAbstract">
+		<xs:annotation>
+			<xs:documentation>A wrapper type for GML Polygon.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ThingAbstract" type="ucore:ThingType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Abstract element that serves as the head of a substitution group for the Entity, Event, Collection, Location, Person, and Organization.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="What" type="ucore:WhatType">
+		<xs:annotation>
+			<xs:documentation> The UCore "What" element.  The ucore:What element provides a means to reuse terms and definitions from other codespaces via the codespace/code attribute pair.  Each class term in a codespace is identified by its URI.  The URI of the class is yielded as follows: if the codespace attribute ends in '#' or '/', then the URI of the class CLASS-URI = @codespace @code.  If the codespace attribute does not end in '#' or '/', then the URI of the class CLASS-URI = @codespace  # @code.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!---->
+	<!--::REFERENCE TYPES-->
+	<xs:complexType name="AgentRefType">
+		<xs:annotation>
+			<xs:documentation>A reference to an Agent element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RefWithRoleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CollectionRefType">
+		<xs:annotation>
+			<xs:documentation>A reference to a Collection element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RefWithRoleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EntityRefType">
+		<xs:annotation>
+			<xs:documentation>A reference to an Entity element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RefWithRoleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EventRefType">
+		<xs:annotation>
+			<xs:documentation>A reference to an Event element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RefWithRoleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LocationRefType">
+		<xs:annotation>
+			<xs:documentation>A reference to a Location element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RefWithRoleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrganizationRefType">
+		<xs:annotation>
+			<xs:documentation>A reference to an Organization element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RefWithRoleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PersonRefType">
+		<xs:annotation>
+			<xs:documentation>A reference to  a Person element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RefWithRoleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RefType">
+		<xs:annotation>
+			<xs:documentation>A generic reference type. </xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="ref" type="xs:IDREFS">
+			<xs:annotation>
+				<xs:documentation>A reference to an identifier</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RefWithRoleType">
+		<xs:annotation>
+			<xs:documentation>A reference that includes a free-text description of the role of the referenced object in the referencing context.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RefType">
+				<xs:sequence>
+					<xs:element name="Role" type="ucore:RoleType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ThingRefType">
+		<xs:annotation>
+			<xs:documentation>A reference to a Thing element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RefWithRoleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<!---->
+	<!--::RELATIONSHIP TYPES-->
+	<xs:complexType name="AgentEntityRelationshipType">
+		<xs:annotation>
+			<xs:documentation>The basic type for relationships between an agent and an entity.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RelationshipType">
+				<xs:sequence>
+					<xs:element name="AgentRef" type="ucore:AgentRefType">
+						<xs:annotation>
+							<xs:documentation>The agent to whom this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EntityRef" type="ucore:EntityRefType">
+						<xs:annotation>
+							<xs:documentation>The entity to which this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AgentEventRelationshipType">
+		<xs:annotation>
+			<xs:documentation>The basic type for relationships between an agent and an event.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RelationshipType">
+				<xs:sequence>
+					<xs:element name="AgentRef" type="ucore:AgentRefType">
+						<xs:annotation>
+							<xs:documentation>The agent to whom this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EventRef" type="ucore:EventRefType">
+						<xs:annotation>
+							<xs:documentation>The event to which this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CauseOfRelationshipType">
+		<xs:annotation>
+			<xs:documentation>The basic type for expressing that one event caused another</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RelationshipType">
+				<xs:sequence>
+					<xs:element name="Cause" type="ucore:ThingRefType">
+						<xs:annotation>
+							<xs:documentation>The causing event or entity.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Effect" type="ucore:EventRefType">
+						<xs:annotation>
+							<xs:documentation>The event effected by the causing event.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EntityLocationExtendedRelationshipType">
+		<xs:annotation>
+			<xs:documentation>This type extends the basic entity-location relationship with attributes for kinematics.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:EntityLocationRelationshipType">
+				<xs:sequence>
+					<xs:element name="CourseOverGround" type="ucore:AngleMeasureType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Course Over Ground (COG) relative to true north.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Heading" type="ucore:AngleMeasureType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Heading relative to true north.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SpeedOverGround" type="ucore:VelocityMeasureType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Speed Over Ground (SOG) relative to true north.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EntityLocationRelationshipType">
+		<xs:annotation>
+			<xs:documentation>The basic type for relationships between entities and locations.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RelationshipType">
+				<xs:sequence>
+					<xs:element name="EntityRef" type="ucore:EntityRefType">
+						<xs:annotation>
+							<xs:documentation>The entity to which this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LocationRef" type="ucore:LocationRefType">
+						<xs:annotation>
+							<xs:documentation>The location to which this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EventLocationRelationshipType">
+		<xs:annotation>
+			<xs:documentation>The basic type for relationships between events and locations.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RelationshipType">
+				<xs:sequence>
+					<xs:element name="EventRef" type="ucore:EventRefType">
+						<xs:annotation>
+							<xs:documentation>The event to which this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LocationRef" type="ucore:LocationRefType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The location to which this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PersonAgentRelationshipType">
+		<xs:annotation>
+			<xs:documentation>The basic type for relationships between a person and an agent (person or organization).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RelationshipType">
+				<xs:sequence>
+					<xs:element name="PersonRef" type="ucore:PersonRefType">
+						<xs:annotation>
+							<xs:documentation>The persons to whom this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AgentRef" type="ucore:AgentRefType">
+						<xs:annotation>
+							<xs:documentation>The agent to whom this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PersonLocationRelationshipType">
+		<xs:annotation>
+			<xs:documentation>The basic type for relationships between a person and a location.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RelationshipType">
+				<xs:sequence>
+					<xs:element name="PersonRef" type="ucore:PersonRefType">
+						<xs:annotation>
+							<xs:documentation>The persons to whom this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LocationRef" type="ucore:LocationRefType">
+						<xs:annotation>
+							<xs:documentation>The location to which this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PersonPersonRelationshipType">
+		<xs:annotation>
+			<xs:documentation>The basic type for relationships between persons.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RelationshipType">
+				<xs:sequence>
+					<xs:element name="PersonRef" type="ucore:PersonRefType" minOccurs="2" maxOccurs="2">
+						<xs:annotation>
+							<xs:documentation>The persons to whom this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RelationshipType" abstract="false">
+		<xs:annotation>
+			<xs:documentation>Base relationship type.  All other relationships extend from this type.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Metadata" type="ucore:ContentMetadataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Metadata on this relationship.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Time" type="ucore:TimeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>This is the time for which the relationship is in force.  If left blank, then the relationship is unbounded.  This can be used, for example, to define when two agents are affiliated, when an Entity is at a Location, or when an Event occurs.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="required">
+			<xs:annotation>
+				<xs:documentation>Unique identifier for this thing</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="SubordinateSuperiorRelationshipType">
+		<xs:annotation>
+			<xs:documentation>The basic type for expressing a subordinate/superior relationship between two agents.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RelationshipType">
+				<xs:sequence>
+					<xs:element name="Subordinate" type="ucore:AgentRefType">
+						<xs:annotation>
+							<xs:documentation>The subordinate person or organization in this relationship.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Superior" type="ucore:AgentRefType">
+						<xs:annotation>
+							<xs:documentation>The superior person or organization in this relationship.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ThingThingRelationshipType">
+		<xs:annotation>
+			<xs:documentation>The basic type for relationships between things.  This is the most general type of relationship.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:RelationshipType">
+				<xs:sequence>
+					<xs:element name="ThingRef" type="ucore:ThingRefType" minOccurs="2" maxOccurs="2">
+						<xs:annotation>
+							<xs:documentation>The things to which this relationship applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!---->
+	<!--:::RELATIONSHIP ELEMENTS-->
+	<xs:element name="AffiliatedWith" type="ucore:ThingThingRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford (derived): attached or connected with. closely associated with.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CauseOf" type="ucore:CauseOfRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford: be the cause of; make happen.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Controls" type="ucore:AgentEntityRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford: have control or command of.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DistinctFrom" type="ucore:ThingThingRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford: recognizably different or individual.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="EmployedBy" type="ucore:PersonAgentRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford: give work to (someone) and pay them for it.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="HasDestinationOf" type="ucore:EntityLocationRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford (derived): the location to which an entity is going or being sent.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="HasFamilialRelationTo" type="ucore:PersonPersonRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford (derived): a person who is related to another by birth or by marriage.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="HasOriginOf" type="ucore:EntityLocationRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford (derived): the location where an entity begins or arises.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="InvolvedIn" type="ucore:AgentEventRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford (derived): to experience or participate in an activity or situation.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LocatedAt" type="ucore:EntityLocationExtendedRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>The extended Entity-Location relationship that includes kinematics.  This indicates an entity is at a specific location. </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="OccursAt" type="ucore:EventLocationRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford (derived): happen; take place at. OR exist or be found to be present at a location.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="RelationshipAbstract" type="ucore:RelationshipType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>The abstract head of the substitution group for all relationships.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SameAs" type="ucore:ThingThingRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford: the same thing as previously mentioned. (the same) identical people or things. exactly alike; not different or changed.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SubordinateTo" type="ucore:SubordinateSuperiorRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford: lower in rank or position.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="WorksAt" type="ucore:PersonLocationRelationshipType" substitutionGroup="ucore:RelationshipAbstract">
+		<xs:annotation>
+			<xs:documentation>Oxford: the location at which a person performs a task or tasks to be undertaken.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!---->
+	<!--:::MESSAGE FRAMEWORK TYPES-->
+	<xs:complexType name="AttachmentResourceMetadataType">
+		<xs:annotation>
+			<xs:documentation>This is an extended type that allows an attachment to be marked with IC-ISM security markings, and as a DDMS Resource.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ddms:ResourceType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AttachmentSecurityMetadataType">
+		<xs:annotation>
+			<xs:documentation>This type allows for IC-ISM markings on ULEX attachments.</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+	</xs:complexType>
+	<xs:complexType name="DataItemStatusType">
+		<xs:annotation>
+			<xs:documentation>A type that defines the status of this message.</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+		<xs:attribute ref="ucore:code"/>
+		<xs:attribute ref="ucore:codespace"/>
+		<xs:attribute ref="ucore:label" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="DigestMetadataType">
+		<xs:annotation>
+			<xs:documentation>Defines the metadata for the UCore Digest</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+	</xs:complexType>
+	<xs:complexType name="DigestType">
+		<xs:annotation>
+			<xs:documentation>The DigestType definition.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ucore:DigestMetadata" minOccurs="0"/>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element ref="ucore:ThingAbstract" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ucore:RelationshipAbstract" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ucore:ThingAttachmentLinkAssociation" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ulexlib:SameAsPayloadAssociation" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MessageClassificationType">
+		<xs:annotation>
+			<xs:documentation>Defines the classification of this UCore message using the IC-ISM security markings.</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+	</xs:complexType>
+	<xs:complexType name="PackageResourceMetadataType">
+		<xs:annotation>
+			<xs:documentation>Defines the UCore extension to the ULEX Package metadata to allow the package to be treated as a DDMS resource</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ddms:ResourceType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PackageSecurityMetadataType">
+		<xs:annotation>
+			<xs:documentation>Defines the UCore extension to the ULEX Package metadata to allow for IC-ISM security markings.</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+	</xs:complexType>
+	<!---->
+	<!--:::MESSAGE FRAMEWORK ELEMENTS-->
+	<xs:element name="AttachmentResourceMetadataExtension" type="ucore:AttachmentResourceMetadataType" substitutionGroup="ulex:AttachmentExtensionAbstract">
+		<xs:annotation>
+			<xs:documentation>This element treats the attachment as a DDMS Resource, and is in the ulex:AttachmentExtensionAbstract subGrp.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="AttachmentSecurityMetadata" type="ucore:AttachmentSecurityMetadataType" substitutionGroup="ulex:AttachmentExtensionAbstract">
+		<xs:annotation>
+			<xs:documentation>The global AttachementSecurityMetadata element for integration with the ULEX framework.  This element is in the ulex:AttachmentExtensionAbstract subGrp.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DataItemStatus" type="ucore:DataItemStatusType" substitutionGroup="ulex:DataItemStatusAbstract">
+		<xs:annotation>
+			<xs:documentation>A type that defines the status of this message.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DataOwnerContact" type="ddms:pointOfContactType" substitutionGroup="ulex:DataOwnerContactAbstract">
+		<xs:annotation>
+			<xs:documentation>Placeholder for progam-specific DataOwnerContact elements, such as contact name or phone number.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DataOwnerIdentifier" type="ddms:pointOfContactType" substitutionGroup="ulex:DataOwnerIdentifierAbstract">
+		<xs:annotation>
+			<xs:documentation>Placeholder for progam-specific DataOwnerIdentifier elements that identify an organization and a system in an organization that owns data. This identifier is used in DataOwnerMetadata that is part of PackageMetadata, and in DataOwnerInformation that is part of DataOwnersResponseMessage.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DigestMetadata" type="ucore:DigestMetadataType">
+		<xs:annotation>
+			<xs:documentation>Defines the metadata for the UCore Digest</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Digest" type="ucore:DigestType" substitutionGroup="ulex:DigestAbstract">
+		<xs:annotation>
+			<xs:documentation>The global digest element for integration with the ULEX message framework.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="DisseminationCriteria" substitutionGroup="ulex:DisseminationCriteriaAbstract">
+		<xs:annotation>
+			<xs:documentation>Placeholder for program-specific information provided by the data owner to indicate who is allowed to see the information.  For federated search it provides information to the service provider about what can be returned as the result of a search. For search or get results, it provides information to the user so they know the criteria for this information.  Note that this is different from the data sensitivity included at the message level.  While required for ULEX, this is superseded by the IC-ISM markings at various levels of the message.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MessageClassification" type="ucore:MessageClassificationType" substitutionGroup="ulex:DataSensitivityAbstract">
+		<xs:annotation>
+			<xs:documentation>Defines the classification of this UCore message using the IC-ISM security markings.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Narrative" type="ucore:StringType" substitutionGroup="ulex:NarrativeAbstract">
+		<xs:annotation>
+			<xs:documentation>The global narrative element for integration with the ULEX message framework.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PackageResourceMetadataExtension" type="ucore:PackageResourceMetadataType" substitutionGroup="ulex:PackageMetadataExtensionAbstract">
+		<xs:annotation>
+			<xs:documentation>This element treats the Package as a DDMS Resource, and is in the ulex:PackageMetadataExtensionAbstract subGrp.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PackageSecurityMetadata" type="ucore:PackageSecurityMetadataType" substitutionGroup="ulex:PackageMetadataExtensionAbstract">
+		<xs:annotation>
+			<xs:documentation>The global PackageSecurityMetadata element for integration with the ULEX framework.  This element is in the ulex:PackageMetadataExtensionAbstract subGrp.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SystemContact" type="ddms:pointOfContactType" substitutionGroup="ulex:SystemContactAbstract">
+		<xs:annotation>
+			<xs:documentation>Contact information for the system owner. Includes a person and organization to contact and their phone number and email address.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SystemIdentifier" type="ucore:StringType" substitutionGroup="ulex:SystemIdentifierAbstract">
+		<xs:annotation>
+			<xs:documentation>Element that uniquely identifies an organization or system from which this data is being sent.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!---->
+	<!--::: ATTACHMENT TYPES-->
+	<xs:complexType name="AttachmentContentType">
+		<xs:annotation>
+			<xs:documentation>The generic attachment content type, which all UCore-specific attachment types should extend.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attributeGroup ref="ICISM:SecurityAttributesOptionGroup"/>
+	</xs:complexType>
+	<xs:complexType name="BinaryAttachmentType">
+		<xs:annotation>
+			<xs:documentation>A data type for a digital representation of an object encoded in a binary format.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ucore:AttachmentContentType">
+				<xs:sequence>
+					<xs:element name="BinaryContent" type="xs:base64Binary">
+						<xs:annotation>
+							<xs:documentation>The actual content, base 64 binary.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BinaryDescription" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A description of this binary object.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BinarySize" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Size of the binary object in kilobytes (kB).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Category" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The type of encoded object, e.g. XSLT, XML, PNG, JPG.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ThingAttachmentLinkAssociationType">
+		<xs:annotation>
+			<xs:documentation>This type provides a linking between any Thing in the Digest, and an AttachmentLink in the same DataItemPackage.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ulexlib:ObjectReference"/>
+			<xs:element ref="ucore:AttachmentLinkReference"/>
+			<xs:element name="Descriptor" type="ucore:StringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A free text description of the association between a thing and an attachmentLink</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!---->
+	<!--::: ATTACHMENT ELEMENTS-->
+	<xs:element name="AttachmentLinkReference" type="ulexlib:ValidatingReferenceType">
+		<xs:annotation>
+			<xs:documentation>A validating reference to an AttachmentLink in this DataItemPackage.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="BinaryAttachment" type="ucore:BinaryAttachmentType" substitutionGroup="ulex:AttachmentContentAbstract">
+		<xs:annotation>
+			<xs:documentation>A binary data attachment with the binary content in base64.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ThingAttachmentLinkAssociation" type="ucore:ThingAttachmentLinkAssociationType">
+		<xs:annotation>
+			<xs:documentation>Creates a link between a Thing in the Digest, and an AttachmentLink within this DataItemPackage.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!---->
+</xs:schema>

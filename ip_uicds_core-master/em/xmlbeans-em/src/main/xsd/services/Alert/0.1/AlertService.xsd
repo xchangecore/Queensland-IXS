@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:cap="urn:oasis:names:tc:emergency:cap:1.1"
+    xmlns:as="http://uicds.org/AlertService" xmlns:precisb="http://www.saic.com/precis/2009/06/base"
+    xmlns:preciss="http://www.saic.com/precis/2009/06/structures" xmlns:wp="http://uicds.org/WorkProductService"
+    targetNamespace="http://uicds.org/AlertService" elementFormDefault="qualified">
+    <import namespace="http://uicds.org/WorkProductService" schemaLocation="../../../services/WorkProduct/0.1/WorkProductService.xsd" />
+    <import namespace="urn:oasis:names:tc:emergency:cap:1.1" schemaLocation="../../../external/niem/external/cap/1.1/cap.xsd" />
+    <import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd" />
+    <import namespace="http://www.saic.com/precis/2009/06/base" schemaLocation="../../../precis/2009/06/BaseTypes.xsd" />
+    <element name="CreateAlertRequest">
+        <complexType>
+            <all>
+                <element name="incidentId" type="string" minOccurs="0" />
+                <element ref="cap:alert" />
+            </all>
+        </complexType>
+    </element>
+    <element name="CreateAlertResponse">
+        <complexType>
+            <sequence>
+                <element ref="wp:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="GetAlertRequest">
+        <complexType>
+            <all>
+                <element ref="preciss:WorkProductIdentification" />
+            </all>
+        </complexType>
+    </element>
+    <element name="GetAlertResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="GetAlertByAlertIdRequest">
+        <complexType>
+            <all>
+                <element name="AlertID" type="string" />
+            </all>
+        </complexType>
+    </element>
+    <element name="GetAlertByAlertIdResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="CancelAlertRequest">
+        <complexType>
+            <all>
+                <element ref="preciss:WorkProductIdentification" />
+            </all>
+        </complexType>
+    </element>
+    <element name="CancelAlertResponse">
+        <complexType>
+            <sequence>
+                <element ref="wp:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="GetListOfAlertsRequest">
+        <complexType>
+            <all>
+                <element name="QueryString" type="string" minOccurs="0" maxOccurs="1"/>
+                <element name="NamespaceMap" type="precisb:NamespaceMapType" minOccurs="0" maxOccurs="1"/>
+            </all>
+        </complexType>
+    </element>
+    <element name="GetListOfAlertsResponse">
+        <complexType>
+            <sequence>
+                <element ref="wp:WorkProductList" />
+            </sequence>
+        </complexType>
+    </element>
+    <!--
+        <complexType name="UICDSAlertAdapterType"> <complexContent> <extension
+        base="s:ComplexObjectType"> <sequence> <element ref="cap:alert" /> </sequence> </extension>
+        </complexContent> </complexType>
+    -->
+</schema>

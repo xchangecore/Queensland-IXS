@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by William Summers (SAIC) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:precisb="http://www.saic.com/precis/2009/06/base" xmlns:preciss="http://www.saic.com/precis/2009/06/structures" xmlns:ucore="http://ucore.gov/ucore/2.0" xmlns:ulex="ulex:message:structure:1.0" targetNamespace="http://www.saic.com/precis/2009/06/structures" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:Q1="http://www.w3.org/1999/xlink" xmlns:Q2="http://www.opengis.net/context" xmlns:Q3="http://metadata.dod.mil/mdr/ns/DDMS/2.0/">
+	<xs:import namespace="http://www.saic.com/precis/2009/06/base" schemaLocation="BaseTypes.xsd"/>
+	<xs:import namespace="ulex:message:structure:1.0" schemaLocation="../../../ucore/2.0/import/ULEX1.0PD/xsd/ulex/ulex/1.0/ulex.xsd"/>
+	<xs:import namespace="http://ucore.gov/ucore/2.0" schemaLocation="../../../ucore/2.0/ucore/2.0/ucore.xsd"/>
+    <xs:import namespace="http://metadata.dod.mil/mdr/ns/DDMS/2.0/" schemaLocation="../../../ucore/2.0/import/DDMS_2.0/ns/DDMS/2.0/DDMS-GeospatialCoverage.xsd"/>
+	<!--METADATA ELEMENTS-->
+	<xs:element name="WorkProductIdentification" type="precisb:IdentificationType" substitutionGroup="ulex:PackageMetadataExtensionAbstract"/>
+	<xs:element name="WorkProductIdentificationList" type="precisb:IdentificationListType"/>
+	<xs:element name="WorkProductProperties" type="precisb:PropertiesType" substitutionGroup="ulex:PackageMetadataExtensionAbstract"/>
+	<xs:element name="WorkProductProcessingStatus" type="precisb:ProcessingStatusType"/>
+
+	<!--WORK PRODUCT ELEMENT-->
+	<xs:element name="WorkProduct">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="ulex:DataItemPackageType"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+ 
+
+    <xs:complexType name="InterestGroupType">
+
+    	<xs:sequence>
+    		<xs:element name="InterestGroupType" type="xs:string"></xs:element>
+    		<xs:element name="InterestGroupSubType"
+    			type="precisb:CodespaceValueType" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</xs:element>
+    		<xs:element name="Name">
+
+    			<xs:simpleType>
+    				<xs:restriction base="xs:Name">
+    					<xs:minLength value="1"></xs:minLength>
+    					<xs:maxLength value="128"></xs:maxLength>
+    				</xs:restriction>
+    			</xs:simpleType>
+    		</xs:element>
+    		<xs:element name="Description" type="xs:string"></xs:element>
+    		<xs:element name="BoundingBox" type="Q3:BoundingBoxType"
+    			minOccurs="0">
+    		</xs:element>
+    		<xs:element name="SpecializedWorkProduct"
+    			type="precisb:IdentifierType" minOccurs="1">
+    		</xs:element>
+    		<xs:element name="SpecializedUICDSService"
+    			type="xs:string">
+    		</xs:element>
+    		<xs:element name="SharedCoreName" type="xs:string" minOccurs="0" maxOccurs="unbounded"></xs:element>
+    	</xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="InterestGroupSubtypeType">
+		<xs:sequence>
+			<xs:element name="CodeSpaceValue"
+				type="precisb:CodespaceValueType">
+			</xs:element>			
+		</xs:sequence>
+		<xs:attribute ref="precisb:codespace" use="required"></xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="WorkProductInterestGroup" type="preciss:InterestGroupType"></xs:element>
+</xs:schema>

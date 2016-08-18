@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document      : $Id: ulex-codes.xsd 76 2008-09-12 21:41:05Z ys34 $
+    Namespace     : xmlns:ulex="ulex:message:codes:1.0"
+    Description   : ULEX Codes
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ulexcodes="ulex:message:codes:1.0" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="ulex:message:codes:1.0" version="1.0.PD.beta3">
+    <xsd:simpleType name="DataItemPublishInstructionCodeSimpleType">
+        <xsd:annotation>
+            <xsd:documentation>A code list that enumerates DataItem Publish Instruction options</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="Insert">
+                <xsd:annotation>
+                    <xsd:documentation>Insert Data Item</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Delete">
+                <xsd:annotation>
+                    <xsd:documentation>Delete Data Item</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="RenderingMethodCodeSimpleType">
+        <xsd:annotation>
+            <xsd:documentation>A code list that enumerates possible rendering methods.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="XHTMLStyleSheet">
+                <xsd:annotation>
+                    <xsd:documentation>XSTL Transformation results in XHTML</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="HTMLStyleSheet">
+                <xsd:annotation>
+                    <xsd:documentation>XSTL Transformation results in HTML</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="PDFStyleSheet">
+                <xsd:annotation>
+                    <xsd:documentation>XSLT Transformation results in PDF ( XSL-FO ) </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="TextStyleSheet">
+                <xsd:annotation>
+                    <xsd:documentation>XSLT Transformation results in TXT</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="OtherStyleSheet">
+                <xsd:annotation>
+                    <xsd:documentation>Other Stylesheet Transformation</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="RenderedBinary">
+                <xsd:annotation>
+                    <xsd:documentation>Attachment was prerendered into a binary</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Narrative">
+                <xsd:annotation>
+                    <xsd:documentation>Attachment was prerendered into unstructured narrative text</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

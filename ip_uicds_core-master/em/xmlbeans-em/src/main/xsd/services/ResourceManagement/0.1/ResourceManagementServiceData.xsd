@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:rms="http://uicds.org/ResourceManagementService" xmlns:de="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
+    xmlns:rm="urn:oasis:names:tc:emergency:EDXL:RM:1.0" xmlns:ucore="http://ucore.gov/ucore/2.0"
+    targetNamespace="http://uicds.org/ResourceManagementService" elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+    <import namespace="urn:oasis:names:tc:emergency:EDXL:RM:1.0" schemaLocation="../../../external/edxl-rm/1.0/EDXL-RMCommonTypes.xsd" />
+    <import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../external/niem/external/de/1.0/de.xsd" />
+    <import namespace="http://ucore.gov/ucore/2.0" schemaLocation="../../../ucore/2.0/ucore/2.0/ucore.xsd" />
+    <complexType name="EdxlDeMessageResponseType">
+        <sequence>
+            <element name="errorExists" type="boolean" />
+            <element ref="ucore:Digest" minOccurs="0" />
+            <element name="errorString" type="string" minOccurs="0" />
+            <element name="coreError" type="rms:EdxlDeMessageErrorType" minOccurs="0"
+                maxOccurs="unbounded" />
+        </sequence>
+    </complexType>
+    <complexType name="EdxlDeMessageErrorType">
+        <sequence>
+            <element name="coreName" type="string" />
+            <element name="error" type="string" />
+        </sequence>
+    </complexType>
+</schema>

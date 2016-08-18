@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document      : $Id: ulex-library.xsd 71 2008-09-12 21:35:27Z ys34 $
+    Namespace     : xmlns:ulexlib="ulex:message:library:1.0"
+    Description   : a library for ULEX common elements.
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ulexlib="ulex:message:library:1.0" targetNamespace="ulex:message:library:1.0" version="1.0.PD.beta3">
+	<xsd:annotation>
+		<xsd:documentation>ULEX Library for Common Elements and Digest</xsd:documentation>
+	</xsd:annotation>
+	<!-- embedded form, double reference, used to point from payload entities to other payload entities (cross reference ). Uses ulexlib:nvref to point to the object and ulexlib:pnvref to point to structured payload  -->
+	<xsd:element name="SameAsPayloadReference" type="ulexlib:PayloadObjectReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>Reference that identifies objects as the same. Reference is used to point from payload entity object to other payload entity object ( cross reference ).</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- used to point to the object located under PackageStructuredPayload when schema is not available -->
+	<xsd:complexType name="PayloadObjectReferenceType" final="#all">
+		<xsd:annotation>
+			<xsd:documentation>A structure that allows reference to an object that is located within closed(xsd:any) container (for example under ulex:StructuredPayload) and is beyond the scope of XML Schema validation. ulexlib:ref element holds a valid ID value for the scope of the referenced document (located under xsd:any) rather than a local document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute ref="ulexlib:nvref" use="required"/>
+		<xsd:attribute ref="ulexlib:pnvref" use="required"/>
+	</xsd:complexType>
+	<!-- standalone form, used to connect entity from digest to payload ( downpoint reference ) -->
+	<xsd:element name="SameAsPayloadAssociation" type="ulexlib:SameAsPayloadAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>Association that identifies objects as the same. Association is used to connect object in digest to object located within payload ( downpoint reference ).</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SameAsPayloadAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that defines association that identifies objects as the same. Association is used to connect object in digest to object located within payload ( downpoint reference ).</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulexlib:ObjectReference"/>
+			<xsd:element ref="ulexlib:PayloadObjectReference"/>
+			<xsd:element ref="ulexlib:PayloadReference"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PayloadObjectReference" type="ulexlib:NonValidatingReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>Reference to an object located within Payload. This reference is not validated by default with XML Schema validation during ULEX validation pass.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- embedded form, single reference, used to point from payload entities to digest entities (uppoint reference )  -->
+	<xsd:element name="SameAsDigestReference" type="ulexlib:NonValidatingReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>Reference that identifies objects as the same. Reference is used to point from payload entity object to digest entity object ( uppoint reference ).</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ObjectReference" type="ulexlib:ValidatingReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>Reference to an object in the Digest.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PayloadReference" type="ulexlib:ValidatingReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>Reference to a Structured Payload</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttachmentLinkReference" type="ulexlib:NonValidatingReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>Reference to an AttachmentLink.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="ValidatingReferenceType" final="#all">
+		<xsd:annotation>
+			<xsd:documentation>A structure that allows reference to an object that is located within container and is supported by XML Schema validation. ulexlib:ref element holds a valid ID value for the scope of the referenced document (located under xsd:any) rather than a local document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute ref="ulexlib:vref" use="required"/>
+	</xsd:complexType>
+	<!-- used to point to the object located under PackageStructuredPayload when schema is not available -->
+	<xsd:complexType name="NonValidatingReferenceType" final="#all">
+		<xsd:annotation>
+			<xsd:documentation>A structure that allows reference to an object that is located within closed(xsd:any) container (for example under ulex:StructuredPayload) and is beyond the scope of XML Schema validation. ulexlib:ref element holds a valid ID value for the scope of the referenced document (located under xsd:any) rather than a local document.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute ref="ulexlib:nvref" use="required"/>
+	</xsd:complexType>
+	<!-- reference to the object that is located within the scope of validation -->
+	<xsd:attribute name="vref" type="xsd:IDREF">
+		<xsd:annotation>
+			<xsd:documentation>The ref attribute is used by reference elements to refer to an object via an ID reference, rather than including the object itself as element content.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+	<!-- reference to the object that is located beyond the scope of validation -->
+	<xsd:attribute name="nvref" type="xsd:NCName">
+		<xsd:annotation>
+			<xsd:documentation>Reference to an object. Used to point to an object that is located beyond the scope of XML Schema validation mechanisms.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+	<!--  Reference to the external Structured Payload object which is beyond the scope of validation from inside of Structured Payload -->
+	<xsd:attribute name="pnvref" type="xsd:NCName">
+		<xsd:annotation>
+			<xsd:documentation>Reference to the external Structured Payload object which is beyond the scope of XML Schema validation mechanisms from inside of Structured Payload.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+	<!-- XML ID  -->
+	<xsd:attribute name="id" type="xsd:ID">
+		<xsd:annotation>
+			<xsd:documentation>The id attribute is used to define XML IDs for ULEX objects. These IDs may be targets of reference elements.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+</xsd:schema>

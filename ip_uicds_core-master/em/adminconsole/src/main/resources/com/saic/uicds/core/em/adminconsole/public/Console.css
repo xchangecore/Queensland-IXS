@@ -1,0 +1,144 @@
+/** Add css rules here for your application. */
+.gwt-TextArea-readonly {
+	color: black;
+}
+
+.gwt-TabPanelBottom {
+	border-style: solid;
+	border-color: #92c1f0;
+	border-width: 1px 0px 0px;
+	overflow: hidden;
+	padding: 6px;
+}
+.gwt-TabBar .gwt-TabBarItem-wrapper-selected { 
+	border-style: solid;
+	border-color: #ff00ff;
+}
+.gwt-DecoratorPanel {
+	table-layout: fixed;
+}
+
+.gwt-DecoratorPanel .topLeftInner,.gwt-DecoratorPanel .topRightInner,.gwt-DecoratorPanel .bottomLeftInner,.gwt-DecoratorPanel .bottomRightInner
+	{
+	width: 2px;
+	height: 2px;
+	zoom: 1;
+}
+
+.gwt-DecoratorPanel .middleCenter {
+	height: 100%;
+	width: 100%;
+}
+
+.gwt-TabBar { 
+	color:white;background: #FFF0F0;
+	border-color: #FF0000; }
+.gwt-TabBar .gwt-TabBarItem { 
+	color:white;background: #FF0000;
+	border-color: #FF0000; }
+.gwt-TabBar .gwt-TabBarItem-wrapper { color:red;background: #FF0000;
+	border-color: #FF0000; }
+.gwt-TabBar .gwt-TabBarItem-selected { color:green;background: #FF0000;
+	border-color: #FF0000; }
+.gwt-TabBar .gwt-TabBarItem-wrapper-selected { color:black;background: #FF0000;
+	border-color: #FF0000; }
+.anchorUnderline{
+	color: -webkit-link;
+	text-decoration: underline;
+	cursor: auto;
+}
+
+.applyRedColor {
+	background: #FF0000;
+	border-color: #FF0000;
+}
+
+.applyGreenColor {
+	background: #00FF00;
+	border-color: #00FF00;
+}
+
+.applyOrangeColor {
+	background: #FFA500;
+	border-color: #FFA500;
+}
+
+.applyGreyColor {
+	background: #808080;
+	border-color: #808080;
+}
+
+.gwt-DecoratedStackPanel .gwt-StackPanelItem {
+	font-size: 7px !important;
+}
+
+.selectedLabel {
+	color: #D0E4F6;
+	font-weight:bold;
+}
+
+.eastDockBorder {
+	border-style:solid;
+	border-color: #92C1F0;
+	border-width:2px;
+	margin:0px 25px; 
+	background: #FFFFFF;
+}
+
+.northDock {
+	margin:0px -20px;
+}
+.centerDockBorder {
+	border-style:solid;
+	border-color: #92C1F0;
+	border-width:2px;
+	background: #FFFFFF;
+}
+
+.basicBorder {
+	border-style:solid;
+	border-color: #92C1F0;
+	border-width:1px;
+}
+
+.selectedBorder {
+	border-style:solid;
+	border-color: #92C1F0;
+	border-width:2px;
+}
+
+.textAreaBorder {
+	border-style:solid;
+	border-color: #92C1F0;
+	border-width:1px;
+	margin:1px 1px;
+}
+
+.listBorder {
+	border-style:solid;
+	border-color: #92C1F0;
+	border-width:1px;
+}
+
+.closeButton {
+	background: #E8EDF9;
+}
+
+.background {
+	background: #EFEFEF;
+}
+
+.background1 {
+	background: #FFFFFF;
+}
+
+.childNode {
+	font-style:italic;
+	color: #808080;
+}
+
+.highlightBorder {
+	border-style:solid;
+	border-width:2px;
+	border-color:#92C1F0;
+}

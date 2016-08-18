@@ -1,0 +1,309 @@
+<!--
+    
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!-- $Rev: 356052 $ $Date: 2005-12-11 14:41:20 -0800 (dim., 11 dv©c. 2005) $ -->
+<html>
+<head>
+<title>ServiceMix WSDL-First Example</title>
+
+<style type="text/css">
+.element {
+    display:block;
+    color: #555555;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.attribute {
+    display:inline;
+    color: #CF874D;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.attribute-value {
+    display:inline;
+    color: #74BF3B;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.text-content {    
+    color: #777777;
+    font-weight: normal;
+}
+</style>
+
+<script type="text/javascript">
+var urlToOpen = "ws/echo"; //default URL to open
+
+function getHTTPObject() {
+  var xmlhttp = false;
+
+  /* Compilation conditionnelle d'IE */
+  /*@cc_on
+  @if (@_jscript_version >= 5)
+     try {
+        xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+     } catch (e) {
+        try {
+           xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (E) {
+           xmlhttp = false;
+        }
+     }
+  @else
+     xmlhttp = false;
+  @end @*/
+
+  /* on essaie de créer l'objet si ce n'est pas déjà fait */
+  if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+     try {
+        xmlhttp = new XMLHttpRequest();
+     } catch (e) {
+        xmlhttp = false;
+     }
+  }
+
+  if (xmlhttp) {
+     /* on définit ce qui doit se passer quand la page répondra */
+     xmlhttp.onreadystatechange=function() {
+        if (xmlhttp.readyState == 4) { /* 4 : état "complete" */
+           var response = document.getElementById("response");
+           var responseStatus = "";
+           try {
+             responseStatus = xmlhttp.status + "";
+           } catch (e) {
+             responseStatus = "ERROR WHILE RETRIEVING STATUS; MAYBE UNABLE TO CONNECT.";
+           }
+           document.getElementById("responseStatus").value = responseStatus;
+           document.getElementById("response").innerHTML = new PrettyPrinter().write(xmlhttp.responseXML.documentElement);
+           document.getElementById("responseText").value = xmlhttp.responseText;
+           //response.value = "STATUS: " + responseStatus + "\n" + xmlhttp.responseText;
+        }
+     }
+  }
+  return xmlhttp;
+}
+
+function send() {
+  if ((document.getElementById("urlToOpen").value != urlToOpen) && (document.getElementById("urlToOpen").value != "")) {
+    //use user entry only if it at least can be okay
+    urlToOpen = document.getElementById("urlToOpen").value;
+  }  
+  var xmlhttp = getHTTPObject();
+  if (!xmlhttp) {
+    alert('cound not create XMLHttpRequest object');
+    return;
+  }
+  //document.getElementById("request");
+  document.getElementById("response").innerHTML = "Sending Request...";
+  document.getElementById("responseText").value = "Sending Request...";
+/*
+  try {
+    netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+  } catch (e) {
+  }
+*/
+  try {
+    xmlhttp.open("POST", urlToOpen, true);
+  } catch (e) {
+    alert('error opening');
+  }
+  xmlhttp.setRequestHeader("Content-Type", "text/xml");
+  xmlhttp.send(request.value);
+  // application/soap+xml
+}
+
+PrettyPrinter = function() {}
+
+PrettyPrinter.prototype.write = function(node) {
+    var str;
+    if(typeof(node) == "string") {
+        str = node;
+    } else if(this.isXmlNode(node)) {
+        return this.writeNode(node, 0);
+    } else return "";
+    str = str.replace(/</g, "<span class='element'&lt;");
+    str = str.replace(/>/g, "&gt;/span>");
+    str = str.replace(/element\'/g, "element\'>");
+    str = str.replace(/\/span/g, "</span");
+    return str;
+};
+
+PrettyPrinter.prototype.writeNode = function(node, level) {
+    
+    if(node.nodeType != 1) return "";
+    
+    var out = "";
+    var padding = 0;
+    for(var i=0; i<level; ++i) {
+        padding += 10;
+    }
+    
+    var name = this.getName(node);
+    var id = "span_" + name + "." + Math.random();
+    out += "<span onclick='javascript:showHideChildren(this);' class='element' id='" + id + "' style='margin-left:" + padding + "px;'>&lt;" + name;
+    
+    for (i=0; i<node.attributes.length; ++i) {
+        var attr = node.attributes[i];
+        if (attr.specified) {
+            out += " <span class='attribute'>" + attr.nodeName + "</span>=<span class='attribute-value'>\"" + attr.nodeValue + "\"</span>"                          
+        }
+    }       
+    
+    out += "&gt;</span>"
+        
+    if(this.getFirstChildOfType(node, 1) != null) {
+        for(var i=0; i<node.childNodes.length; ++i) {
+            out += this.writeNode(node.childNodes[i], level+1);
+        }
+    } else {
+        out += "<span class='text-content' style='margin-left:" + (padding+10) + "px;'>" + scrapeText(node) + "</span>";
+    }   
+    
+    out += "<span class='element' id='" + id + "_end' style='margin-left:" + padding + "px;'>&lt;/" + name + "&gt;</span>"; 
+    return out;
+};
+
+PrettyPrinter.prototype.getName = function(node, ignorePrefixes) {
+    var result = null;
+    if(this.isXmlNode(node))  {
+        result = node.localName || node.tagName;
+    } else if(typeof(node.style) != "undefined") {
+        result = node.localName || node.nodeName;
+    }
+    if(result && ignorePrefixes === true) {
+        var idx = result.lastIndexOf(":");
+        if(idx > 0) {
+            result = result.substring(idx+1, result.length);
+        }
+    }
+    return result;
+};
+
+PrettyPrinter.prototype.getFirstChildOfType = function(parent, type) {
+    var node;
+    if(this.isXmlNode(parent)) {
+        var children = parent.childNodes;
+        for(var i=0; i<children.length; ++i) {
+            if(children[i].nodeType == type) {
+                node = children[i];
+                break;
+            }
+        }
+    }
+    return node;
+};
+
+PrettyPrinter.prototype.isXmlNode = function(node) {
+	var result = false;
+    if(node && typeof(node.nodeType) != 'undefined' && 
+            node.nodeType > 0 && node.nodeType < 10)  {
+        result = true;
+    }
+    return result;
+};
+
+scrapeText = function(node,_419) {
+	var rval=[];
+	   (
+			   function(node){
+				   var cn=node.childNodes;
+				   if(cn){
+					   for(var i=0;i<cn.length;i++){
+						   arguments.callee.call(this,cn[i]);
+					   }
+				   }
+				   var _421=node.nodeValue;
+				   if(typeof (_421)=="string"){
+					   rval.push(_421);
+				   }
+			   }
+		)(node);
+	return rval.join("");
+};
+
+function showHideChildren(elem) {
+    var sibling = elem.nextSibling;
+    while(sibling && sibling.id != (elem.id + "_end")) {
+        if(sibling.nodeType == 1) {
+	        if(sibling.style.display != "none") {
+	            sibling.style.display = "none";
+	        } else {
+	            sibling.style.display = ""
+	    	}
+        }
+    	sibling = sibling.nextSibling;
+    }
+}
+
+function showHideResponse() {
+	var resp = document.getElementById('response');
+	var respText = document.getElementById('responseText');
+	if(resp.style.display != "none") {
+	    resp.style.display = "none";
+	    respText.style.display = "";
+	} else {
+		respText.style.display = "none";
+        resp.style.display = "";
+	}
+}
+
+</script>
+</head>
+
+<body onLoad="document.getElementById('request').focus();">
+
+<h1>UICDS Services Test Client</h1>
+
+<p>Perform a POST into the HTTP binding. This requires JavaScript.</p> 
+<p></p>
+  
+<table width="100%">
+  <tr>
+    <td width="50%">Target: <input type="text" size="50" id="urlToOpen" value=""><script type="text/javascript">document.getElementById("urlToOpen").value = urlToOpen;</script></td>
+    <td width="50%">Status: <input type="text" size="50" id="responseStatus" value=""></td>
+  </tr>
+  <tr>
+    <td><b>Request</b><br/>
+  <textarea id="request" style="width:100%;height:500px" ><env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+              xmlns:tns="http://servicemix.apache.org/samples/wsdl-first/types">
+  <env:Body>
+	<ec:EchoRequest xmlns:ec="http://www.example.com/echo/schemas">
+        	<ec:Echo>
+           		<ec:Name>Roger</ec:Name>
+        	</ec:Echo>
+	</ec:EchoRequest>
+  </env:Body>
+</env:Envelope></textarea>
+    </td>
+    <td>
+    <b>Response</b> <span onclick="javascript:showHideResponse();" style="cursor:pointer;">[show/hide actual]</span><br/>
+  <div id="response" style="width:100%;height:500px;overflow:auto;border:1px solid #7F9DB9;"></div>
+  <textarea id="responseText" style="width:100%;height:500px;display:none;"></textarea>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2>
+  <input type="button" value="Send" onClick="send();"/>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

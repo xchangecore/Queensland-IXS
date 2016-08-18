@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
++++++++++++++++++++++++++++++++++++++++++++++++++++
+UNIVERSAL CORE v2.0.0 SCHEMA
++++++++++++++++++++++++++++++++++++++++++++++++++++
+For documentation, tutorials, and other information, see https://ucore.gov
+
+Please direct any questions or suggested revisions to the UCore Helpdesk:
+ucore_help@spawar.navy.mil
++++++++++++++++++++++++++++++++++++++++++++++++++++
+UNIVERSAL CORE v2.0.0 SCHEMA
++++++++++++++++++++++++++++++++++++++++++++++++++++
+-->
+<xs:schema xmlns:ulexpd="ulex:message:pd:1.0" xmlns:ulex="ulex:message:structure:1.0" xmlns:ulexcodes="ulex:message:codes:1.0" xmlns:ulexlib="ulex:message:library:1.0" xmlns:ucore="http://ucore.gov/ucore/2.0" xmlns:icism="urn:us:gov:ic:ism:v2" xmlns:ddms="http://metadata.dod.mil/mdr/ns/DDMS/2.0/" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="ulex:message:pd:1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0">
+	<xs:include schemaLocation="import/ULEX1.0PD/xsd/ulex/ulex-publish-discover/1.0/ulex-publish-discover.xsd"/>
+	<xs:import namespace="http://ucore.gov/ucore/2.0" schemaLocation="ucore/2.0/ucore.xsd"/>
+	<xs:element name="doPublish" type="ulexpd:DoPublishType">
+		<xs:annotation>
+			<xs:documentation>This is the root element for a UCore message.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

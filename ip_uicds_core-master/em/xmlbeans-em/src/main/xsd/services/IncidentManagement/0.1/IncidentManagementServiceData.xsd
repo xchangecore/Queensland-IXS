@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ims="http://uicds.org/IncidentManagementService" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:preciss="http://www.saic.com/precis/2009/06/structures" targetNamespace="http://uicds.org/IncidentManagementService" elementFormDefault="qualified">
+	<import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../external/niem/structures/2.0/structures.xsd"/>
+	<import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd"/>
+	<complexType name="IncidentStateType">
+		<complexContent>
+			<extension base="s:MetadataType">
+				<sequence>
+					<element name="state">
+						<simpleType>
+							<restriction base="string">
+								<enumeration value="new"/>
+								<enumeration value="share"/>
+								<enumeration value="join"/>
+								<enumeration value="resign"/>
+								<enumeration value="update"/>
+							</restriction>
+						</simpleType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<element name="IncidentState" type="ims:IncidentStateType"/>
+	<complexType name="IncidentListType">
+		<sequence>
+			<element name="IncidentInfo" type="ims:IncidentInfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="IncidentInfoType">
+		<sequence>
+			<element name="Id" type="string"/>
+			<element ref="preciss:WorkProductIdentification"/>
+			<element name="Name" type="string"/>
+			<element name="Description" type="string"/>
+			<element name="Date" type="string"/>
+			<element name="Latitude" type="double"/>
+			<element name="Longitude" type="double"/>
+			<element name="OwningCore" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="IncidentList" type="ims:IncidentListType"/>
+	<element name="IncidentInfo" type="ims:IncidentInfoType"/>
+</schema>

@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document      : $Id: ulex.xsd 70 2008-09-12 21:33:28Z ys34 $
+    Namespace     : xmlns:ulex="ulex:message:structure:1.0"
+    Description   : ULEX Messages Structure Format Schema
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ulex="ulex:message:structure:1.0" xmlns:ulexcodes="ulex:message:codes:1.0" xmlns:ulexlib="ulex:message:library:1.0" targetNamespace="ulex:message:structure:1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.PD.beta3">
+	<xsd:import namespace="ulex:message:codes:1.0" schemaLocation="../../ulex-codes/1.0/ulex-codes.xsd"/>
+	<xsd:import namespace="ulex:message:library:1.0" schemaLocation="../../ulex-library/1.0/ulex-library.xsd"/>
+	<!-- STRUCTURES -->
+	<xsd:complexType name="AttachmentLinkType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that describes details about Link to the Attachment and uniquely identifies the attachment.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:AttachmentURI"/>
+			<xsd:element ref="ulex:AttachmentViewableIndicator"/>
+			<xsd:element ref="ulex:AttachmentDescriptionText"/>
+		</xsd:sequence>
+		<xsd:attribute ref="ulexlib:id"/>
+	</xsd:complexType>
+	<xsd:complexType name="AttachmentType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that contains binary for the attachment and describes details about attachment. Structure uniquely identifies an attachment by an AttachmentURI and holds an attachment as defined in ulex:AttachmentContentAbstract.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:AttachmentURI"/>
+			<xsd:element ref="ulex:AttachmentContentAbstract"/>
+			<xsd:element ref="ulex:DataOwnerMetadata" minOccurs="0"/>
+			<xsd:element ref="ulex:AttachmentExtensionAbstract" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CommunityPedigreeURIType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that describes details about a Community Pedigree URI. Pedigree number attribute indicates community pedigree order. Digest is assigned pedigree 0,  community recieve pedigree 1, and etc.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:anyURI">
+				<xsd:attribute ref="ulex:pedigreeNumber" use="required"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="DataItemCategoryType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that provides information about the type of event or data type.  This may be used by service providers to indicate what types of events or data are incorporated in the service provider and/or its data sources, or in an individual data item.  Groups may work together to define an appropriate list of categories that can be used in searches among the groups to allow users to limit search results.  Structure could also be used by user interfaces for sorting purposes.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:DataItemCategoryText"/>
+			<xsd:element ref="ulex:DataItemCategoryDescription" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DataItemPackageType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that provides packaging for a single Data Item. DataItemPackage is contained in a PublishMessage as part of a doPublish request, and in a DataItemResponseMessage as part of a getDataItemResponse.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ulex:PackageAbstractType">
+				<xsd:sequence>
+					<xsd:element ref="ulex:RenderingInstructions" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ulex:NarrativeAbstract" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DataOwnerMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that describes an organization that owns data.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:DataOwnerIdentifierAbstract"/>
+			<xsd:element ref="ulex:DataOwnerContactAbstract"/>
+			<xsd:element ref="ulex:DataOwnerMetadataExtensionAbstract" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DomainAttributeType">
+		<xsd:annotation>
+			<xsd:documentation>A structure provides a placeholder for various domain attributes. For Value/Pair attributes use ulex:AttributeName and ulex:AttributeValue elements. For hierarchical data xsd:any structure should be used.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:AttributeName" minOccurs="0"/>
+			<xsd:element ref="ulex:AttributeValue" minOccurs="0"/>
+			<xsd:element ref="ulex:DomainName"/>
+			<xsd:any processContents="lax" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MessageMetadataAbstractType" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A structure that holds basic metadata about any message.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:ULEXFramework"/>
+			<xsd:element ref="ulex:ULEXImplementation"/>
+			<xsd:element ref="ulex:MessageDateTime"/>
+			<xsd:element ref="ulex:MessageSequenceNumber"/>
+			<xsd:element ref="ulex:DataSensitivityAbstract" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PackageAbstractType" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>An abstract structure that describes structure of the ULEX Package. Abstract Package is a base type for PD and SR data exchange. Logical group of data normally viewed as a whole, such as a report.  Also referred to as a data item. This structure includes elements that are common for PD and SR exchanges. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:PackageMetadata"/>
+			<xsd:element ref="ulex:DigestAbstract" minOccurs="0"/>
+			<xsd:element ref="ulex:StructuredPayload" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="ulex:AttachmentLink" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PackageMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that describes Metadata about ULEX Package</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:DataItemID"/>
+			<xsd:element ref="ulex:DataItemCompleteIndicator" minOccurs="0"/>
+			<xsd:element ref="ulex:DataItemContactAbstract" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="ulex:DataItemDate" minOccurs="0"/>
+			<xsd:element ref="ulex:DataItemReferenceID"/>
+			<xsd:element ref="ulex:DataItemPublishInstruction" minOccurs="0"/>
+			<xsd:element ref="ulex:DataItemStatusAbstract"/>
+			<xsd:element ref="ulex:DataOwnerMetadata"/>
+			<xsd:element ref="ulex:DisseminationCriteriaAbstract"/>
+			<xsd:element ref="ulex:DataItemCategory" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="ulex:PackageMetadataExtensionAbstract" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PDMessageMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>A structure describes metadata for ULEX Publish Mesage.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ulex:MessageMetadataAbstractType">
+				<xsd:sequence>
+					<xsd:element ref="ulex:PDMessageMetadataExtensionAbstract" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PublishMessageContainerType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that describes format for ULEX Publish Message Container. Structure wraps multiple ULEX publish messages and requires at least one message to publish.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:PublishMessage" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PublishMessageType">
+		<xsd:annotation>
+			<xsd:documentation>A structure describes Publish Mesage format.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:PDMessageMetadata"/>
+			<xsd:element ref="ulex:DataSubmitterMetadata"/>
+			<xsd:element ref="ulex:PublishMessageItemAbstract" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RenderingInstructionsType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that describes rendering instructions for ULEX Data Item Package.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:RenderingMethod"/>
+			<xsd:element ref="ulex:AttachmentURI" minOccurs="0"/>
+			<xsd:element ref="ulex:RenderingParameter" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="ulex:RenderingDescription" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RenderingParameterType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that describes rendering parameters for XSLT</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:RenderingParameterName"/>
+			<xsd:element ref="ulex:RenderingParameterValue"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="StructuredPayloadMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that describes metadata about a structured payload</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:CommunityURI"/>
+			<xsd:element ref="ulex:CommunityDescription" minOccurs="0"/>
+			<xsd:element ref="ulex:CommunityVersion"/>
+			<xsd:element ref="ulex:CommunityPedigreeURI" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="StructuredPayloadType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that contains a structured payload and a description for it. Structured payload contains data geared towards a community, such as incidents or arrests, or a sub-community, such as bomb and arson incidents.  Builds on the contents of the digest.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:StructuredPayloadMetadata"/>
+			<xsd:any processContents="skip"/>
+		</xsd:sequence>
+		<xsd:attribute ref="ulexlib:id"/>
+	</xsd:complexType>
+	<xsd:complexType name="SystemMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>A structure that describes metadata about an organization and a system where date originated, was submitted from, or is being sent.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:SystemIdentifierAbstract"/>
+			<xsd:element ref="ulex:SystemContactAbstract"/>
+			<xsd:element ref="ulex:SystemMetadataExtensionAbstract" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ULEXImplementationType">
+		<xsd:annotation>
+			<xsd:documentation>A strucutre that describes the ULEX implementation.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:ULEXImplementationVersion"/>
+			<xsd:element ref="ulex:ULEXImplementationName"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ELEMENTS -->
+	<xsd:element name="Attachment" type="ulex:AttachmentType" substitutionGroup="ulex:PublishMessageItemAbstract" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Binary element which may contain data-related information such as a mug shot, fingerprint, sound file or other binaries or stylesheets used by Rendering Instructions.  </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttachmentContentAbstract" abstract="true" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for progam-specific AttachmentContent elements, such as Attachment binary and metadata.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttachmentDescriptionText" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Description of the Attachment object.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttachmentDomainAttribute" type="ulex:DomainAttributeType" substitutionGroup="ulex:AttachmentExtensionAbstract">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for Attachment domain attributes. For Value/Pair attributes use ulex:AttributeName and ulex:AttributeValue elements. For hierarchical data xsd:any structure should be used.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttachmentExtensionAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for program-specific Attachment data that is not addressed by the other ULEX Attachment-related elements.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttachmentLink" type="ulex:AttachmentLinkType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Link between an object, such as a Person, and an attachment.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttachmentURI" type="xsd:anyURI" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Uniquely identifies the Attachment and must follow all rules for a Uniform Resource Identifier.  Note that if the URI is provided as a URL, it does not imply that the attachment is available over the Internet at that address,</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttachmentViewableIndicator" type="xsd:boolean" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>A flag which indicates whether an Attachment can be displayed (true, such as for a mug shot) or not (false, such as for a stylesheet used for rendering).</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttributeName" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Domain Attribute Name</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AttributeValue" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Domain Attribute Value</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CommunityDescription" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Description of the community that originated a particular structured payload.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CommunityPedigreeURI" type="ulex:CommunityPedigreeURIType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Structured payload pedigree for the community, uniquely identified by CommunityPedigreeURI</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CommunityURI" type="xsd:anyURI" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Structured payload community URI. Each community is uniquely identified by CommunityURI</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CommunityVersion" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Structured payload community version.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemCategory" type="ulex:DataItemCategoryType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Provides information about the type of event or data type.  This may be used by service providers to indicate what types of events or data are incorporated in the service provider and/or its data sources, or in an individual data item.  Groups may work together to define an appropriate list of categories that can be used in searches among the groups to allow users to limit search results.  Element could also be used by user interfaces for sorting purposes.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemCategoryDescription" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Provides a description which can be used to better explain the meaning of the DataItemCategoryText element value, and could be multiple sentences.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemCategoryText" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Indicates the type of event or data type.  This should be a user-friendly and reasonably intuitive string that can be used in a list or as a check-box label in a GUI. Used as a search parameter in SearchRequestMetadata.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemCompleteIndicator" type="xsd:boolean" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Flag which indicates whether the package includes all available information (true) or whether more is available (false). If the indicator does not exist, it does not imply either complete or incomplete; merely that the data owner either did not supply the indicator or does not want to indicate completeness for this data item.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemContactAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for progam-specific DataItemContact elements, such as contact name or phone number.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemDate" type="xsd:date" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>Date the Data Item was produced/generated.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemID" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Unique identifier for the data item. DataItemID is unique for a given service provider.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemPackage" type="ulex:DataItemPackageType" substitutionGroup="ulex:PublishMessageItemAbstract" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Packaging for a single Data Item. DataItemPackage is contained in a PublishMessage as part of a doPublish request, and in a DataItemResponseMessage as part of a getDataItemResponse response.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemPublishInstruction" type="ulexcodes:DataItemPublishInstructionCodeSimpleType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>Data Item Publish instruction that indicates whether to insert or delete data item.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemReferenceID" type="xsd:string" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>A human readable unique identifier that is meaningful to the owning system.  May be the same as the Data Item ID.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataItemStatusAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for program-specific information that shows the status of the data item such as Valid/Invalid, etc.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataOwnerContactAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for progam-specific DataOwnerContact elements, such as contact name or phone number.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataOwnerIdentifierAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for progam-specific DataOwnerIdentifier elements that identify an organization and a system in an organization that owns data. This identifier is used in DataOwnerMetadata that is part of PackageMetadata, and in DataOwnerInformation that is part of DataOwnersResponseMessage.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataOwnerInformationDomainAttribute" type="ulex:DomainAttributeType" substitutionGroup="ulex:DataOwnerInformationExtensionAbstract">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for DataOwnerInformation domain attributes. For Value/Pair attributes use ulex:AttributeName and ulex:AttributeValue elements. For hierarchical data xsd:any structure should be used.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataOwnerInformationExtensionAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for program-specific DataOwnerInformation data that is not addressed by the ULEX DataOwnerInformation structure.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataOwnerMetadata" type="ulex:DataOwnerMetadataType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Describes and uniquely identifies an organization that owns the data.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataOwnerMetadataDomainAttribute" type="ulex:DomainAttributeType" substitutionGroup="ulex:DataOwnerMetadataExtensionAbstract">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for DataOwnerMetadata domain attributes. For Value/Pair attributes use ulex:AttributeName and ulex:AttributeValue elements. For hierarchical data xsd:any structure should be used.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataOwnerMetadataExtensionAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for program-specific DataOwnerMetadata information that is not addressed by the other ULEX DataOwnerMetadata-related elements.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataSensitivityAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for program-specific information on the security classification level (e.g., SBU = Sensitive but Unclassified).  Note that this is different from dissemination criteria, which is included at the data item level.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DataSubmitterMetadata" type="ulex:SystemMetadataType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Describes and uniquely identifies system that submitted data.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DigestAbstract" abstract="true" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for progam-specific standardized content elements determined by a program to be of broad interest.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DisseminationCriteriaAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for program-specific information provided by the data owner to indicate who is allowed to see the information.  For publish it provides information to the service provider about what can be returned as the result of a search. For search or get results, it provides information to the user so they know the criteria for this information.  Note that this is different from the data sensitivity included at the message level.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DomainName" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Specifies domain name.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MessageDateTime" type="xsd:dateTime" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Date and time the message was created.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MessageSequenceNumber" type="xsd:nonNegativeInteger" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Message Sequence Number uniquely identifies a message from a specific application or service provider.  Used for auditing purposes, to track messages for troubleshooting, and to tie results to the originating request.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NarrativeAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Unstructured content for the package.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PackageMetadata" type="ulex:PackageMetadataType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Metadata about ULEX Package</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PackageMetadataDomainAttribute" type="ulex:DomainAttributeType" substitutionGroup="ulex:PackageMetadataExtensionAbstract">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for PackageMetadata domain attributes. For Value/Pair attributes use ulex:AttributeName and ulex:AttributeValue elements. For hierarchical data xsd:any structure should be used.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PackageMetadataExtensionAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for program-specific PackageMetadata information that is not addressed by the other ULEX PackageMetadata-related elements.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PDMessageMetadata" type="ulex:PDMessageMetadataType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Metadata for ULEX Publish Mesage</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PDMessageMetadataDomainAttribute" type="ulex:DomainAttributeType" substitutionGroup="ulex:PDMessageMetadataExtensionAbstract">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for PDMessageMetadata domain attributes. For Value/Pair attributes use ulex:AttributeName and ulex:AttributeValue elements. For hierarchical data xsd:any structure should be used.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PDMessageMetadataExtensionAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for program-specific PDMessageMetadata information that is not addressed by the other ULEX PDMessageMetadata-related elements.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PublishMessage" type="ulex:PublishMessageType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Structure that encapsulates the message and message metadata from a given Service Provider.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PublishMessageContainer" type="ulex:PublishMessageContainerType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>ULEX Publish Message Container</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PublishMessageItemAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for an Attachment or a DataItem Package</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RenderingDescription" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Description of the rendered document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RenderingInstructions" type="ulex:RenderingInstructionsType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>ULEX Package Rendering Instructions</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RenderingMethod" type="ulexcodes:RenderingMethodCodeSimpleType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Rendering Method Code such as XHTMLStyleSheet, PDFStyleSheet, RenderedBinary, etc.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RenderingParameter" type="ulex:RenderingParameterType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Rendering parameters for XSLT.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RenderingParameterName" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>XSLT rendering parameter name.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RenderingParameterValue" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>XSLT rendering parameter value.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="StructuredPayload" type="ulex:StructuredPayloadType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>ULEX Structured Payload</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="StructuredPayloadMetadata" type="ulex:StructuredPayloadMetadataType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Metadata about structured payload</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SystemContactAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Contact information for the system owner. Includes a person and organization to contact and their phone number and email address.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SystemIdentifierAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Element that uniquely identifies an organization and a system where date originated, was submitted from, or is being sent.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SystemMetadataDomainAttribute" type="ulex:DomainAttributeType" substitutionGroup="ulex:SystemMetadataExtensionAbstract">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for SystemMetadata domain attributes. For Value/Pair attributes use ulex:AttributeName and ulex:AttributeValue elements. For hierarchical data xsd:any structure should be used.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SystemMetadataExtensionAbstract" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Placeholder for program-specific SystemMetadata information that is not addressed by the other ULEX SystemMetadataType-related elements.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ULEXFramework" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Specifies ULEX framework version used within the document, for example 1.0</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ULEXImplementation" type="ulex:ULEXImplementationType" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Specifies ULEX implementation version and name used within the document</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ULEXImplementationName" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Specifies ULEX implementation name used within the document, for example 1.0</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ULEXImplementationVersion" type="xsd:string" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>Specifies ULEX implementation version used within the document, for example 1.0</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- ATTRIBUTES -->
+	<xsd:attribute name="pedigreeNumber" type="xsd:integer">
+		<xsd:annotation>
+			<xsd:documentation>Indicates community pedigree order.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+</xsd:schema>

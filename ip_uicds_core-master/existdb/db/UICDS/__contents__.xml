@@ -1,0 +1,5 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/UICDS" version="1" owner="uicds" group="uicds" mode="755" created="2010-08-06T00:17:32-06:00">
+    <resource type="XMLResource" name="config.xml" skip="no" owner="uicds" group="uicds" mode="755" created="2010-08-16T00:05:07.765-06:00" modified="2010-08-16T00:40:30.5-06:00" filename="config.xml" mimetype="text/xml"/>
+    <subcollection name="modules" filename="modules"/>
+    <subcollection name="WorkProducts" filename="WorkProducts"/>
+</collection>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://uicds.org/LEITSCService"
+    xmlns:tns="http://uicds.org/LEITSCService"  xmlns:preciss="http://www.saic.com/precis/2009/06/structures"  xmlns:precisb="http://www.saic.com/precis/2009/06/base"  elementFormDefault="qualified">
+    <import namespace="http://www.saic.com/precis/2009/06/base" schemaLocation="../../../precis/2009/06/BaseTypes.xsd" />
+    <import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd" />
+    
+    <element name="PostDetailedCFSMessageRequest">
+        <complexType>
+            <sequence>
+                <any></any>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="PostDetailedCFSMessageResponse">
+        <complexType>
+            <sequence>
+                <element name="leitscIncidentID" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="GetLEITSCIncidentRequest">
+        <complexType>
+            <sequence>
+                <element name="leitscIncidentID" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="GetLEITSCIncidentResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" />
+            </sequence>
+        </complexType>
+    </element>
+</schema>

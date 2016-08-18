@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by William Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://uicds.org/NotificationService" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:precisb="http://www.saic.com/precis/2009/06/base" xmlns:preciss="http://www.saic.com/precis/2009/06/structures" targetNamespace="http://uicds.org/NotificationService" elementFormDefault="qualified">
+	<import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../../../ws-notification/WS-BaseNotification-1_3.xsd"/>
+	<import namespace="http://www.w3.org/2005/08/addressing" schemaLocation="../../../ws-notification/WS-Addressing-2005_08.xsd"/>
+	<import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd"/>
+	<import namespace="http://www.saic.com/precis/2009/06/base" schemaLocation="../../../precis/2009/06/BaseTypes.xsd"/>
+	<element name="GetCurrentMessageRequest">
+		<complexType>
+			<sequence>
+				<element name="Topic" type="wsnt:TopicExpressionType"/>
+				<any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="GetCurrentMessageResponse">
+		<complexType>
+			<sequence>
+				<any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="GetMessagesRequest">
+		<complexType>
+			<sequence>
+				<element name="MaximumNumber" type="nonNegativeInteger"/>
+				<any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+			<anyAttribute/>
+		</complexType>
+	</element>
+	<element name="GetMessagesResponse">
+		<complexType>
+			<sequence>
+				<element name="NotificationMessage" type="wsnt:NotificationMessageHolderType" minOccurs="0" maxOccurs="unbounded"/>
+				<any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+			<anyAttribute/>
+		</complexType>
+	</element>
+	<element name="NotifyRequest">
+		<complexType>
+			<sequence>
+				<element name="NotificationMessage" type="wsnt:NotificationMessageHolderType" maxOccurs="unbounded"/>
+				<any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+	<complexType name="WorkProductNotificationType">
+		<sequence>
+			<element ref="preciss:WorkProductProcessingStatus" minOccurs="0"/>
+			<element ref="preciss:WorkProduct" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<element name="WorkProductNotification" type="ns:WorkProductNotificationType"/>
+	<element name="GetMatchingMessagesRequest">
+		<complexType>
+			<all>
+				<element name="ID" type="precisb:IdentifierType"/>
+			</all>
+		</complexType>
+	</element>
+	<element name="GetMatchingMessagesResponse">
+		<complexType>
+			<sequence>
+				<element ref="preciss:WorkProductIdentificationList"/>
+			</sequence>
+		</complexType>
+	</element>
+	<complexType name="WorkProductDeletedNotificationType">
+	    <sequence>
+	        <element ref="preciss:WorkProductIdentification"></element>
+	        <element ref="preciss:WorkProductProperties"></element>
+	    </sequence>
+	</complexType>
+	<element name="WorkProductDeletedNotification" type="ns:WorkProductDeletedNotificationType"></element>
+</schema>

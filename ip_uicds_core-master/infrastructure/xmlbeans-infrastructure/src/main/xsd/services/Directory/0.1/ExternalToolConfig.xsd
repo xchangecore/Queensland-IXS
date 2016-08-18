@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:etc="http://uicds.org/ExternalToolConfig"
+    targetNamespace="http://uicds.org/ExternalToolConfig" elementFormDefault="qualified"
+    xmlns:dsd="http://uicds.org/DirectoryServiceData">
+
+    <import schemaLocation="../../../services/Directory/0.1/DirectoryServiceData.xsd"
+        namespace="http://uicds.org/DirectoryServiceData"></import>
+
+    <simpleType name="ExternalToolStatusType">
+        <restriction base="string">
+            <enumeration value="Available" />
+            <enumeration value="Unavailable" />
+            <enumeration value="Other" />
+        </restriction>
+    </simpleType>
+    <simpleType name="ExternalToolType">
+        <restriction base="string">
+            <enumeration value="Process" />
+            <enumeration value="Script" />
+            <enumeration value="Data Source" />
+            <enumeration value="Other" />
+        </restriction>
+    </simpleType>
+    <complexType name="ExternalToolConfigType">
+        <sequence>
+            <element name="URN" type="string">
+                <annotation>
+                    <documentation>Endpoint for ExternalTool.</documentation>
+                </annotation>
+            </element>
+            <element name="toolName" type="string" />
+            <element name="coreName" type="string" />
+            <element name="publishedProducts" type="dsd:WorkProductTypeListType" />
+            <element name="subscribedProducts" type="dsd:WorkProductTypeListType" />
+        </sequence>
+    </complexType>
+    <element name="ExternalToolConfig" type="etc:ExternalToolConfigType" />
+    <element name="ExternalToolList" type="etc:ExternalToolConfigListType">
+        <annotation>
+            <documentation>Configuration object for a UICDS ExternalTool.</documentation>
+        </annotation>
+    </element>
+    <complexType name="ExternalToolConfigListType">
+        <sequence>
+            <element name="ExternalTool" type="etc:ExternalToolConfigType" maxOccurs="unbounded" />
+        </sequence>
+    </complexType>
+</schema>

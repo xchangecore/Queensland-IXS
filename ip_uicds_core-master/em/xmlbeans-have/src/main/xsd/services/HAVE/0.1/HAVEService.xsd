@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+		edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers
+		(SAIC)
+	-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:de="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:have="http://uicds.org/HAVEService" xmlns:ucore="http://ucore.gov/ucore/2.0" xmlns:wp="http://uicds.org/WorkProductService" targetNamespace="http://uicds.org/HAVEService" elementFormDefault="qualified">
+  <import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../../../external/niem/external/de/1.0/de.xsd"/>
+  <import namespace="http://ucore.gov/ucore/2.0" schemaLocation="../../../ucore/2.0/ucore/2.0/ucore.xsd"/>
+  <import namespace="http://uicds.org/WorkProductService" schemaLocation="../../../services/WorkProduct/0.1/WorkProductService.xsd"/>
+  <complexType name="EdxlDeMessageResponseType">
+    <sequence>
+      <element name="errorExists" type="boolean"/>
+      <element ref="ucore:Digest" minOccurs="0"/>
+      <element name="errorString" type="string" minOccurs="0"/>
+      <element name="coreError" type="have:EdxlDeMessageErrorType" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <complexType name="EdxlDeMessageErrorType">
+    <sequence>
+      <element name="coreName" type="string"/>
+      <element name="error" type="string"/>
+    </sequence>
+  </complexType>
+  <element name="EdxlDeRequest">
+    <complexType>
+      <sequence>
+        <element ref="de:EDXLDistribution"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="EdxlDeResponse" type="have:EdxlDeMessageResponseType"/>
+  <element name="GetHAVEMessagesRequest">
+    <complexType>
+      <sequence>
+        <element name="incidentID" type="string" minOccurs="0"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetHAVEMessagesResponse">
+    <complexType>
+      <sequence>
+        <element ref="wp:WorkProductList"/>
+      </sequence>
+    </complexType>
+  </element>
+</schema>

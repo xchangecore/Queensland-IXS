@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/ICSForm209"
+    xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:c="http://niem.gov/niem/common/1.0" xmlns:u="http://niem.gov/niem/universal/1.0" xmlns:ic="http://uicds.org/ICSFormCommon"
+    targetNamespace="http://uicds.org/ICSForm209" elementFormDefault="qualified">
+    <import namespace="http://uicds.org/ICSFormCommon" schemaLocation="../../../services/IncidentForms/0.1/ICSFormCommon.xsd" />
+    <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd" />
+    <element name="ICSForm209">
+        <annotation>
+            <appinfo>National Incident Management System - ICS 209</appinfo>
+            <documentation>Incident Status Summary</documentation>
+        </annotation>
+        <complexType>
+            <complexContent>
+                <extension base="ic:ICSFormDocumentType">
+                    <sequence>
+                        <element name="IncidentDateTime" type="dateTime" />
+                        <element name="Initial" type="boolean" />
+                        <element name="Update" type="boolean" />
+                        <element name="Final" type="boolean" />
+                        <element name="IncidentName" type="string" />
+                        <element name="IncidentNumber" type="string" />
+                        <element name="IncidentCommander" type="string" />
+                        <element name="Jurisdiction" type="string" />
+                        <element name="County" type="string" />
+                        <element name="TypeIncident" type="string" />
+                        <element name="Location" type="string" />
+                        <element name="StartedDateTime" type="dateTime" />
+                        <element name="Cause" type="string" />
+                        <element name="AreaInvolved" type="string" />
+                        <element name="PercentControlled" type="string" />
+                        <element name="ExpectedContainmentDateTime" type="dateTime" />
+                        <element name="EstimatedControlledDateTime" type="dateTime" />
+                        <element name="DeclaredControlledDateTime" type="dateTime" />
+                        <element name="CurrentThreat" type="string" />
+                        <element name="ControlProblems" type="string" />
+                        <element name="EstLoss" type="string" />
+                        <element name="EstSavings" type="string" />
+                        <element name="Injuries" type="string" />
+                        <element name="Deaths" type="string" />
+                        <element name="LineBuilt" type="string" />
+                        <element name="LineToBuild" type="string" />
+                        <element name="CurrentWeatherWS" type="string" />
+                        <element name="CurrentWeatherWD" type="string" />
+                        <element name="CurrentWeatherTemp" type="string" />
+                        <element name="CurrentWeatherRH" type="string" />
+                        <element name="PredictedWeatherWS" type="string" />
+                        <element name="PredictedWeatherWD" type="string" />
+                        <element name="PredictedWeatherTemp" type="string" />
+                        <element name="PredictedWeatherRH" type="string" />
+                        <element name="CostToDate" type="string" />
+                        <element name="EstTotalCost" type="string" />
+                        <element name="CooperatingAgencies" type="string" />
+                        <element name="Remarks" type="string" />
+                        <element name="PreparedBy" type="string" />
+                        <element name="ApprovedBy" type="string" />
+                        <element name="SentToDate" type="string" />
+                        <element name="SentToTime" type="string" />
+                        <element name="SentToBy" type="string" />
+                    </sequence>
+                </extension>
+            </complexContent>
+        </complexType>
+    </element>
+</schema>

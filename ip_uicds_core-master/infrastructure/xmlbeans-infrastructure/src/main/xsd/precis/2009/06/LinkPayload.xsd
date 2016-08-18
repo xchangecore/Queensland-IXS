@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:precisb="http://www.saic.com/precis/2009/06/base" xmlns:link="http://www.saic.com/precis/2009/06/payloads/link" targetNamespace="http://www.saic.com/precis/2009/06/payloads/link" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.saic.com/precis/2009/06/base" schemaLocation="BaseTypes.xsd"/>
+	<!--Payload Types-->
+	<xs:complexType name="LinkContentType">
+		<xs:sequence>
+			<xs:element ref="link:Protocol"/>
+			<xs:element ref="link:Address"/>
+		</xs:sequence>
+		<xs:attribute ref="precisb:label"/>
+	</xs:complexType>
+	<!--Payload Elements-->
+	<xs:element name="LinkContent" type="link:LinkContentType"/>
+	<xs:element name="Protocol" type="xs:string"/>
+	<xs:element name="Address" type="xs:string"/>
+</xs:schema>

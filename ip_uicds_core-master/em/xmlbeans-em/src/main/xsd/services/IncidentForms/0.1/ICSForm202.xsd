@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/ICSForm202"
+    xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:c="http://niem.gov/niem/common/1.0" xmlns:u="http://niem.gov/niem/universal/1.0" xmlns:ic="http://uicds.org/ICSFormCommon"
+    targetNamespace="http://uicds.org/ICSForm202" elementFormDefault="qualified">
+    <import namespace="http://uicds.org/ICSFormCommon" schemaLocation="../../../services/IncidentForms/0.1/ICSFormCommon.xsd" />
+    <import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../external/niem/structures/2.0/structures.xsd" />
+    <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd" />
+    <element name="ICSForm202">
+        <annotation>
+            <appinfo>National Incident Management System - ICS 202</appinfo>
+            <documentation>Incident Objectives</documentation>
+        </annotation>
+        <complexType>
+            <complexContent>
+                <extension base="ic:ICSFormDocumentType">
+                    <sequence>
+                        <element name="IncidentName" type="string" />
+                        <element name="DatePrepared" type="date" />
+                        <element name="TimePrepared" type="time" />
+                        <element name="OperationalPeriod" type="dateTime" />
+                        <element name="ContractorObjectives" type="string" />
+                        <element name="WeatherForecast" type="string" />
+                        <element name="GeneralSafetyMessage" type="string" />
+                        <element name="AttachmentList" type="tns:Attachments" />
+                        <element name="PreparedBy" type="string" />
+                        <element name="ApprovedBy" type="string" />
+                    </sequence>
+                </extension>
+            </complexContent>
+        </complexType>
+    </element>
+    <complexType name="Attachments">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="OrganizationList" type="boolean" />
+                    <element name="AssignmentList" type="boolean" />
+                    <element name="CommunicationsPlan" type="boolean" />
+                    <element name="MedicalPlan" type="boolean" />
+                    <element name="IncidentMap" type="boolean" />
+                    <element name="TrafficPlan" type="boolean" />
+                    <element name="WeatherForecast" type="boolean" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

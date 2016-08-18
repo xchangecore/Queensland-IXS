@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/ICSForm201"
+    xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:c="http://niem.gov/niem/common/1.0" xmlns:u="http://niem.gov/niem/universal/1.0" xmlns:ic="http://uicds.org/ICSFormCommon"
+    xmlns:oe="http://uicds.org/OrganizationElement" xmlns:preciss="http://www.saic.com/precis/2009/06/structures"
+    targetNamespace="http://uicds.org/ICSForm201" elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+    <import namespace="http://uicds.org/OrganizationElement" schemaLocation="../../../services/IncidentCommand/0.1/OrganizationElement.xsd" />
+    <import namespace="http://uicds.org/ICSFormCommon" schemaLocation="../../../services/IncidentForms/0.1/ICSFormCommon.xsd" />
+    <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd" />
+    <import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../external/niem/structures/2.0/structures.xsd" />
+    <import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd" />
+    <element name="ICSForm201">
+        <annotation>
+            <appinfo>National Incident Management System - ICS 201</appinfo>
+            <documentation>Incident Briefing</documentation>
+        </annotation>
+        <complexType>
+            <complexContent>
+                <extension base="ic:ICSFormDocumentType">
+                    <sequence>
+                        <element name="IncidentName" type="string" />
+                        <element name="DatePrepared" type="date" />
+                        <element name="TimePrepared" type="time" />
+                        <element name="MapSketch" type="tns:MapSketchType" />
+                        <element name="ResourcesSummary" type="tns:ResourcesSummaryType"
+                            maxOccurs="unbounded" />
+                        <element name="SummaryOfCurrentActions" type="string" />
+                        <element name="CurrentOrganization" type="oe:OrganizationElementType" />
+                    </sequence>
+                </extension>
+            </complexContent>
+        </complexType>
+    </element>
+    <complexType name="MapSketchType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="MapSketch" type="byte" />
+                    <element name="PreparedBy" type="string" />
+                    <element ref="preciss:WorkProductIdentification" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ResourcesSummaryType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="ResourcesOrdered" type="string" />
+                    <element name="ResourceIdentification" type="string" />
+                    <element name="ETA" type="dateTime" />
+                    <element name="OnScene" type="boolean" />
+                    <element name="LocationAssignment" type="string" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

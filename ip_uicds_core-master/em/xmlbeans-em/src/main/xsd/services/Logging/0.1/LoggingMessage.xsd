@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:log="http://uicds.org/LoggingMessage" targetNamespace="http://uicds.org/LoggingMessage" elementFormDefault="qualified">
+	<simpleType name="LogResponseType">
+		<restriction base="string">
+			<enumeration value="Success"/>
+			<enumeration value="Failure"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="LogLevelType">
+		<restriction base="string">
+			<enumeration value="Fatal"/>
+			<enumeration value="Error"/>
+			<enumeration value="Warn"/>
+			<enumeration value="Debug"/>
+			<enumeration value="Info"/>
+			<enumeration value="Trace"/>
+		</restriction>
+	</simpleType>
+	<complexType name="LogType">
+		<sequence>
+			<element name="logger" type="string"/>
+			<element name="timestamp" type="dateTime"/>
+			<element name="hostname" type="string"/>
+			<element name="type" type="log:LogLevelType"/>
+			<element name="message" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="LogRequest" type="log:LogType"/>
+	<element name="LogResponse">
+		<complexType>
+			<all>
+				<element name="response" type="log:LogResponseType"/>
+			</all>
+		</complexType>
+	</element>
+	<element name="GetLogByLoggerRequest">
+		<complexType>
+			<all>
+				<element name="logger" type="string"/>
+			</all>
+		</complexType>
+	</element>
+	<element name="GetLogByLoggerResponse">
+		<complexType>
+			<sequence>
+				<element name="logger" type="string"/>
+				<element name="numberOfRecords" type="int"/>
+				<element name="logRecord" type="log:LogType" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="GetLogByHostnameRequest">
+		<complexType>
+			<all>
+				<element name="hostname" type="string"/>
+			</all>
+		</complexType>
+	</element>
+	<element name="GetLogByHostnameResponse">
+		<complexType>
+			<sequence>
+				<element name="hostname" type="string"/>
+				<element name="numberOfRecords" type="int"/>
+				<element name="logRecord" type="log:LogType" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

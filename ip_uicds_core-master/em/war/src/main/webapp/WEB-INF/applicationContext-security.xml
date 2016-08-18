@@ -1,0 +1,91 @@
+<bean:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:bean="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+
+	<!-- to enable inMemoryDao, add filterInvocationInterceptor to the filterInvocationDefinitionSource property of filterChainProxy -->
+
+	<bean:bean id="filterChainProxy"
+		class="org.springframework.security.util.FilterChainProxy">
+		<bean:property name="filterInvocationDefinitionSource">
+			<bean:value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/core/ws/services/**=httpSessionContextIntegrationFilter,exceptionTranslationFilter
+			</bean:value>
+		</bean:property>
+	</bean:bean>
+
+	<bean:bean id="authenticationManager"
+		class="org.springframework.security.providers.ProviderManager">
+		<bean:property name="providers">
+			<bean:list>
+				<bean:ref local="authenticationProvider" />
+			</bean:list>
+		</bean:property>
+	</bean:bean>
+
+	<bean:bean id="authenticationProvider"
+		class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+		<bean:property name="userDetailsService" ref="inMemoryDaoImpl" />
+	</bean:bean>
+
+	<bean:bean id="inMemoryDaoImpl"
+		class="org.springframework.security.userdetails.memory.InMemoryDaoImpl">
+		<bean:property name="userMap">
+			<bean:value>roger=roger,ROLE_UICDS</bean:value>
+		</bean:property>
+	</bean:bean>
+
+	<bean:bean id="authenticationEntryPoint"
+		class="org.springframework.security.ui.basicauth.BasicProcessingFilterEntryPoint">
+		<bean:property name="realmName" value="uicds" />
+	</bean:bean>
+
+	<bean:bean id="authenticationProcessingFilter"
+		class="org.springframework.security.ui.basicauth.BasicProcessingFilter">
+		<bean:property name="authenticationManager" ref="authenticationManager" />
+		<bean:property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
+	</bean:bean>
+
+	<bean:bean id="httpSessionContextIntegrationFilter"
+		class="org.springframework.security.context.HttpSessionContextIntegrationFilter">
+		<bean:property name="allowSessionCreation" value="true" />
+		<bean:property name="forceEagerSessionCreation" value="true" />
+	</bean:bean>
+
+	<bean:bean id="exceptionTranslationFilter"
+		class="org.springframework.security.ui.ExceptionTranslationFilter">
+		<bean:property name="authenticationEntryPoint"
+			ref="authenticationProcessingFilterEntryPoint" />
+	</bean:bean>
+
+	<bean:bean id="authenticationProcessingFilterEntryPoint"
+		class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+		<bean:property name="loginFormUrl" value="/login.jsp" />
+		<bean:property name="forceHttps" value="false" />
+	</bean:bean>
+
+	<bean:bean id="filterInvocationInterceptor"
+		class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+		<bean:property name="authenticationManager" ref="authenticationManager" />
+		<bean:property name="accessDecisionManager" ref="accessDecisionManager" />
+		<bean:property name="objectDefinitionSource">
+			<bean:value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/core/ws/services/*=ROLE_UICDS
+      </bean:value>
+		</bean:property>
+	</bean:bean>
+
+	<bean:bean id="accessDecisionManager"
+		class="org.springframework.security.vote.AffirmativeBased">
+		<bean:property name="decisionVoters">
+			<bean:list>
+				<bean:bean class="org.springframework.security.vote.RoleVoter" />
+			</bean:list>
+		</bean:property>
+	</bean:bean>
+
+</bean:beans>

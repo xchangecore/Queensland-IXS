@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/ICSForm207"
+    xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:c="http://niem.gov/niem/common/1.0" xmlns:u="http://niem.gov/niem/universal/1.0" xmlns:ic="http://uicds.org/ICSFormCommon"
+    targetNamespace="http://uicds.org/ICSForm207" elementFormDefault="qualified">
+    <import namespace="http://uicds.org/ICSFormCommon" schemaLocation="../../../services/IncidentForms/0.1/ICSFormCommon.xsd" />
+    <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd" />
+    <element name="ICSForm207">
+        <annotation>
+            <appinfo>National Incident Management System - ICS 207</appinfo>
+            <documentation>Incident Operations Plan</documentation>
+        </annotation>
+        <complexType>
+            <complexContent>
+                <extension base="ic:ICSFormDocumentType">
+                    <sequence>
+                        <element name="Branch" type="string" />
+                        <element name="DivisionGroup" type="string" />
+                        <element name="IncidentName" type="string" />
+                        <element name="OperationalPeriodDate" type="date" />
+                        <element name="OperationalPeriodTime" type="time" />
+                        <element name="OperationsChief" type="string" />
+                        <element name="BranchDirector" type="string" />
+                        <element name="DivisionGroupSupervisor" type="string" />
+                        <element name="AirTacticalGroupSupervisor" type="string" />
+                        <element name="ResourcesSummary" type="tns:ResourcesSummaryType"
+                            maxOccurs="unbounded" />
+                        <element name="ControlOperations" type="string" />
+                        <element name="SpecialInstructions" type="string" />
+                        <element name="PreparedBy" type="string" />
+                        <element name="ApprovedBy" type="string" />
+                    </sequence>
+                </extension>
+            </complexContent>
+        </complexType>
+    </element>
+    <complexType name="ResourcesSummaryType">
+        <sequence>
+            <element name="ResourceDesignator" type="string" />
+            <element name="EMT" type="string" />
+            <element name="Leader" type="string" />
+            <element name="NumberPersons" type="integer" />
+            <element name="TransNeeded" type="boolean" />
+            <element name="PickupPtTime" type="string" />
+            <element name="DropOffPtTime" type="string" />
+        </sequence>
+    </complexType>
+</schema>

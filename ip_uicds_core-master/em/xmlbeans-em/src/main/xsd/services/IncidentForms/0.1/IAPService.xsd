@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:icsfc="http://uicds.org/ICSFormCommon" xmlns:iap="http://uicds.org/IAPService" xmlns:wp="http://uicds.org/WorkProductService" xmlns:preciss="http://www.saic.com/precis/2009/06/structures" targetNamespace="http://uicds.org/IAPService" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <import namespace="http://uicds.org/WorkProductService" schemaLocation="../../../services/WorkProduct/0.1/WorkProductService.xsd"/>
+  <import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../external/niem/structures/2.0/structures.xsd"/>
+  <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd"/>
+  <import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd"/>
+  <import namespace="http://uicds.org/ICSFormCommon" schemaLocation="../../../services/IncidentForms/0.1/ICSFormCommon.xsd"/>
+  <element name="CreateIAPRequest">
+    <complexType>
+      <all>
+        <element name="incidentId" type="string" minOccurs="0"/>
+        <element name="IncidentActionPlan" type="iap:IncidentActionPlanType"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="CreateIAPResponse">
+    <complexType>
+      <all>
+        <element ref="wp:WorkProductPublicationResponse"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="CreateICSFormRequest">
+    <complexType>
+      <all>
+        <element name="incidentId" type="string" minOccurs="0"/>
+        <element name="ICSForm" type="icsfc:ICSFormDocumentType"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="CreateICSFormResponse">
+    <complexType>
+      <all>
+        <element ref="wp:WorkProductPublicationResponse"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="GetApprovedIAPRequest">
+    <complexType>
+      <all>
+        <element name="incidentId" type="string" minOccurs="0"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="GetApprovedIAPResponse">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProduct"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetIAPRequest">
+    <complexType>
+      <all>
+        <element ref="preciss:WorkProductIdentification"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="GetIAPResponse">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProduct"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetICSFormRequest">
+    <complexType>
+      <all>
+        <element ref="preciss:WorkProductIdentification"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="GetICSFormResponse">
+    <complexType>
+      <all>
+        <element ref="preciss:WorkProduct"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="AttachWorkProductToIAPRequest">
+    <complexType>
+      <all>
+        <element name="IAP">
+          <annotation>
+            <documentation>The IAP that the work products should be attached to.</documentation>
+          </annotation>
+          <complexType>
+            <sequence>
+              <element ref="preciss:WorkProductIdentification"/>
+            </sequence>
+          </complexType>
+        </element>
+        <element name="WorkProductList">
+          <annotation>
+            <documentation>Identifies the the work products should be attached to the IAP.</documentation>
+          </annotation>
+          <complexType>
+            <sequence>
+              <element ref="preciss:WorkProductIdentification" maxOccurs="unbounded"/>
+            </sequence>
+          </complexType>
+        </element>
+      </all>
+    </complexType>
+  </element>
+  <element name="AttachWorkProductToIAPResponse">
+    <complexType>
+      <all>
+        <element ref="wp:WorkProductPublicationResponse"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="GetICSFormListRequest">
+    <complexType>
+      <all>
+        <element name="IncidentID" type="string"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="GetICSFormListResponse">
+    <complexType>
+      <all>
+        <element ref="preciss:WorkProduct"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="UpdateICSFormRequest">
+    <complexType>
+      <all>
+        <element ref="preciss:WorkProductIdentification"/>
+        <element name="ICSForm" type="icsfc:ICSFormDocumentType"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="UpdateICSFormResponse">
+    <complexType>
+      <all>
+        <element ref="wp:WorkProductPublicationResponse"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="UpdateIAPRequest">
+    <complexType>
+      <all>
+        <element ref="preciss:WorkProductIdentification"/>
+        <element name="IncidentActionPlan" type="iap:IncidentActionPlanType"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="UpdateIAPResponse">
+    <complexType>
+      <all>
+        <element ref="wp:WorkProductPublicationResponse"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="SetApprovedIAPRequest">
+    <complexType>
+      <all>
+        <element name="incidentId" type="string" minOccurs="0"/>
+        <element ref="preciss:WorkProductIdentification"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="SetApprovedIAPResponse">
+    <complexType>
+      <all>
+        <element ref="wp:WorkProductPublicationResponse"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="IncidentActionPlan" type="iap:IncidentActionPlanType"/>
+  <complexType name="IncidentActionPlanType">
+    <complexContent>
+      <extension base="s:ComplexObjectType">
+        <sequence>
+          <element name="IncidentID" type="string"/>
+          <element name="Name" type="string"/>
+          <element name="DescriptionText" type="string"/>
+          <element name="DocumentEffectiveDate" type="string"/>
+          <element name="DocumentExpirationDate" type="string"/>
+          <element name="Components" type="iap:IAPComponentListType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="IAPComponentListType">
+    <sequence>
+      <element name="component" type="iap:IAPComponentType" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <complexType name="IAPComponentType">
+    <sequence>
+      <element name="ComponentIdentifier">
+        <annotation>
+          <documentation>Identifies the work product that represents the IAP component, i.e. an ICS Form.</documentation>
+        </annotation>
+        <complexType>
+          <sequence>
+            <element ref="preciss:WorkProductIdentification"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="CompletionTaskIdentification">
+        <annotation>
+          <documentation>Identifies the work product that represents the task to complete this IAP component, i.e. an ICS Form.</documentation>
+        </annotation>
+        <complexType>
+          <sequence>
+            <element ref="preciss:WorkProductIdentification"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="Description" type="string"/>
+      <element name="Status" type="string"/>
+    </sequence>
+  </complexType>
+</schema>

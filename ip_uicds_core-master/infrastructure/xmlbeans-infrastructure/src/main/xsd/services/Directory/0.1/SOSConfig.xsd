@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sc="http://uicds.org/SOSConfig" targetNamespace="http://uicds.org/SOSConfig" elementFormDefault="qualified">
+	<complexType name="SOSConfigType">
+		<sequence>
+			<element name="URN" type="string">
+				<annotation>
+					<documentation>Sensor Observation Service Endpoint</documentation>
+				</annotation>
+			</element>
+			<element name="serviceID" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="SOSConfig" type="sc:SOSConfigType"/>
+	<complexType name="SOSConfigListType">
+		<sequence>
+			<element name="sos" type="sc:SOSConfigType" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<element name="SOSConfigList" type="sc:SOSConfigListType"/>
+</schema>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document: $Id: ulex-publish-discover.xsd 76 2008-09-12 21:41:05Z ys34 $
+    Namespace     : xmlns:ulexpd="ulex:message:pd:1.0"
+    Description   : ULEX Publish and Discover Message Format Schema
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ulex="ulex:message:structure:1.0" xmlns:ulexpd="ulex:message:pd:1.0" targetNamespace="ulex:message:pd:1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.PD.beta3">
+	<xsd:import namespace="ulex:message:structure:1.0" schemaLocation="../../ulex/1.0/ulex.xsd"/>
+	<xsd:annotation>
+		<xsd:documentation>ULEX Publish Discover Message Format Schema</xsd:documentation>
+	</xsd:annotation>
+	<xsd:complexType name="DoPublishType">
+		<xsd:annotation>
+			<xsd:documentation>ULEX Submission Publish Method</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="ulex:PublishMessageContainer"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

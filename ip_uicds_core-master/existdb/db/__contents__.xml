@@ -1,0 +1,5 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db" owner="admin" group="dba"
+    mode="777" created="2011-02-18T10:39:45-07:00" version="1">
+    <subcollection name="system" filename="system"/>
+    <subcollection name="UICDS" filename="UICDS"/>
+</collection>

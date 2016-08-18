@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:org="http://uicds.org/OrganizationElement"
+    xmlns:ics="http://uicds.org/IncidentCommandStructureService" xmlns:preciss="http://www.saic.com/precis/2009/06/structures"
+    xmlns:wps="http://uicds.org/WorkProductService" targetNamespace="http://uicds.org/IncidentCommandStructureService"
+    elementFormDefault="qualified">
+    <import namespace="http://uicds.org/WorkProductService" schemaLocation="../../../services/WorkProduct/0.1/WorkProductService.xsd" />
+    <import namespace="http://uicds.org/OrganizationElement" schemaLocation="../../../services/IncidentCommand/0.1/OrganizationElement.xsd" />
+    <import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd" />
+    <element name="GetCommandStructureByIncidentResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="GetCommandStructureByIncidentRequest" type="string" />
+    <element name="GetCommandStructureRequest">
+        <complexType>
+            <all>
+                <element ref="preciss:WorkProductIdentification" />
+            </all>
+        </complexType>
+    </element>
+    <element name="GetCommandStructureResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="CreateCommandStructureRequest">
+        <complexType>
+            <all>
+                <element ref="org:OrganizationElement" />
+                <element name="IncidentID" type="string" minOccurs="0" />
+            </all>
+        </complexType>
+    </element>
+    <element name="CreateCommandStructureResponse">
+        <complexType>
+            <sequence>
+                <element ref="wps:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="UpdateCommandStructureRequest">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProductIdentification" />
+                <element ref="org:OrganizationElement" />
+                <element name="IncidentID" type="string" minOccurs="0" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="UpdateCommandStructureResponse">
+        <complexType>
+            <sequence>
+                <element ref="wps:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+</schema>

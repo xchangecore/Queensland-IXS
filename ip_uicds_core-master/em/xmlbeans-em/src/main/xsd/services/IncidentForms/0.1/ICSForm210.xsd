@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/ICSForm210"
+    xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:c="http://niem.gov/niem/common/1.0" xmlns:u="http://niem.gov/niem/universal/1.0" xmlns:ic="http://uicds.org/ICSFormCommon"
+    targetNamespace="http://uicds.org/ICSForm210" elementFormDefault="qualified">
+    <import namespace="http://uicds.org/ICSFormCommon" schemaLocation="../../../services/IncidentForms/0.1/ICSFormCommon.xsd" />
+    <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd" />
+    <element name="ICSForm210">
+        <annotation>
+            <appinfo>National Incident Management System - ICS 210</appinfo>
+            <documentation>Status Change Card</documentation>
+        </annotation>
+        <complexType>
+            <complexContent>
+                <extension base="ic:ICSFormDocumentType">
+                    <sequence>
+                        <element name="DesignatorNameIDNo" type="string" />
+                        <element name="Assigned" type="boolean" />
+                        <element name="Available" type="boolean" />
+                        <element name="OSRest" type="boolean" />
+                        <element name="OSMechanical" type="boolean" />
+                        <element name="OSManning" type="boolean" />
+                        <element name="ETR" type="boolean" />
+                        <element name="FromDivisionGroup" type="string" />
+                        <element name="FromStagingArea" type="string" />
+                        <element name="FromBaseICP" type="string" />
+                        <element name="FromEnroute" type="string" />
+                        <element name="FromHomeAgency" type="string" />
+                        <element name="Messages" type="string" />
+                        <element name="Time" type="time" />
+                        <element name="Process" type="boolean" />
+                    </sequence>
+                </extension>
+            </complexContent>
+        </complexType>
+    </element>
+</schema>

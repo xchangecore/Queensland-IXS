@@ -1,0 +1,188 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:m="http://uicds.org/MapService"
+    xmlns:context="http://www.opengis.net/context" xmlns:preciss="http://www.saic.com/precis/2009/06/structures"
+    xmlns:wp="http://uicds.org/WorkProductService" xmlns:ucore="http://ucore.gov/ucore/2.0"
+    targetNamespace="http://uicds.org/MapService" elementFormDefault="qualified">
+    <import namespace="http://www.opengis.net/context" schemaLocation="../../../external/context/1.1.0/context.xsd"></import>
+    <import namespace="http://ucore.gov/ucore/2.0" schemaLocation="../../../ucore/2.0/ucore/2.0/ucore.xsd" />
+    <import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd" />
+    <import schemaLocation="../../../services/WorkProduct/0.1/WorkProductService.xsd"
+        namespace="http://uicds.org/WorkProductService" />
+    <complexType name="LayerType">
+        <sequence>
+            <element name="IncidentId" type="string" />
+            <element name="LayerId" type="string" />
+            <element name="Layer" type="context:LayerType" />
+        </sequence>
+    </complexType>
+    <element name="GetMapsRequest">
+        <complexType>
+            <all>
+                <element name="IncidentId" type="string" />
+            </all>
+        </complexType>
+    </element>
+    <element name="GetMapsResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" minOccurs="0" maxOccurs="unbounded" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="GetMapRequest">
+        <complexType>
+            <all>
+                <element ref="preciss:WorkProductIdentification" />
+            </all>
+        </complexType>
+    </element>
+    <element name="GetMapResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="SubmitMapRequest">
+        <complexType>
+            <all>
+                <element name="IncidentId" type="string" minOccurs="0" />
+                <element ref="context:ViewContext"></element>
+            </all>
+        </complexType>
+    </element>
+    <element name="SubmitMapResponse">
+        <complexType>
+            <sequence>
+                <element ref="wp:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="UpdateMapRequest">
+        <complexType>
+            <all>
+                <element ref="preciss:WorkProductIdentification" />
+                <element ref="context:ViewContext"></element>
+            </all>
+        </complexType>
+    </element>
+    <element name="UpdateMapResponse">
+        <complexType>
+            <sequence>
+                <element ref="wp:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+    <!-- delete this operation, to use WorkProductService's close/archive instead
+        <element name="DeleteMapRequest">
+        <complexType>
+        <all>
+        <element ref="preciss:WorkProductIdentification"/>
+        </all>
+        </complexType>
+        </element>
+        <element name="DeleteMapResponse">
+        <complexType>
+        <sequence>
+        <element ref="wp:WorkProductPublicationResponse"/>
+        </sequence>
+        </complexType>
+        </element>
+    -->
+    <element name="GetLayersRequest">
+        <complexType>
+            <all>
+                <element name="IncidentId" type="string" />
+            </all>
+        </complexType>
+    </element>
+    <element name="GetLayersResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" minOccurs="0" maxOccurs="unbounded" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="GetLayerRequest">
+        <complexType>
+            <all>
+                <element ref="preciss:WorkProductIdentification" />
+            </all>
+        </complexType>
+    </element>
+    <element name="GetLayerResponse">
+        <complexType>
+            <sequence>
+                <element ref="preciss:WorkProduct" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="SubmitLayerRequest">
+        <complexType>
+            <all>
+                <element name="IncidentId" type="string" minOccurs="0" />
+                <element name="Layer" type="context:LayerType" />
+            </all>
+        </complexType>
+    </element>
+    <element name="SubmitLayerResponse">
+        <complexType>
+            <sequence>
+                <element ref="wp:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="UpdateLayerRequest">
+        <complexType>
+            <all>
+                <element ref="preciss:WorkProductIdentification" />
+                <element name="Layer" type="context:LayerType" />
+            </all>
+        </complexType>
+    </element>
+    <element name="UpdateLayerResponse">
+        <complexType>
+            <sequence>
+                <element ref="wp:WorkProductPublicationResponse" />
+            </sequence>
+        </complexType>
+    </element>
+    <!-- delete this operation, to use WorkProductService's close/archive instead
+        <element name="DeleteLayerRequest">
+        <complexType>
+        <all>
+        <element ref="preciss:WorkProductIdentification"/>
+        </all>
+        </complexType>
+        </element>
+        <element name="DeleteLayerResponse">
+        <complexType>
+        <sequence>
+        <element ref="wp:WorkProductPublicationResponse"/>
+        </sequence>
+        </complexType>
+        </element>
+    -->
+    <element name="SubmitShapefileRequest">
+        <complexType>
+            <sequence>
+                <element name="IncidentId" type="string" minOccurs="0" />
+                <element ref="ucore:Digest" />
+                <element name="ContentData" type="base64Binary" />
+            </sequence>
+        </complexType>
+    </element>
+    <element name="SubmitShapefileResponse">
+        <complexType>
+            <sequence>
+                <element ref="wp:WorkProductPublicationResponse" minOccurs="0" maxOccurs="unbounded" />
+            </sequence>
+        </complexType>
+    </element>
+    <!-- -->
+    <!--
+        GetMaps(incidentId) GetMap(incidentId, mapId) SubmitMap(incidentId, map)
+        UpdateMap(incidentID, mapId, map) DeleteMap(incidentId, mapId) GetLayers(incidentId)
+        GetLayer(incidentId, layereId) SubmitLayer(incidentId, layer) UpdateLayer(incidentId,
+        layerId, layer) DeleteLayer(incidentId, layerId)
+    -->
+</schema>

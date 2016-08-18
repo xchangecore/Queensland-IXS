@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+     <groupId>com.saic.uicds.core.infrastructure</groupId>
+     <artifactId>com.saic.uicds.core.infrastructure</artifactId>
+     <version>1.0.0</version>
+     <relativePath>..</relativePath>
+  </parent>
+  <artifactId>com.saic.uicds.core.infrastructure.marshaller</artifactId>
+  <name>com.saic.uicds.core.infrastructure.marshaller</name>
+  <packaging>jar</packaging>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans-xmlpublic</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${infrastructure.groupId}</groupId>
+            <artifactId>com.saic.uicds.core.infrastructure.services</artifactId>
+            <version>${infrastructure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.5.4</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.5.4</version>
+            <scope>compile</scope>
+        </dependency>
+  </dependencies>
+</project>

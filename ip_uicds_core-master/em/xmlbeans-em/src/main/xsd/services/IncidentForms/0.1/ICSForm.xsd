@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/ICSForm" xmlns:s="http://niem.gov/niem/structures/2.0" targetNamespace="http://uicds.org/ICSForm" elementFormDefault="qualified">
+	<import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../external/niem/structures/2.0/structures.xsd"/>
+	<element name="ICSFormList">
+		<complexType>
+			<sequence minOccurs="0" maxOccurs="unbounded">
+				<element ref="tns:ICSForm" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+	<complexType name="ICSFormType">
+		<complexContent>
+			<extension base="s:ComplexObjectType">
+				<sequence>
+					<element name="id" type="string"/>
+					<element name="Description" type="string"/>
+					<element name="FormNumber" type="string"/>
+					<element name="Required" type="boolean"/>
+					<element name="assignedProfileRef" type="string"/>
+					<element name="completed" type="boolean"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<element name="ICSForm" type="tns:ICSFormType"/>
+</schema>

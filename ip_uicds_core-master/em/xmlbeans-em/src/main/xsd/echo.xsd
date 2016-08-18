@@ -1,0 +1,29 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ec="http://www.example.com/echo/schemas" elementFormDefault="qualified"
+    targetNamespace="http://www.example.com/echo/schemas">
+    <xs:element name="EchoRequest">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Echo" type="ec:EchoType"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="EchoResponse">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="EchoResponse" type="ec:ReturnType"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="EchoType">
+        <xs:sequence>
+            <xs:element name="Name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ReturnType">
+        <xs:sequence>
+            <xs:element name="Message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

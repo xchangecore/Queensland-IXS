@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.saic.uicds.core.em</groupId>
+    <artifactId>com.saic.uicds.core.em</artifactId>
+    <!-- DO NOT cahnge!!! This is not the jar version number ... see em.version at end of this file -->
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>com.saic.uicds.core.em</name>
+    <modules>
+        <module>services</module>
+        <module>processes</module>
+       <!-- <module>testing</module>-->
+        <module>adminconsole</module>
+        <module>war</module>
+        <module>xmlbeans-have</module>
+    </modules>
+
+    <!-- define distribution management to make deploy plugin happy -->
+    <!--<distributionManagement>
+        <repository>
+            <id>UICDS</id>
+            <name>uicds</name>
+            <url>dav:https://svn.uicds.leidos.com/repository</url>
+        </repository>
+    </distributionManagement>-->
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>UICDS</id>
+            <name>uicds</name>
+            <url>https://svn.uicds.leidos.com/repository</url>
+        </repository>
+        <repository>
+            <id>MVN Repository</id>
+            <name>MVNRepository.com</name>
+            <url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+        </repository>
+        <!--<repository>
+            <id>usersmarts-release</id>
+            <name>userSmarts Release Repository</name>
+            <url>http://uicds.usersmarts.com/maven/release</url>
+        </repository>-->
+    </repositories>
+
+    <build>
+        <!-- Set the version and encoding for the maven resources plugin -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <!-- Wagon extension to allow deploy target to work with UICDS repository -->
+        <extensions>
+          <extension>
+            <groupId>org.apache.maven.wagon</groupId>
+             <artifactId>wagon-webdav</artifactId>
+             <version>1.0-beta-2</version>
+          </extension>
+        </extensions>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+            <!-- ddh
+                <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javadoc.plugin.version}</version>
+                <configuration>
+                <aggregate>true</aggregate>
+                <doclet>com.tarsec.javadoc.pdfdoclet.PDFDoclet</doclet>
+                <docletArtifacts>
+                <docletArtifact>
+                <groupId>com.tarsec.javadoc.pdfdoclet</groupId>
+                <artifactId>pdfdoclet</artifactId>
+                <version>1.0.6</version>
+                </docletArtifact>
+                <docletArtifact>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.8</version>
+                </docletArtifact>
+                <docletArtifact>
+                <groupId>itext</groupId>
+                <artifactId>itext</artifactId>
+                <version>1.3.1</version>
+                </docletArtifact>
+                <docletArtifact>
+                <groupId>org.hibernate</groupId>
+                <artifactId>jtidy-r8</artifactId>
+                <version>21122004</version>
+                </docletArtifact>
+                <docletArtifact>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>3.8.1</version>
+                </docletArtifact>
+                </docletArtifacts>
+                <useStandardDocletOptions>false</useStandardDocletOptions>
+
+                <additionalparam> -pdf ${basedir}/../../doc/UICDS_IDD_EMDomain.pdf -workdir
+                ${basedir}/../../doc -config ${basedir}/../../doc/config_idd.txt </additionalparam>
+
+                <additionalparam> -pdf
+                ${basedir}/../doc/UICDS_SystemSubsystemDesignDescription.pdf -workdir
+                ${basedir}/../doc -config ${basedir}/../doc/config_ssdd.txt
+                </additionalparam>
+                </configuration>
+                </plugin>
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.16</version>
+            </plugin>
+        </plugins>
+    </reporting>
+    <properties>
+        <Implementation-Version>0000</Implementation-Version>
+        <spring.version>2.5.6</spring.version>
+        <spring.security.version>2.0.4</spring.security.version>
+        <spring.integrations.version>1.0.4.RELEASE</spring.integrations.version>
+        <gx.version>1.2.6</gx.version>
+        <xmlbeans-em.version>1.1.4</xmlbeans-em.version>
+        <xmlbeans-have.version>1.1.2</xmlbeans-have.version>
+        <xmlbeans-infrastructure.version>1.2.0</xmlbeans-infrastructure.version>
+        <xmlbeans-edxl_rm.version>1.0.0</xmlbeans-edxl_rm.version>
+        <xmpp.groupId>com.saic.uicds.xmpp</xmpp.groupId>
+        <infrastructure.version>1.2.0</infrastructure.version>
+        <infrastructure.xmpp.version>1.2.0</infrastructure.xmpp.version>
+        <infrastructure.groupId>com.saic.uicds.core.infrastructure</infrastructure.groupId>
+        <em.version>1.2.0</em.version>
+        <em-war.version>1.1.1</em-war.version>
+        <javadoc.plugin.version>2.9.1</javadoc.plugin.version>
+    </properties>
+</project>

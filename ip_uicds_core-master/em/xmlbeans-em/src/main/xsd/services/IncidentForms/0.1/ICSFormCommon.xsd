@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:c="http://niem.gov/niem/common/1.0" xmlns:u="http://niem.gov/niem/universal/1.0" xmlns:ns1="http://uicds.org/ICSFormCommon" targetNamespace="http://uicds.org/ICSFormCommon" elementFormDefault="qualified">
+	<import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../external/niem/structures/2.0/structures.xsd"/>
+	<complexType name="ICSFormDocumentType">
+		<complexContent>
+			<extension base="s:ComplexObjectType">
+				<sequence>
+					<element name="IncidentID" type="string"/>
+					<element name="ICSFormNumber" type="string"/>
+					<element name="DocumentFileName" type="string"/>
+					<element name="DocumentDescriptionText" type="string"/>
+					<element name="DocumentBinary" type="base64Binary"/>
+					<element name="DocumentSource" type="string"/>
+					<element name="DocumentCreationDate" type="string"/>
+					<element name="DocumentLastModifiedDate" type="string"/>
+					<element name="DocumentEffectiveDate" type="string"/>
+					<element name="DocumentExpirationDate" type="string"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

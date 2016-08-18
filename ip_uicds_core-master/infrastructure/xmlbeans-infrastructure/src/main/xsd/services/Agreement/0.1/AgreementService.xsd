@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by Bill Summers (SAIC) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:as="http://uicds.org/AgreementService" targetNamespace="http://uicds.org/AgreementService" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../../services/Agreement/0.1/Agreement.xsd"/>
+	<!-- begin service doc def -->
+	<xs:element name="CreateAgreementRequest">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="Agreement" type="as:AgreementType"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CreateAgreementResponse">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="Agreement" type="as:AgreementType"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UpdateAgreementRequest">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="Agreement" type="as:AgreementType"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UpdateAgreementResponse">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="Agreement" type="as:AgreementType"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RescindAgreementRequest">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="CoreID" type="xs:anyURI"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RescindAgreementResponse">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="CoreID" type="xs:anyURI"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetAgreementRequest">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="CoreID" type="xs:anyURI"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetAgreementResponse">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="Agreement" type="as:AgreementType"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetAgreementListRequest">
+		<xs:complexType/>
+	</xs:element>
+	<xs:element name="GetAgreementListResponse">
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="as:AgreementList"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="AgreementListType">
+		<xs:sequence>
+			<xs:element ref="as:Agreement" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="AgreementList" type="as:AgreementListType"/>
+</xs:schema>

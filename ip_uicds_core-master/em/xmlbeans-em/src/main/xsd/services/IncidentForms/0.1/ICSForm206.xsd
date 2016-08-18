@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/ICSForm206"
+    xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:c="http://niem.gov/niem/common/1.0" xmlns:u="http://niem.gov/niem/universal/1.0" xmlns:ic="http://uicds.org/ICSFormCommon"
+    targetNamespace="http://uicds.org/ICSForm206" elementFormDefault="qualified">
+    <import namespace="http://uicds.org/ICSFormCommon" schemaLocation="../../../services/IncidentForms/0.1/ICSFormCommon.xsd" />
+    <import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../external/niem/structures/2.0/structures.xsd" />
+    <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd" />
+    <element name="ICSForm206">
+        <annotation>
+            <appinfo>National Incident Management System - ICS 206</appinfo>
+            <documentation>Medical Plan</documentation>
+        </annotation>
+        <complexType>
+            <complexContent>
+                <extension base="ic:ICSFormDocumentType">
+                    <sequence>
+                        <element name="IncidentName" type="string" />
+                        <element name="DatePrepared" type="dateTime" />
+                        <element name="TimePrepared" type="dateTime" />
+                        <element name="OperationalPeriod" type="dateTime" />
+                        <element name="IncidentMedicalAidStation" type="tns:IncidentMedicalAidStationType" />
+                        <element name="AmbulanceServices" type="tns:AmbulanceServicesType"
+                            maxOccurs="unbounded" />
+                        <element name="IncidentAmbulances" type="tns:IncidentAmbulancesType"
+                            maxOccurs="unbounded" />
+                        <element name="Hospitals" type="tns:HospitalsType" maxOccurs="unbounded" />
+                        <element name="MedicalEmergencyProcedures" type="string" />
+                        <element name="PreparedBy" type="string" />
+                        <element name="ReviewedBy" type="string" />
+                    </sequence>
+                </extension>
+            </complexContent>
+        </complexType>
+    </element>
+    <complexType name="IncidentMedicalAidStationType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="MedicalAidStation" type="string" />
+                    <element name="Location" type="string" />
+                    <element name="Paramedics" type="boolean" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HospitalsType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="Name" type="string" />
+                    <element name="Address" type="string" />
+                    <element name="TravelTimeAir" type="time" />
+                    <element name="TravelTimeGround" type="time" />
+                    <element name="Phone" type="string" />
+                    <element name="Helipad" type="boolean" />
+                    <element name="BurnCenter" type="boolean" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AmbulanceServicesType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="Name" type="string" />
+                    <element name="Address" type="string" />
+                    <element name="Phone" type="string" />
+                    <element name="Paramedics" type="boolean" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="IncidentAmbulancesType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="Name" type="string" />
+                    <element name="Address" type="string" />
+                    <element name="Phone" type="string" />
+                    <element name="Paramedics" type="boolean" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

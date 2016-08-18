@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ims="http://uicds.org/IncidentManagementService" xmlns:inc="http://uicds.org/incident" xmlns:preciss="http://www.saic.com/precis/2009/06/structures" xmlns:precisb="http://www.saic.com/precis/2009/06/base" xmlns:wps="http://uicds.org/WorkProductService" xmlns:cap="urn:oasis:names:tc:emergency:cap:1.1" xmlns:Q1="http://niem.gov/niem/niem-core/2.0" targetNamespace="http://uicds.org/IncidentManagementService" elementFormDefault="qualified">
+  <import namespace="urn:oasis:names:tc:emergency:cap:1.1" schemaLocation="../../../external/niem/external/cap/1.1/cap.xsd"/>
+  <import namespace="http://uicds.org/incident" schemaLocation="../../../services/IncidentManagement/0.1/Incident.xsd"/>
+  <import namespace="http://uicds.org/WorkProductService" schemaLocation="../../../services/WorkProduct/0.1/WorkProductService.xsd"/>
+  <import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd"/>
+  <import namespace="http://www.saic.com/precis/2009/06/base" schemaLocation="../../../precis/2009/06/BaseTypes.xsd"/>
+  <include schemaLocation="../../../services/IncidentManagement/0.1/IncidentManagementServiceData.xsd"/>
+  <element name="CreateIncidentFromCapRequest">
+    <complexType>
+      <sequence>
+        <element ref="cap:alert"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="CreateIncidentFromCapResponse">
+    <complexType>
+      <sequence>
+        <element ref="wps:WorkProductPublicationResponse"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="CreateIncidentRequest">
+    <complexType>
+      <sequence>
+        <element ref="inc:Incident"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="CreateIncidentResponse">
+    <complexType>
+      <sequence>
+        <element ref="wps:WorkProductPublicationResponse"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="UpdateIncidentRequest">
+    <complexType>
+      <all>
+        <element ref="preciss:WorkProductIdentification"/>
+        <element ref="inc:Incident"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="UpdateIncidentResponse">
+    <complexType>
+      <sequence>
+        <element ref="wps:WorkProductPublicationResponse"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="ShareIncidentRequest">
+    <complexType>
+      <sequence>
+        <element name="IncidentID" type="string"/>
+        <element name="CoreName" type="string"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="ShareIncidentResponse">
+    <complexType>
+      <sequence>
+        <element name="IncidentShareSucessful" type="boolean"/>
+        <element name="ErrorString" type="string"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetIncidentRequest">
+    <complexType>
+      <all>
+        <element ref="preciss:WorkProductIdentification"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="GetIncidentResponse">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProduct"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetIncidentCurrentVersionRequest">
+    <complexType>
+      <all>
+        <element ref="precisb:Identifier"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="GetIncidentCurrentVersionResponse">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProduct"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetIncidentListRequest"/>
+  <element name="GetIncidentListResponse">
+    <complexType>
+      <sequence>
+        <element ref="wps:WorkProductList"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetListOfClosedIncidentRequest" type="boolean"/>
+  <element name="GetListOfClosedIncidentResponse">
+    <complexType>
+      <sequence>
+        <element ref="precisb:Identifier" minOccurs="0" maxOccurs="unbounded"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="ArchiveIncidentRequest">
+    <complexType>
+      <sequence>
+        <element name="IncidentID" type="string"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="ArchiveIncidentResponse">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProductProcessingStatus"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="CloseIncidentRequest">
+    <complexType>
+      <sequence>
+        <element name="IncidentID" type="string"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="CloseIncidentResponse">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProductProcessingStatus"/>
+      </sequence>
+    </complexType>
+  </element>
+</schema>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by William Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wp="http://uicds.org/WorkProductService" xmlns:preciss="http://www.saic.com/precis/2009/06/structures" xmlns:precisb="http://www.saic.com/precis/2009/06/base" targetNamespace="http://uicds.org/WorkProductService" elementFormDefault="qualified">
+  <import namespace="http://www.saic.com/precis/2009/06/structures" schemaLocation="../../../precis/2009/06/Structures.xsd"/>
+  <import namespace="http://www.saic.com/precis/2009/06/base" schemaLocation="../../../precis/2009/06/BaseTypes.xsd"/>
+  <include schemaLocation="../../../services/WorkProduct/0.1/WorkProductData.xsd"/>
+  <element name="GetProductRequest">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProductIdentification"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetProductResponse">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProduct"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetProductCurrentVersionRequest">
+    <complexType>
+      <all>
+        <element ref="precisb:Identifier"/>
+      </all>
+    </complexType>
+  </element>
+  <element name="GetProductCurrentVersionResponse">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProduct"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="PublishProductRequest">
+    <complexType>
+      <sequence>
+        <element name="incidentId" type="string" maxOccurs="1" minOccurs="0" />
+        <element ref="preciss:WorkProduct"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="PublishProductResponse">
+    <complexType>
+      <sequence>
+        <element ref="wp:WorkProductPublicationResponse"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="AssociateWorkProductToInterestGroupRequest">
+    <complexType>
+      <sequence>
+        <element name="WorkProductID" type="precisb:IdentifierType"/>
+        <element name="IncidentID" type="precisb:IdentifierType"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="AssociateWorkProductToInterestGroupResponse">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProduct"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetAssociatedWorkProductListRequest">
+    <complexType>
+      <sequence>
+        <element ref="precisb:Identifier"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="GetAssociatedWorkProductListResponse">
+    <complexType>
+      <sequence>
+        <element ref="wp:WorkProductList"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="CloseProductRequest">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProductIdentification"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="CloseProductResponse">
+    <complexType>
+      <sequence>
+        <element ref="wp:WorkProductPublicationResponse"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="ArchiveProductRequest">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProductIdentification"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="ArchiveProductResponse">
+    <complexType>
+      <sequence>
+        <element ref="preciss:WorkProductProcessingStatus"/>
+      </sequence>
+    </complexType>
+  </element>
+</schema>

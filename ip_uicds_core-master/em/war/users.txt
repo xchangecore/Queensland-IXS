@@ -1,0 +1,3 @@
+admin:admin,uicds
+user1:user1,uicds
+reqtest:reqtest5352:uicds

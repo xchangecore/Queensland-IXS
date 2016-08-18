@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Bill Summers (SAIC) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://uicds.org/ICSForm203"
+    xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:c="http://niem.gov/niem/common/1.0" xmlns:u="http://niem.gov/niem/universal/1.0" xmlns:ic="http://uicds.org/ICSFormCommon"
+    targetNamespace="http://uicds.org/ICSForm203" elementFormDefault="qualified">
+    <import namespace="http://uicds.org/ICSFormCommon" schemaLocation="../../../services/IncidentForms/0.1/ICSFormCommon.xsd" />
+    <import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../../external/niem/structures/2.0/structures.xsd" />
+    <import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../../external/niem/niem-core/2.0/niem-core.xsd" />
+    <element name="ICSForm203">
+        <annotation>
+            <appinfo>National Incident Management System - ICS 203</appinfo>
+            <documentation>Organization Assignment List</documentation>
+        </annotation>
+        <complexType>
+            <complexContent>
+                <extension base="ic:ICSFormDocumentType">
+                    <sequence>
+                        <element name="IncidentName" type="string" />
+                        <element name="DatePrepared" type="date" />
+                        <element name="TimePrepared" type="time" />
+                        <element name="OperationalPeriod" type="dateTime" />
+                        <element name="IncidentCommandAndStaff" type="tns:IncidentCommandAndStaffType" />
+                        <element name="AgencyRepresentatives" type="tns:AgencyRepresentativeType"
+                            maxOccurs="unbounded" />
+                        <element name="PlanningSection" type="tns:PlanningSectionType" />
+                        <element name="LogisticsSection" type="tns:LogisticsSectionType" />
+                        <element name="OperationsSection" type="tns:OperationsSectionType" />
+                        <element name="FinanceAdministrationSection" type="tns:FinanceAdministrationSectionType" />
+                        <element name="PreparedBy" type="string" />
+                    </sequence>
+                </extension>
+            </complexContent>
+        </complexType>
+    </element>
+    <complexType name="IncidentHeaderType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="IncidentName" type="string" />
+                    <element name="DateTimePrepared" type="date" />
+                    <element name="TimePrepared" type="time" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="IncidentCommandAndStaffType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="IncidentCommander" type="string" />
+                    <element name="Deputy" type="string" />
+                    <element name="SafetyOfficer" type="string" />
+                    <element name="InformationOfficer" type="string" />
+                    <element name="LiasonOfficer" type="string" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AgencyRepresentativeType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="Agency" type="string" />
+                    <element name="Name" type="string" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PlanningSectionType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="Chief" type="string" />
+                    <element name="Deputy" type="string" />
+                    <element name="ResourcesUnit" type="string" />
+                    <element name="SituationUnit" type="string" />
+                    <element name="DocumentationUnit" type="string" />
+                    <element name="DemobilizationUnit" type="string" />
+                    <element name="TechnicalSpecialists" type="string" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LogisticsSectionType">
+        <complexContent>
+            <extension base="s:ComplexObjectType">
+                <sequence>
+                    <element name="Chief" type="string" />
+                    <element name="Deputy" type="string" />
+                    <element name="SupportBranch">
+                        <complexType>
+                            <complexContent>
+                                <extension base="s:ComplexObjectType">
+                                    <sequence>
+                                        <element name="Director" type="string" />
+                                        <element name="SupplyUnit" type="string" />
+                                        <element name="FacilitiesUnit" type="string" />
+                                        <element name="GroundSupportUnit" type="string" />
+                                    </sequence>
+                                </extension>
+                            </complexContent>
+                        </complexType>
+                    </element>
+                    <element name="ServiceBranch">
+                        <complexType>
+                            <complexContent>
+                                <extension base="s:ComplexObjectType">
+                                    <sequence>
+                                        <element name="Director" type="string" />
+                                        <element name="CommunicationsUnit" type="string" />
+                                        <element name="MedicalUnit" type="string" />
+                                        <element name="FoodUnit" type="string" />
+                                    </sequence>
+                                </extension>
+                            </complexContent>
+                        </complexType>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DivisionGroupType">
+        <sequence>
+            <element name="Division" type="string" />
+            <element name="Group" type="string" />
+        </sequence>
+    </complexType>
+    <complexType name="OperationsSectionType">
+        <sequence>
+            <element name="Chief" type="string" />
+            <element name="Deputy" type="string" />
+            <element name="BranchIDivisionGroup">
+                <complexType>
+                    <sequence>
+                        <element name="BranchDirector" type="string" />
+                        <element name="Deputy" type="string" />
+                        <element name="DivisionGroup" type="tns:DivisionGroupType"
+                            maxOccurs="5" />
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="BranchIIDivisionGroup">
+                <complexType>
+                    <sequence>
+                        <element name="BranchDirector" type="string" />
+                        <element name="Deputy" type="string" />
+                        <element name="DivisionGroup" type="tns:DivisionGroupType"
+                            maxOccurs="4" />
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="BranchIIIDivisionGroup">
+                <complexType>
+                    <sequence>
+                        <element name="BranchDirector" type="string" />
+                        <element name="Deputy" type="string" />
+                        <element name="DivisionGroup" type="tns:DivisionGroupType"
+                            maxOccurs="4" />
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="AirOperationsBranch">
+                <complexType>
+                    <sequence>
+                        <element name="AirOperationsBranchDirector" type="string" />
+                        <element name="AirTacticalGroupSup" type="string" />
+                        <element name="AirSupportGroupSup" type="string" />
+                        <element name="HelicopterCoordinator" type="string" />
+                        <element name="AirTankerFixedWingCrd" type="string" />
+                    </sequence>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="FinanceAdministrationSectionType">
+        <sequence>
+            <element name="Chief" type="string" />
+            <element name="Deputy" type="string" />
+            <element name="TimeUnit" type="string" />
+            <element name="ProcurementUnit" type="string" />
+            <element name="CompensationClaimsUnit" type="string" />
+            <element name="CostUnit" type="string" />
+        </sequence>
+    </complexType>
+</schema>
